@@ -4,9 +4,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+
 public class SnakeModel {
+
+	private int blockSize;
+	Circle food;
+
 	
 	private Color snakeColor;
 	Rectangle head;
@@ -30,7 +36,11 @@ public class SnakeModel {
 		
 		
 	}
-	
+
+
+
+
+
 	public ObservableList<Node> getObservableList()
 	{
 		return snake;

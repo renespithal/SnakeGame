@@ -66,7 +66,6 @@ public class SnakeMovement {
 		case RIGHT:
 
 			snake.setXPos(snake.getXPos() + layout.getBlockSize());
-			System.out.println(snake.getXPos());
 
 			break;
 

@@ -51,22 +51,25 @@ public class SnakeMovement {
 		case UP:
 			
 			snake.setYPos(snake.getYPos() - layout.getBlockSize());
+			System.out.println("yKord" + snake.getYPos());
 			break;
 
 		case DOWN:
 
 			snake.setYPos(snake.getYPos() + layout.getBlockSize());
+			System.out.println("yKord" + snake.getYPos());
 			break;
 
 		case LEFT:
 
 			snake.setXPos(snake.getXPos() - layout.getBlockSize());
+			System.out.println("xKord" + snake.getXPos());
 			break;
 
 		case RIGHT:
 
 			snake.setXPos(snake.getXPos() + layout.getBlockSize());
-
+System.out.println("xKord" + snake.getXPos());
 			break;
 
 		}

@@ -78,7 +78,7 @@ public class Main extends Application {
 
 
 
-        KeyFrame frame = new KeyFrame(Duration.seconds(0.1), event -> {
+        KeyFrame frame = new KeyFrame(Duration.seconds(1), event -> {
 
             if (!running)
 

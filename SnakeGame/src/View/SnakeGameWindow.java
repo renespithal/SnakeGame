@@ -4,12 +4,6 @@ import Controller.SnakeMovement;
 import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
-<<<<<<< HEAD
-=======
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.Node;
->>>>>>> 825d860c67f35f8f74b6961d6439eb2783861117
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -50,7 +44,7 @@ public class SnakeGameWindow {
 		scene = new Scene(allPane,screenWidth,screenHeight);
 
 		
-		SnakeMovement moveSnake = new SnakeMovement(snake);
+		SnakeMovement moveSnake = new SnakeMovement();
 		moveSnake.moveSnake(scene,snake);
 		
 		stage.setScene(scene);

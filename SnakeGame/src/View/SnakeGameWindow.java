@@ -69,12 +69,11 @@ public class SnakeGameWindow {
 		stage.close();
 	}
 	
-	private void returnToWelcomeWindow()
+	public void returnToWelcomeWindow()
 	{
 		closeGameWindow();
 		WelcomeWindow welWin = new WelcomeWindow(stage);
 		welWin.showWelcomeWindow();
 	}
-	
 
 }

@@ -7,15 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-<<<<<<< .merge_file_a04972
-
-=======
 /**
 
  * Created by Duy on 20.10.2015.
 
  */
->>>>>>> .merge_file_a00836
+
 public class SnakeModel {
 
 	private int blockSize;

@@ -4,6 +4,9 @@ import Controller.SnakeMovement;
 import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
+
+import Model.YinYangFoodModel;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -33,13 +36,16 @@ public class SnakeGameWindow {
 		Layout layoutTest = new Layout(screenWidth,screenHeight);
 		SnakeModel snake = new SnakeModel();
 		FoodModel food = new FoodModel(layoutTest.getBlockSize(), screenWidth, screenHeight);
+		YinYangFoodModel yin = new YinYangFoodModel(layoutTest.getBlockSize(), screenWidth, screenHeight);
 		
 		Pane foodPane = new Pane();
 		foodPane.getChildren().addAll((food.getCircle()));
 		Pane snakePane = new Pane();
 		snakePane.getChildren().addAll(snake.getObservableList());
+		Pane yinYangPane = new Pane();
+		yinYangPane.getChildren().addAll(yin.getYin());
 		Pane allPane = new Pane();
-		allPane.getChildren().addAll(foodPane, snakePane);
+		allPane.getChildren().addAll(foodPane, snakePane, yinYangPane);
 
 		scene = new Scene(allPane,screenWidth,screenHeight);
 

@@ -4,9 +4,15 @@ import Model.Layout;
 import Model.SnakeModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 
+/**
+
+ * Created by Duy on 21.10.2015.
+
+ */
 public class SnakeMovement {
 
 	private boolean moved;
@@ -14,72 +20,55 @@ public class SnakeMovement {
 	private Timeline timeline;
 	private KeyFrame keyframe;
 	private Duration duration;
-	private SnakeModel snake;
 	private Direction direction;
 
+	Layout layout = new Layout();
+	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
 	}
 
-	public SnakeMovement() {
+	public SnakeMovement(SnakeModel snake) {
 		this.moved = false;
 		this.running = false;
-		moveSnake();
-		startGame();
 	}
 
-	public void moveSnake() {
-		keyframe = new KeyFrame(Duration.seconds(0.1), e -> moveSnakeControl());
+	public void moveSnake(Scene scene, SnakeModel snake) {
+		KeyFrame frame = new KeyFrame(Duration.seconds(0.1));
 		timeline = new Timeline();
+		timeline.getKeyFrames().add(frame);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        
+		scene.setOnKeyPressed(e->moveSnakeControl(e,snake));
 
-		timeline.getKeyFrames().add(keyframe);
-		timeline.setCycleCount(Timeline.INDEFINITE);
 	}
 
-	public void moveSnakeControl() {
-		SnakeModel snake = new SnakeModel();
-		Layout layout = new Layout();
+	private void moveSnakeControl(KeyEvent e,SnakeModel snake)
+	{
 		
-		int xPos = snake.getXPos();
-		int yPos = snake.getYPos();
-		
-		if (!running)
-
-			return;
-
-		switch (direction) {
+		switch (e.getCode()) {
 
 		case UP:
-
+			
+			snake.setYPos(snake.getYPos() - layout.getBlockSize());
 			break;
 
 		case DOWN:
 
-
+			snake.setYPos(snake.getYPos() + layout.getBlockSize());
 			break;
 
 		case LEFT:
 
-		
+			snake.setXPos(snake.getXPos() - layout.getBlockSize());
 			break;
 
 		case RIGHT:
 
 			snake.setXPos(snake.getXPos() + layout.getBlockSize());
-			System.out.println(snake.getXPos());
-
 			break;
 
 		}
-
 	}
-
-	public void startGame() {
-
-		direction = Direction.RIGHT;
-		timeline.play();
-		running = true;
-		moved = true;
-	}
-
+	
 }

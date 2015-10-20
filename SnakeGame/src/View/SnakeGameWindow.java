@@ -1,5 +1,6 @@
 package View;
 
+import Controller.SnakeMovement;
 import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
@@ -45,6 +46,9 @@ public class SnakeGameWindow {
 		
 		stage.setScene(scene);
 		stage.setTitle("Snake");
+
+		SnakeMovement move = new SnakeMovement();
+		move.startGame();
 	}
 	
 	protected void showGameStage()
@@ -63,5 +67,6 @@ public class SnakeGameWindow {
 		WelcomeWindow welWin = new WelcomeWindow(stage);
 		welWin.showWelcomeWindow();
 	}
+	
 
 }

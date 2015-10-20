@@ -9,8 +9,7 @@ import javafx.scene.shape.Rectangle;
 public class SnakeModel {
 	
 	private Color snakeColor;
-	private int xPos;
-	private int yPos;
+	Rectangle head;
 	
 	private ObservableList<Node> snake;
 	
@@ -19,22 +18,47 @@ public class SnakeModel {
 		this.snakeColor = Color.GREEN;
 		
 		Group snakeBody = new Group();
-		snakeBody.setTranslateX(1);
-		snakeBody.setTranslateY(1);
-		
-		Rectangle head = new Rectangle(20,20);
-		head.setTranslateX(1);
-		head.setTranslateY(1);
+
+		head = new Rectangle(20,20);
+		head.setTranslateX(40);
+		head.setTranslateY(40);
 		head.setFill(snakeColor);
 		
 		snake = snakeBody.getChildren();
 		snake.add(head);
+		
+		
 		
 	}
 	
 	public ObservableList<Node> getObservableList()
 	{
 		return snake;
+	}
+	
+	public Rectangle getHead()
+	{
+		return head;
+	}
+	
+	public void setXPos(int xPos)
+	{
+		head.setTranslateX(xPos);
+	}
+	
+	public void setYPos(int yPos)
+	{
+		head.setTranslateY(yPos);
+	}
+	
+	public int getXPos()
+	{
+		return (int) head.getTranslateX();
+	}
+	
+	public int getYPos()
+	{
+		return (int) head.getTranslateY();
 	}
 	
 

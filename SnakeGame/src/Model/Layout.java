@@ -6,6 +6,11 @@ public class Layout {
 	  private int screenWidth;
 	  private int screenHeight;
 	  
+	  public Layout()
+	  {
+		  this.blockSize = 15;
+	  }
+	  
 	  public Layout(int screenWidth, int screenHeight)
 	  {
 		  this.blockSize = 15;

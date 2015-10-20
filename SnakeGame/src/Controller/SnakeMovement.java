@@ -15,22 +15,15 @@ import javafx.scene.input.KeyEvent;
  */
 public class SnakeMovement {
 
-	private boolean moved;
-	private boolean running;
 	private Timeline timeline;
 	private KeyFrame keyframe;
 	private Duration duration;
 	private Direction direction;
 
-	Layout layout = new Layout();
+	Layout layout = new Layout(500,500);
 	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
-	}
-
-	public SnakeMovement(SnakeModel snake) {
-		this.moved = false;
-		this.running = false;
 	}
 
 	public void moveSnake(Scene scene, SnakeModel snake) {
@@ -51,22 +44,25 @@ public class SnakeMovement {
 		case UP:
 			
 			snake.setYPos(snake.getYPos() - layout.getBlockSize());
+			if(snake.getYPos() <= 0-layout.getBlockSize()) System.out.println("tot");
 			break;
 
 		case DOWN:
 
 			snake.setYPos(snake.getYPos() + layout.getBlockSize());
+			if(snake.getYPos() > layout.getScreenHeight() - layout.getBlockSize()) System.out.println("tot");
 			break;
 
 		case LEFT:
 
 			snake.setXPos(snake.getXPos() - layout.getBlockSize());
+			if(snake.getXPos() <= 0-layout.getBlockSize()) System.out.println("tot");
 			break;
 
 		case RIGHT:
 
 			snake.setXPos(snake.getXPos() + layout.getBlockSize());
-
+			if(snake.getXPos() > layout.getScreenWidth() - layout.getBlockSize()) System.out.println("tot");
 			break;
 
 		}

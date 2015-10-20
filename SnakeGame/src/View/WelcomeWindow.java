@@ -61,7 +61,7 @@ public class WelcomeWindow {
 		return scene;
 	}
 
-	private void openGameWindow() {
+	public void openGameWindow() {
 		closeWelcomeWindow();
 		SnakeGameWindow gameWindow = new SnakeGameWindow(parent);
 		gameWindow.showGameStage();

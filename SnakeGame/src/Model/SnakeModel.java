@@ -7,9 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> cf7ec27bfb65f145ac3989542c0e63f1ae771d1d
 /**
 
  * Created by Duy on 20.10.2015.

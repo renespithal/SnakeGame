@@ -50,7 +50,7 @@ public class SnakeGameWindow {
 		scene = new Scene(allPane,screenWidth,screenHeight);
 
 		
-		SnakeMovement moveSnake = new SnakeMovement(snake);
+		SnakeMovement moveSnake = new SnakeMovement();
 		moveSnake.moveSnake(scene,snake);
 		
 		stage.setScene(scene);
@@ -69,12 +69,11 @@ public class SnakeGameWindow {
 		stage.close();
 	}
 	
-	private void returnToWelcomeWindow()
+	public void returnToWelcomeWindow()
 	{
 		closeGameWindow();
 		WelcomeWindow welWin = new WelcomeWindow(stage);
 		welWin.showWelcomeWindow();
 	}
-	
 
 }

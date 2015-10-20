@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import Model.SnakeModel;
+import javafx.scene.image.Image;
 
 public class FoodModel {
 
@@ -14,23 +15,25 @@ public class FoodModel {
 	Rectangle head;
 
 
+
 	private int blockSize;
 	private int screenWidth;
 	private int screenHeight;
 
 	private Circle food;
 
+
 	private ObservableList<Node> foodList;
 	
 	public FoodModel(int blockSize, int screenWidth, int screenHeight)
 	{
-		food = new Circle(blockSize);
+		food = new Circle(blockSize/2);
 		food.setFill(Color.RED);
-		food.setTranslateX((int) (Math.random()*(screenWidth - blockSize)) / blockSize * blockSize);
-		food.setTranslateY((int) (Math.random()*(screenHeight - blockSize)) / blockSize * blockSize);
-		
-		
+		food.setTranslateX((int) (Math.random()*(screenWidth - blockSize/2)) / blockSize/2 * blockSize/2);
+		food.setTranslateY((int) (Math.random() * (screenHeight - blockSize / 2)) / blockSize / 2 * blockSize / 2);
+
 	}
+
 
 	
 	public Circle getCircle()
@@ -39,11 +42,13 @@ public class FoodModel {
 	}
 
 	public void ConsumeFood() {
-		if (head.getTranslateX() == food.getTranslateX() && head.getTranslateY() == food.getTranslateY()) {
+		if (snake.getXPos() == food.getTranslateX() && snake.getYPos() == food.getTranslateY()) {
 
 			food.setTranslateX((int) (Math.random() * (screenWidth - blockSize)) / blockSize * blockSize);
 
 			food.setTranslateY((int) (Math.random() * (screenHeight - blockSize)) / blockSize * blockSize);
+
+
 		}
 	}
 

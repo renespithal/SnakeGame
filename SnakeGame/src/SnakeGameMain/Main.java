@@ -11,30 +11,18 @@ package SnakeGameMain;
          */
 
         import javafx.animation.KeyFrame;
-
-        import javafx.animation.Timeline;
-
-        import javafx.application.Application;
-
-        import javafx.collections.ObservableList;
-
-        import javafx.scene.Group;
-
-        import javafx.scene.Node;
-
-        import javafx.scene.Parent;
-
-        import javafx.scene.Scene;
-
-        import javafx.scene.layout.Pane;
-
-        import javafx.scene.paint.Color;
-
-        import javafx.scene.shape.Rectangle;
-
-        import javafx.stage.Stage;
-
-        import javafx.util.Duration;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 

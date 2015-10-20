@@ -8,12 +8,12 @@ public class Layout {
 	  
 	  public Layout()
 	  {
-		  this.blockSize = 15;
+		  this.blockSize = 20;
 	  }
 	  
 	  public Layout(int screenWidth, int screenHeight)
 	  {
-		  this.blockSize = 15;
+		  this.blockSize = 20;
 		  this.screenWidth = screenWidth/blockSize*blockSize;
 		  this.screenHeight = screenHeight/blockSize*blockSize;
 	  }
@@ -22,5 +22,14 @@ public class Layout {
 	  {
 		  return this.blockSize;
 	  }
+	  
+	  public int getScreenWidth()
+	  {
+		  return screenWidth;
+	  }
 
+	  public int getScreenHeight()
+	  {
+		  return screenHeight;
+	  }
 }

@@ -7,7 +7,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
+<<<<<<< .merge_file_a04972
 
+=======
+/**
+
+ * Created by Duy on 20.10.2015.
+
+ */
+>>>>>>> .merge_file_a00836
 public class SnakeModel {
 
 	private int blockSize;
@@ -16,6 +24,7 @@ public class SnakeModel {
 	
 	private Color snakeColor;
 	Rectangle head;
+	Group snakeBody;
 	
 	private ObservableList<Node> snake;
 	
@@ -23,7 +32,7 @@ public class SnakeModel {
 	{
 		this.snakeColor = Color.GREEN;
 		
-		Group snakeBody = new Group();
+		snakeBody = new Group();
 
 		head = new Rectangle(20,20);
 		head.setTranslateX(40);
@@ -33,6 +42,7 @@ public class SnakeModel {
 		snake = snakeBody.getChildren();
 		snake.add(head);
 		
+		System.out.println("neue schlange");
 		
 		
 	}

@@ -12,6 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+
+ * Created by Duy on 20.10.2015.
+
+ */
 public class WelcomeWindow {
 
 	Stage parent;

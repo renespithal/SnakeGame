@@ -1,6 +1,6 @@
 
 
-package Snake;
+package SnakeGameMain;
 
 
 
@@ -48,11 +48,11 @@ public class Main extends Application {
 
 
 
-    public static final int BLOCK_SIZE = 40;
+    public static final int BLOCK_SIZE = 15;
 
-    public static final int APP_W = 20 * BLOCK_SIZE;
+    public static final int APP_W = 50 * BLOCK_SIZE;
 
-    public static final int APP_H = 15 * BLOCK_SIZE;
+    public static final int APP_H = 30 * BLOCK_SIZE;
 
     private Direction direction = Direction.RIGHT;
 
@@ -90,7 +90,7 @@ public class Main extends Application {
 
 
 
-        KeyFrame frame = new KeyFrame(Duration.seconds(0.2), event -> {
+        KeyFrame frame = new KeyFrame(Duration.seconds(0.1), event -> {
 
             if (!running)
 

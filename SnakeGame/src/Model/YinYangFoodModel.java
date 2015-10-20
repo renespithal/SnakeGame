@@ -13,25 +13,29 @@ public class YinYangFoodModel {
     SnakeModel snake = new SnakeModel();
     Rectangle head;
 
-    private Circle yin;
+    private Rectangle yin;
     private int blockSize;
     private int screenWidth;
     private int screenHeight;
-    
+
 
     public YinYangFoodModel(int blockSize, int screenWidth, int screenHeight) {
-        yin = new Circle(blockSize);
+        yin = new Rectangle(blockSize, blockSize);
         yin.setFill(Color.ORANGE);
         yin.setTranslateX((int) (Math.random() * (screenWidth - blockSize)) / blockSize * blockSize);
         yin.setTranslateY((int) (Math.random() * (screenHeight - blockSize)) / blockSize * blockSize);
+        System.out.println(yin.getTranslateY());
+        System.out.println(yin.getTranslateX());
+        System.out.println("xKord" + snake.getXPos());
+        System.out.println("xKord" + snake.getYPos());
     }
-        public Circle getYin() {
+        public Rectangle getYin() {
         return yin;
         }
 
 
     public void ConsumeFood() {
-        if (head.getTranslateX() == yin.getTranslateX() && head.getTranslateY() == yin.getTranslateY()) {
+        if (snake.getXPos() == yin.getX() && snake.getYPos() == yin.getY()) {
 
             yin.setTranslateX((int) (Math.random() * (screenWidth - blockSize)) / blockSize * blockSize);
 

@@ -24,10 +24,10 @@ public class YinYangFoodModel {
         yin.setFill(Color.ORANGE);
         yin.setTranslateX((int) (Math.random() * (screenWidth - blockSize)) / blockSize * blockSize);
         yin.setTranslateY((int) (Math.random() * (screenHeight - blockSize)) / blockSize * blockSize);
-        System.out.println(yin.getTranslateY());
-        System.out.println(yin.getTranslateX());
-        System.out.println("xKord" + snake.getXPos());
-        System.out.println("xKord" + snake.getYPos());
+//        System.out.println(yin.getTranslateY());
+//        System.out.println(yin.getTranslateX());
+//        System.out.println("xKord" + snake.getXPos());
+//        System.out.println("xKord" + snake.getYPos());
     }
         public Rectangle getYin() {
         return yin;

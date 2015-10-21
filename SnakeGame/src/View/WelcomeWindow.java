@@ -22,6 +22,7 @@ public class WelcomeWindow {
 	Stage parent;
 	Label titleLabel;
 	Button startButton;
+	Button optionButton;
 	Button exitButton;
 	VBox vBox;
 	Scene scene;
@@ -42,12 +43,17 @@ public class WelcomeWindow {
 		startButton.setMaxWidth(100);
 		startButton.setOnAction(e -> openGameWindow());
 
+		optionButton = new Button("Options");
+		optionButton.setAlignment(Pos.CENTER);
+		optionButton.setMaxWidth(100);
+		optionButton.setOnAction(e -> openOptionWindow());
+		
 		exitButton = new Button("Exit game");
 		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(100);
 		exitButton.setOnAction(e -> closeWelcomeWindow());
 
-		vBox = new VBox(10, titleLabel, startButton, exitButton);
+		vBox = new VBox(10, titleLabel, startButton,optionButton, exitButton);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(10);
 		scene = new Scene(vBox, 500, 500);
@@ -65,7 +71,13 @@ public class WelcomeWindow {
 		closeWelcomeWindow();
 		SnakeGameWindow gameWindow = new SnakeGameWindow(parent);
 		gameWindow.showGameStage();
-
+	}
+	
+	public void openOptionWindow()
+	{
+		closeWelcomeWindow();
+		OptionWindow optionWindow = new OptionWindow(parent);
+		optionWindow.showOptionStage();
 	}
 
 	private void closeWelcomeWindow() {

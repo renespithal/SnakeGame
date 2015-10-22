@@ -1,5 +1,6 @@
 package Model;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -16,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 public class SnakeModel {
 
 	private int blockSize;
+	private Direction direction;
 	Circle food;
 
 	
@@ -25,8 +27,13 @@ public class SnakeModel {
 	
 	private ObservableList<Node> snake;
 	
+	public enum Direction {
+		UP, DOWN, LEFT, RIGHT
+	}
+	
 	public SnakeModel()
 	{
+		this.setDirection(Direction.RIGHT);
 		this.snakeColor = Color.GREEN;
 		
 		snakeBody = new Group();
@@ -35,7 +42,6 @@ public class SnakeModel {
 		head.setTranslateX(40);
 		head.setTranslateY(40);
 		head.setFill(snakeColor);
-		
 		snake = snakeBody.getChildren();
 		snake.add(head);
 		
@@ -64,14 +70,32 @@ public class SnakeModel {
 		head.setTranslateY(yPos);
 	}
 	
+	public DoubleProperty getXProperty()
+	{
+		return head.xProperty();
+	}
+	
+	public DoubleProperty getYProperty()
+	{
+		return head.yProperty();
+	}
+	
 	public int getXPos()
 	{
-		return (int) head.getTranslateX();
+		return (int)head.getTranslateX();
 	}
 	
 	public int getYPos()
 	{
-		return (int) head.getTranslateY();
+		return (int)head.getTranslateY();
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
 	}
 	
 

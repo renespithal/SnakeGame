@@ -1,10 +1,10 @@
 package View;
 
-import Controller.SnakeMovement;
 import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
 import Model.YinYangFoodModel;
+import Presenter.SnakeMovement;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

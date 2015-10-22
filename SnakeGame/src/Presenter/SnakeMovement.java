@@ -1,14 +1,14 @@
 package Presenter;
 
+import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
+import Model.YinYangFoodModel;
 import Model.SnakeModel.Direction;
+import View.SnakeGameWindow;
 import View.WelcomeWindow;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -20,11 +20,16 @@ import javafx.util.Duration;
  * 
  */
 public class SnakeMovement {
+	
+//	public SnakeMovement(SnakeGameWindow snakeGame,SnakeModel snake,FoodModel food,YinYangFoodModel yin)
+//	{
+//		moveSnake(snakeGame.getScene(), snake,food,yin);
+//	}
 
 	private Timeline timeline = new Timeline();
 	private KeyFrame keyframe;
 	//hardcoded
-	Layout layout = new Layout(500, 500);
+	Layout layout = new Layout();
 
 	public void moveSnake(Scene scene, SnakeModel snake) {
 		keyframe = new KeyFrame(Duration.seconds(0.1),e-> moveSnake(snake, scene,timeline));
@@ -36,7 +41,7 @@ public class SnakeMovement {
 
 	}
 	
-	private void moveSnake(SnakeModel snake, Scene scene,Timeline timeline)
+	private void moveSnake(SnakeModel snake, Scene scene,Timeline timeline )
 	{
 		Direction dir = snake.getDirection();
 		if(dir == Direction.UP)
@@ -45,7 +50,7 @@ public class SnakeMovement {
 			if (snake.getYPos() <= 0 - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene);
+				snakeDead(scene,snake);
 			}
 		} 
 		else if(dir == Direction.LEFT)
@@ -54,7 +59,7 @@ public class SnakeMovement {
 			if (snake.getXPos() <= 0 - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene);
+				snakeDead(scene,snake);
 			}
 		}
 		else if(dir == Direction.RIGHT)
@@ -63,7 +68,7 @@ public class SnakeMovement {
 			if (snake.getXPos() > layout.getScreenWidth() - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene);
+				snakeDead(scene,snake);
 			}
 		}
 		else if(dir == Direction.DOWN)
@@ -72,7 +77,7 @@ public class SnakeMovement {
 			if (snake.getYPos() > layout.getScreenHeight() - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene);
+				snakeDead(scene,snake);
 			}
 		}
 	}
@@ -118,7 +123,7 @@ public class SnakeMovement {
 		}
 	}
 
-	private void snakeDead(Scene scene) {
+	private void snakeDead(Scene scene, SnakeModel snake) {
 		Stage stage = (Stage) scene.getWindow();
 		stage.close();
 		WelcomeWindow welWin = new WelcomeWindow(stage);

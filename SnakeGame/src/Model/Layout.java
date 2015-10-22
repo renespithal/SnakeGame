@@ -9,6 +9,8 @@ public class Layout {
 	  public Layout()
 	  {
 		  this.blockSize = 20;
+		  this.screenHeight=500/20*20;
+		  this.screenWidth=500/20*20;
 	  }
 	  
 	  public Layout(int screenWidth, int screenHeight)

@@ -56,22 +56,22 @@ public class SnakeModel {
 	
 	public int getXPos()
 	{
-		return head.getXPos();
+		return (int)head.getRectangle().getTranslateX();
 	}
 	
 	public int getYPos()
 	{
-		return head.getYPos();
+		return (int)head.getRectangle().getTranslateY();
 	}
 	
 	public void setXPos(int xPos)
 	{
-		head.setXPos(xPos);
+		head.getRectangle().setTranslateX(xPos);
 	}
 	
 	public void setYPos(int yPos)
 	{
-		head.setYPos(yPos);
+		head.getRectangle().setTranslateY(yPos);
 	}
 	
 }

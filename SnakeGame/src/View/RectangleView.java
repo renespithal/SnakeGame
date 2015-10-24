@@ -24,25 +24,5 @@ public class RectangleView {
 	{
 		return rectangle;
 	}
-	
-	public void setXPos(int xPos)
-	{
-		rectangle.setTranslateX(xPos);
-	}
-	
-	public void setYPos(int yPos)
-	{
-		rectangle.setTranslateY(yPos);
-	}
-	
-	public int getXPos()
-	{
-		return (int)rectangle.getTranslateX();
-	}
-	
-	public int getYPos()
-	{
-		return (int)rectangle.getTranslateY();
-	}
 
 }

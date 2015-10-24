@@ -1,57 +1,73 @@
 package Model;
 
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import View.CircleView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import Model.SnakeModel;
-import javafx.scene.image.Image;
 
 public class FoodModel {
-
-
-	SnakeModel snake = new SnakeModel();
-	Rectangle head;
-
-
 
 	private int blockSize;
 	private int screenWidth;
 	private int screenHeight;
-
-	private Circle food;
-
-
-	private ObservableList<Node> foodList;
+	
+	private CircleView food;
 	
 	public FoodModel(int blockSize, int screenWidth, int screenHeight)
 	{
-		food = new Circle(blockSize/2);
-		food.setFill(Color.RED);
+		this.setBlockSize(blockSize);
+		this.setScreenWidth(screenWidth);
+		this.setScreenHeight(screenHeight);
+		
+		food = new CircleView(blockSize/2, Color.RED);
 		food.setTranslateX((int) (Math.random()*(screenWidth - blockSize/2)) / blockSize/2 * blockSize/2);
 		food.setTranslateY((int) (Math.random() * (screenHeight - blockSize / 2)) / blockSize / 2 * blockSize / 2);
 
 	}
 
-
-	
-	public Circle getCircle()
+	public CircleView getFood()
 	{
 		return food;
 	}
-
-	public void ConsumeFood() {
-		if (snake.getXPos() == food.getTranslateX() && snake.getYPos() == food.getTranslateY()) {
-
-			food.setTranslateX((int) (Math.random() * (screenWidth - blockSize)) / blockSize * blockSize);
-
-			food.setTranslateY((int) (Math.random() * (screenHeight - blockSize)) / blockSize * blockSize);
-
-
-		}
+	public int getTranslateX() {
+		return (int) food.getCircle().getTranslateX();
 	}
 
+	public int getTranslateY() {
+		return (int) food.getCircle().getTranslateY();
+	}
+
+	public void setTranslateX(int posX) {
+		food.getCircle().setTranslateX((int) posX); 
+		
+	}
+
+	public void setTranslateY(int posY) {
+		food.getCircle().setTranslateX((int) posY); 
+		
+	}
+
+	public int getBlockSize() {
+		return blockSize;
+	}
+
+	public void setBlockSize(int blockSize) {
+		this.blockSize = blockSize;
+	}
+
+	public int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public void setScreenWidth(int screenWidth) {
+		this.screenWidth = screenWidth;
+	}
+
+	public int getScreenHeight() {
+		return screenHeight;
+	}
+
+	public void setScreenHeight(int screenHeight) {
+		this.screenHeight = screenHeight;
+	}
 
 
 }

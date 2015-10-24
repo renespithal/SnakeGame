@@ -10,7 +10,6 @@ public class SnakeGame extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		@SuppressWarnings("unused")
 		WelcomeWindow welcomeWindow = new WelcomeWindow(primaryStage);
-		
 		primaryStage.show();
 
 	}

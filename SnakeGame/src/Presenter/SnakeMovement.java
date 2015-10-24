@@ -1,11 +1,8 @@
 package Presenter;
 
-import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
-import Model.YinYangFoodModel;
 import Model.SnakeModel.Direction;
-import View.SnakeGameWindow;
 import View.WelcomeWindow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,9 +18,9 @@ import javafx.util.Duration;
  */
 public class SnakeMovement {
 	
-//	public SnakeMovement(SnakeGameWindow snakeGame,SnakeModel snake,FoodModel food,YinYangFoodModel yin)
+//	public SnakeMovement(WelcomeWindow snakeGame, SnakeModel snake)
 //	{
-//		moveSnake(snakeGame.getScene(), snake,food,yin);
+//		moveSnake(snakeGame.getScene(), snake);
 //	}
 
 	private Timeline timeline = new Timeline();
@@ -50,7 +47,7 @@ public class SnakeMovement {
 			if (snake.getYPos() <= 0 - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene,snake);
+				snakeDead(scene,snake,timeline);
 			}
 		} 
 		else if(dir == Direction.LEFT)
@@ -59,7 +56,7 @@ public class SnakeMovement {
 			if (snake.getXPos() <= 0 - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene,snake);
+				snakeDead(scene,snake,timeline);
 			}
 		}
 		else if(dir == Direction.RIGHT)
@@ -68,7 +65,7 @@ public class SnakeMovement {
 			if (snake.getXPos() > layout.getScreenWidth() - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene,snake);
+				snakeDead(scene,snake,timeline);
 			}
 		}
 		else if(dir == Direction.DOWN)
@@ -77,7 +74,7 @@ public class SnakeMovement {
 			if (snake.getYPos() > layout.getScreenHeight() - layout.getBlockSize())
 			{
 				timeline.stop();
-				snakeDead(scene,snake);
+				snakeDead(scene,snake,timeline);
 			}
 		}
 	}
@@ -123,7 +120,8 @@ public class SnakeMovement {
 		}
 	}
 
-	private void snakeDead(Scene scene, SnakeModel snake) {
+	private void snakeDead(Scene scene, SnakeModel snake, Timeline timeline) {
+		timeline.stop();
 		Stage stage = (Stage) scene.getWindow();
 		stage.close();
 		WelcomeWindow welWin = new WelcomeWindow(stage);

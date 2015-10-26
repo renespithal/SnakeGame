@@ -12,52 +12,48 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+/**
+
+ * Created by Duy on 20.10.2015.
+
+ */
 public class WelcomeWindow {
 
 	Stage parent;
 	Label titleLabel;
 	Button startButton;
-	Button exitButton;
 	Button optionButton;
-	Button multiplayerButton;
+	Button exitButton;
 	VBox vBox;
 	Scene scene;
-	
 
 	public WelcomeWindow(Stage primaryStage) {
 		
 		this.parent = primaryStage;
-		
 
 		titleLabel = new Label("Welcome to Snake");
 		titleLabel.setAlignment(Pos.TOP_CENTER);
-		titleLabel.setFont(new Font("Calibri",38));
+		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.GREEN);
 		Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, null));
 		titleLabel.setBorder(border);
 
-		startButton = new Button("Start Game");
+		startButton = new Button("Start game");
 		startButton.setAlignment(Pos.CENTER);
 		startButton.setMaxWidth(100);
 		startButton.setOnAction(e -> openGameWindow());
-		
-		multiplayerButton = new Button ("Multiplayer");
-		multiplayerButton.setAlignment(Pos.CENTER);
-		multiplayerButton.setMaxWidth(100);
-		multiplayerButton.setOnAction(e -> openMultiplayerWindow());
-		
-		optionButton = new Button ("Game Option");
+
+		optionButton = new Button("Options");
 		optionButton.setAlignment(Pos.CENTER);
 		optionButton.setMaxWidth(100);
 		optionButton.setOnAction(e -> openOptionWindow());
-
-		exitButton = new Button("Exit Game");
+		
+		exitButton = new Button("Exit game");
 		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(100);
 		exitButton.setOnAction(e -> closeWelcomeWindow());
-	
 
-		vBox = new VBox(10, titleLabel,startButton, multiplayerButton, optionButton, exitButton);
+		vBox = new VBox(10, titleLabel, startButton,optionButton, exitButton);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(10);
 		scene = new Scene(vBox, 500, 500);
@@ -75,26 +71,18 @@ public class WelcomeWindow {
 		closeWelcomeWindow();
 		SnakeGameWindow gameWindow = new SnakeGameWindow(parent);
 		gameWindow.showGameStage();
-
+	}
+	
+	public void openOptionWindow()
+	{
+		closeWelcomeWindow();
+		OptionWindow optionWindow = new OptionWindow(parent);
+		optionWindow.showOptionStage();
 	}
 
 	private void closeWelcomeWindow() {
 		Stage stage = (Stage) scene.getWindow();
 		stage.close();
-	}
-	
-	private void openOptionWindow(){
-		closeWelcomeWindow();
-		OptionWindow gameWindow = new OptionWindow(parent);
-		gameWindow.showGameStage();
-		
-	}
-	
-	private void openMultiplayerWindow() {
-		closeWelcomeWindow();
-		MultiplayerWindow gameWindow = new MultiplayerWindow(parent);
-		gameWindow.showGameStage();
-		
 	}
 	
 	public void showWelcomeWindow()

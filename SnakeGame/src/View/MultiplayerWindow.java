@@ -14,7 +14,7 @@ public class MultiplayerWindow{
 	
 	public MultiplayerWindow(Stage primaryStage)
 	{
-		stage = new Stage();
+		this.stage = primaryStage;
 		backButton = new Button("Multiplayer");
 		backButton.setOnAction(e->returnToWelcomeWindow());
 
@@ -25,19 +25,19 @@ public class MultiplayerWindow{
 		stage.setTitle("Snake Multiplayer");
 	}
 	
-	protected void showGameStage()
+	protected void showMultiplayerStage()
 	{
 		stage.show();
 	}
 	
-	private void closeGameWindow() {
+	private void closeMultiplayerWindow() {
 		Stage stage = (Stage) scene.getWindow();
 		stage.close();
 	}
 	
 	private void returnToWelcomeWindow()
 	{
-		closeGameWindow();
+		closeMultiplayerWindow();
 		WelcomeWindow welWin = new WelcomeWindow(stage);
 		welWin.showWelcomeWindow();
 	}

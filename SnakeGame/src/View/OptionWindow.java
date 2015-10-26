@@ -14,7 +14,7 @@ public class OptionWindow{
 	
 	public OptionWindow(Stage primaryStage)
 	{
-		stage = new Stage();
+		this.stage = primaryStage;
 		backButton = new Button("back to menu");
 		backButton.setOnAction(e->returnToWelcomeWindow());
 
@@ -25,7 +25,7 @@ public class OptionWindow{
 		stage.setTitle("Option");
 	}
 	
-	protected void showGameStage()
+	protected void showOptionStage()
 	{
 		stage.show();
 	}

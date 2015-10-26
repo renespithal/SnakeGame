@@ -12,7 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-//Abfrage, ob man das spiel wirklich verlassen möchte
+//Abfrage, ob man Snake wirklich verlassen möchte
+//Layout wird noch geändert und bild eingefügt
+
 
 public class CloseWindow{
 	
@@ -46,7 +48,8 @@ public class CloseWindow{
 
 		vBox = new VBox(titleLabel,backButton,exitButton);
 		vBox.setSpacing(10);
-		vBox.setAlignment(Pos.TOP_CENTER);
+		vBox.setAlignment(Pos.CENTER);
+		
 		scene = new Scene(vBox,500,500);	
 		
 		stage.setScene(scene);

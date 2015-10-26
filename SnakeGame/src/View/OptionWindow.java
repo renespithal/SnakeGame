@@ -52,7 +52,7 @@ public class OptionWindow{
 		backButton.setAlignment(Pos.BOTTOM_CENTER);
 		backButton.setOnAction(e->returnToWelcomeWindow());
 
-		SpeedBox.getItems().addAll("Fast","Normal","Slow");
+		SpeedBox.getItems().addAll("Fast","Normal","Slow");	
         SpeedBox.setValue("Normal");
         
         ColorBox.getItems().addAll("Green","Red","Blue","Black"); // Farbe der Schalnge
@@ -60,6 +60,8 @@ public class OptionWindow{
         
        /* LifeBox.getItems().addAll("1","2","3","4","5"); // brauchen wir nicht unbedingt
         LifeBox.setValue("3");
+        
+        
         
       /*  BorderPane border = new BorderPane();
         HBox hbox = addHBox()
@@ -74,8 +76,6 @@ public class OptionWindow{
 		vBox = new VBox(titleLabel,SpeedBox,ColorBox,backButton);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(30);
-		
-		//BorderPane borderPane = new BorderPane(vBox,backButton,);
 		
 		scene = new Scene(vBox, 500, 500);	
 		

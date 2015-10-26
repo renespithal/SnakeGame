@@ -24,12 +24,15 @@ public class WelcomeWindow {
 	Button startButton;
 	Button optionButton;
 	Button exitButton;
+    Button multiplayerButton;
 	VBox vBox;
 	Scene scene;
 
 	public WelcomeWindow(Stage primaryStage) {
 		
 		this.parent = primaryStage;
+		
+		//Color background = Color.rgb(202,255,112);
 
 		titleLabel = new Label("Welcome to Snake");
 		titleLabel.setAlignment(Pos.TOP_CENTER);
@@ -42,6 +45,11 @@ public class WelcomeWindow {
 		startButton.setAlignment(Pos.CENTER);
 		startButton.setMaxWidth(100);
 		startButton.setOnAction(e -> openGameWindow());
+		
+		multiplayerButton = new Button ("Multiplayer");
+		multiplayerButton.setAlignment(Pos.CENTER);
+		multiplayerButton.setMaxWidth(100);
+		multiplayerButton.setOnAction(e -> openMultiplayerWindow());
 
 		optionButton = new Button("Options");
 		optionButton.setAlignment(Pos.CENTER);
@@ -51,15 +59,17 @@ public class WelcomeWindow {
 		exitButton = new Button("Exit game");
 		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(100);
-		exitButton.setOnAction(e -> closeWelcomeWindow());
+		exitButton.setOnAction(e -> openCloseWindow());
 
-		vBox = new VBox(10, titleLabel, startButton,optionButton, exitButton);
+		vBox = new VBox(10, titleLabel,startButton,multiplayerButton, optionButton, exitButton);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(10);
 		scene = new Scene(vBox, 500, 500);
 		
 		parent.setScene(scene);
-		parent.setTitle("Snake");
+		parent.setTitle("YinYan-Yolo Snake");
+		
+		//parent.getIcons().add(new Image(Start.class.getResourceAsStream("flat_1000x1000_075_f.u6.jpg"))); minicon
 
 	}
 
@@ -73,13 +83,24 @@ public class WelcomeWindow {
 		gameWindow.showGameStage();
 	}
 	
-	public void openOptionWindow()
-	{
+	private void openMultiplayerWindow() {
+		closeWelcomeWindow();
+		MultiplayerWindow gameWindow = new MultiplayerWindow(parent);
+		gameWindow.showMultiplayerStage();
+	}
+	
+	public void openOptionWindow(){
 		closeWelcomeWindow();
 		OptionWindow optionWindow = new OptionWindow(parent);
 		optionWindow.showOptionStage();
 	}
 
+	public void openCloseWindow(){
+		closeWelcomeWindow();
+		CloseWindow closeWindow = new CloseWindow(parent);
+		closeWindow.showCloseStage();
+	}
+	
 	private void closeWelcomeWindow() {
 		Stage stage = (Stage) scene.getWindow();
 		stage.close();

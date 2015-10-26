@@ -1,10 +1,10 @@
 package View;
 
-import Controller.SnakeMovement;
 import Model.FoodModel;
 import Model.Layout;
 import Model.SnakeModel;
 import Model.YinYangFoodModel;
+import Presenter.SnakeMovement;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -32,7 +32,7 @@ public class SnakeGameWindow {
 		YinYangFoodModel yin = new YinYangFoodModel(layoutTest.getBlockSize(), screenWidth, screenHeight);
 		
 		Pane foodPane = new Pane();
-		foodPane.getChildren().addAll((food.getCircle()),yin.getYin());
+		foodPane.getChildren().addAll((food.getFood().getCircle()),yin.getYin().getRectangle());
 		Pane snakePane = new Pane();
 		snakePane.getChildren().addAll(snake.getObservableList());
 		Pane allPane = new Pane();
@@ -70,6 +70,10 @@ public class SnakeGameWindow {
 	public Stage getStage()
 	{
 		return stage;
+	}
+
+	public Scene getScene() {
+		return scene;
 	}
 
 }

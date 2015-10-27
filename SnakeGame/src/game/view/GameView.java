@@ -10,7 +10,7 @@ public class GameView extends Pane{
 		snakePane.getChildren().addAll(model.getSnake().getObservableList());
 		
 		Pane foodPane = new Pane();
-		foodPane.getChildren().addAll(model.getFood().getFood().getCircle(),model.getYinYang().getYin().getRectangle());
+		foodPane.getChildren().addAll();
 		
 		this.getChildren().addAll(snakePane,foodPane);
 	}

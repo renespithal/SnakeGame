@@ -1,16 +1,15 @@
 package game.presenter;
 
+
+import game.GameScene;
 import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.SnakeModel;
 import game.model.SnakeModel.Direction;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
-import javafx.animation.FadeTransition;
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -25,7 +24,7 @@ public class GamePresenter {
 	private KeyFrame snakeMovement;
 	private KeyFrame bonusFood;
 	private KeyFrame collision;
-	public GamePresenter(GameModel model, GameView view, Scene scene) {
+	public GamePresenter(GameModel model, GameView view, GameScene scene) {
 		this.model = model;
 		this.view = view;
 
@@ -48,31 +47,28 @@ public class GamePresenter {
 		if (dir == Direction.UP) {
 			snake.setYPos(snake.getYPos() - 20);
 			if (snake.getYPos() <= 0 - 20) {
-				stopLoop();
 				snakeDead(scene);
 			}
 		} else if (dir == Direction.LEFT) {
 			snake.setXPos(snake.getXPos() - 20);
 			if (snake.getXPos() <= 0 - 20) {
-				stopLoop();
 				snakeDead(scene);
 			}
 		} else if (dir == Direction.RIGHT) {
 			snake.setXPos(snake.getXPos() + 20);
 			if (snake.getXPos() > 500 - 20) {
-				stopLoop();
 				snakeDead(scene);
 			}
 		} else if (dir == Direction.DOWN) {
 			snake.setYPos(snake.getYPos() + 20);
 			if (snake.getYPos() > 500 - 20) {
-				stopLoop();
 				snakeDead(scene);
 			}
 		}
 	}
 
 	private void snakeDead(Scene scene) {
+		stopLoop();
 		(new WelcomeScene()).show((Stage) scene.getWindow());
 	}
 

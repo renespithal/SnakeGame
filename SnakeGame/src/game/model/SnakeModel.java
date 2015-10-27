@@ -1,5 +1,6 @@
 package game.model;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -13,6 +14,8 @@ import javafx.scene.Node;
 public class SnakeModel {
 
 	private Direction direction;
+	private SimpleIntegerProperty x = new SimpleIntegerProperty();
+	private SimpleIntegerProperty y = new SimpleIntegerProperty();
 	
 
 	Group snakeBody;
@@ -47,6 +50,41 @@ public class SnakeModel {
 	
 	public void setDirection(Direction direction) {
 		this.direction = direction;
+	}
+
+	public SimpleIntegerProperty getYProperty() {
+		return y;
+	}
+
+	public SimpleIntegerProperty getXProperty() {
+		return x;
+	}
+	
+	public int getX(){
+		return x.get();
+	}
+	
+	public int getY(){
+		return y.get();
+	}
+	
+	public void increaseValue()
+	{
+		if(direction == Direction.UP)
+		{
+			y.set(y.get() -1);
+		}
+		else if(direction == Direction.DOWN){
+			y.set(y.get() +1);
+		}
+		else if(direction == Direction.LEFT)
+		{
+			x.set(x.get()-1);
+		}
+		else if (direction == Direction.RIGHT)
+		{
+			x.set(x.get() +1);
+		}
 	}
 	
 }

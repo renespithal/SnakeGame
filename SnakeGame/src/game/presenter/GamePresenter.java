@@ -4,13 +4,13 @@ package game.presenter;
 import game.GameScene;
 import game.model.FoodModel;
 import game.model.GameModel;
+import game.model.HighscoreModel;
 import game.model.SnakeModel;
 import game.model.SnakeModel.Direction;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -29,46 +29,30 @@ public class GamePresenter {
 		this.view = view;
 
 		// TODO create loop properly:
-//		snakeMovement = new KeyFrame(Duration.seconds(0.1),
-//				e -> moveSnake(model.getSnake(),scene));
-//		collision = new KeyFrame(Duration.seconds(0.01), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang()));
+		snakeMovement = new KeyFrame(Duration.seconds(0.1),
+				e -> moveSnake(model.getSnake(),scene,view));
+		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
 //		bonusFood = new KeyFrame(Duration.seconds(5), e-> bonusFoodEffect(model.getYinYang()));
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
 
-		// TODO logic; if snake dies, stop loop and create new welcomeScene ->
-		// show(parent)
-
 		scene.setOnKeyPressed(e -> moveSnakeControl(e, model.getSnake()));
 	}
 
-//	private void moveSnake(SnakeModel snake,Scene scene) {
-//		Direction dir = snake.getDirection();
-//		if (dir == Direction.UP) {
-//			snake.setYPos(snake.getYPos() - 20);
-//			if (snake.getYPos() <= 0 - 20) {
-//				snakeDead(scene);
-//			}
-//		} else if (dir == Direction.LEFT) {
-//			snake.setXPos(snake.getXPos() - 20);
-//			if (snake.getXPos() <= 0 - 20) {
-//				snakeDead(scene);
-//			}
-//		} else if (dir == Direction.RIGHT) {
-//			snake.setXPos(snake.getXPos() + 20);
-//			if (snake.getXPos() > 500 - 20) {
-//				snakeDead(scene);
-//			}
-//		} else if (dir == Direction.DOWN) {
-//			snake.setYPos(snake.getYPos() + 20);
-//			if (snake.getYPos() > 500 - 20) {
-//				snakeDead(scene);
-//			}
-//		}
-//	}
+	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
+		snake.increaseValue();
+			if (snake.getY() < 0 || snake.getY() > 23 || snake.getX() < 0 || snake.getX() > 24) {
+				snakeDead(scene, view);
+			}
+	}
 
-	private void snakeDead(Scene scene) {
+	private void snakeDead(Scene scene, GameView view) {
 		stopLoop();
+		view.getHighscorePane().setVisible(true);
+		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
+	}
+
+	private void returnToWelcomeWindow(Scene scene) {
 		(new WelcomeScene()).show((Stage) scene.getWindow());
 	}
 
@@ -109,24 +93,20 @@ public class GamePresenter {
 		}
 	}
 
-//	private void checkCollision(SnakeModel snake, FoodModel food, YinYangFoodModel yin) {
-//		
-//		Bounds snakeBounds = snake.getHead().getRectangle().getBoundsInParent();
-//		Bounds foodBounds = food.getFood().getCircle().getBoundsInParent();
-//
-//		if(snakeBounds.intersects(foodBounds))
-//		{
-//			food.setTranslateX((int) (Math.random() * (500 - 20)) / 20 * 20);
-//			food.setTranslateY((int) (Math.random() * (500 - 20)) / 20 * 20);
-//		}
-//			
-//			
-//		if (snake.getXPos() == yin.getXPos() && snake.getYPos() == yin.getYPos()) {
-//
-//			yin.setXPos((int) (Math.random() * (500 - 20)) / 20 * 20);
-//			yin.setYPos((int) (Math.random() * (500 - 20)) / 20 * 20);
-//		}
-//	}
+	private void checkCollision(SnakeModel snake, FoodModel food, YinYangFoodModel yin,HighscoreModel highscore) {
+		
+		if(snake.getX() == food.getX() && snake.getY() == food.getY())
+		{
+			highscore.increaseValue();
+			food.generateRandomPosition();
+		}
+		
+		if(snake.getX() == yin.getX() && snake.getY() == yin.getY())
+		{
+			highscore.increaseSpecialValue();
+			yin.generateRandomPosition();
+		}
+	}
 	
 //	private void bonusFoodEffect(YinYangFoodModel yin)
 //	{

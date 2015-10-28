@@ -22,10 +22,7 @@ public class GameView extends Pane{
 	
 	private Pane highscorePane;
 	public GameView(GameModel model) {
-		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
 
-		ImageView ivYin = new ImageView();
-		ivYin.setImage(imageYin);
 
 		Rectangle snakeHead = new Rectangle(20, 20);
 		snakeHead.xProperty().bind(new IntegerBinding() {
@@ -48,59 +45,51 @@ public class GameView extends Pane{
 		});
 		snakeHead.setFill(Color.GREEN);
 
-		Rectangle yin = new Rectangle(20, 20);
+		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
 
-		yin.xProperty().bind(new IntegerBinding() {
+		ImageView ivYin = new ImageView();
+		ivYin.setImage(imageYin);
 
-			{
-				bind(model.getYinYang().getXProperty());
-				ivYin.setX(model.getYinYang().getX());
-			}
+
+		ivYin.xProperty().bind(new IntegerBinding() {
+			{bind(model.getYinYang().getXProperty());}
 
 			@Override
 			protected int computeValue() {
-				return model.getYinYang().getX() * 20;
-			}
-		});
-		
-		yin.yProperty().bind(new IntegerBinding() {
+				return model.getYinYang().getX()*20;
+			}});
 
-			{
-				bind(model.getYinYang().getYProperty());
-				ivYin.setY(model.getYinYang().getY());
-			}
+		ivYin.yProperty().bind(new IntegerBinding() {
+			{bind(model.getYinYang().getYProperty());}
 
 			@Override
 			protected int computeValue() {
 				return model.getYinYang().getY()*20;
-			}
-		});
-		yin.setFill(Color.GOLD);
+			}});
 
+		Image imageFood = new Image("file:src/images/Apple.jpg", 20, 20, true, true);
 
+		ImageView ivFood = new ImageView();
+		ivFood.setImage(imageFood);
 
-
-
-		
-		Rectangle food = new Rectangle(20,20);
-		food.xProperty().bind(new IntegerBinding() {
+		ivFood.xProperty().bind(new IntegerBinding() {
 			{bind(model.getFood().getXProperty());}
 
 			@Override
 			protected int computeValue() {
 				return model.getFood().getX()*20;
 			}});
-		
-		food.yProperty().bind(new IntegerBinding() {
+
+		ivFood.yProperty().bind(new IntegerBinding() {
 			{bind(model.getFood().getYProperty());}
-			
-		
+
 			@Override
 			protected int computeValue() {
 				return model.getFood().getY()*20;
-			}
-		});
-		food.setFill(Color.RED);
+			}});
+
+
+
 				
 		HBox hBox = new HBox(); 
 		Label highscore = new Label();
@@ -121,20 +110,20 @@ public class GameView extends Pane{
 		Pane snakePane = new Pane();
 		snakePane.getChildren().addAll(snakeHead);
 		
-		Pane foodPane = new Pane();
-		foodPane.getChildren().addAll(food,yin);
+
 
 		Pane imagePane = new Pane();
-		imagePane.getChildren().addAll(ivYin);
-		
+		imagePane.getChildren().addAll(ivYin, ivFood);
+
 		highscorePane = new StackPane(); 
 		highscorePane.getChildren().add(hBox);
 		highscorePane.setVisible(false);
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		highscorePane.autosize();
 		
-		this.getChildren().addAll(snakePane,foodPane,highscorePane,imagePane);
+		this.getChildren().addAll(snakePane,highscorePane,imagePane);
 	}
+
 
 
 	public Pane getHighscorePane()

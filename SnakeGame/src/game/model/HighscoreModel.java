@@ -7,12 +7,12 @@ public class HighscoreModel {
 private SimpleIntegerProperty highscoreValue = new SimpleIntegerProperty(0);
 	
 	public void increaseValue(){
-		highscoreValue.set(highscoreValue.get()+1);
+		highscoreValue.set(highscoreValue.get()+2);
 	}
 	
 	public void increaseSpecialValue()
 	{
-		highscoreValue.set(highscoreValue.get()+5);
+		highscoreValue.set(highscoreValue.get()+10);
 	}
 	
 	public int getValue(){

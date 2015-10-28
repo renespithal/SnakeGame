@@ -9,7 +9,7 @@ public abstract class MyScene extends Scene {
 	protected Stage parent;
 
 	public MyScene() {
-		super(new HBox());
+		super(new HBox(),500,500);
 	}
 	
 	public void init(){
@@ -32,8 +32,8 @@ public abstract class MyScene extends Scene {
 		
 		this.init();
 		parent.setScene(this);
-		parent.setWidth(500);
-		parent.setHeight(500);
+		parent.sizeToScene();
 		parent.show();
+
 	}
 }

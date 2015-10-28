@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import welcome.WelcomeScene;
+import game.view.GameView;
 
 public class GamePresenter {
 	private GameModel model;
@@ -98,14 +99,22 @@ public class GamePresenter {
 		if(snake.getX() == food.getX() && snake.getY() == food.getY())
 		{
 			highscore.increaseValue();
+			if (highscore.getValue()%20==0 || highscore.getValue() ==0){
+				yin.generateRandomPosition();
+			}
 			food.generateRandomPosition();
 		}
 		
 		if(snake.getX() == yin.getX() && snake.getY() == yin.getY())
 		{
 			highscore.increaseSpecialValue();
-			yin.generateRandomPosition();
+			if (highscore.getValue()%20 == 0){
+			yin.generateRandomPosition();}
 		}
+		 if (highscore.getValue()%20 != 0){
+			yin.deletePosition();}
+
+
 	}
 	
 //	private void bonusFoodEffect(YinYangFoodModel yin)

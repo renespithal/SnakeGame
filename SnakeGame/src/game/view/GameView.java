@@ -72,7 +72,8 @@ public class GameView extends Pane{
 				return model.getYinYang().getY()*20;
 			}
 		});
-		yin.setFill(Color.WHITE);
+		yin.setFill(Color.GOLD);
+
 		ivYin.setX(yin.getX());
 		ivYin.setY(yin.getY());
 

@@ -19,6 +19,10 @@ public class YinYangFoodModel {
 		y.set((int)(Math.floor(Math.random()*23)));
 		
 	}
+	public void deletePosition(){
+		x.set(-20);
+		y.set(-20);
+	}
 	public SimpleIntegerProperty getXProperty() {
 		return x;
 	}

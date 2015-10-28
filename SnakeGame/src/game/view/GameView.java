@@ -3,9 +3,13 @@ package game.view;
 import game.model.GameModel;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
@@ -15,36 +19,62 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class GameView extends Pane{
 	
 	private Pane highscorePane;
+	private Group snakeGroup;
+	private ObservableList<Node> snakeBody;
 	public GameView(GameModel model) {
 
+		snakeGroup = new Group();
+		snakeBody = snakeGroup.getChildren();
 
 		Rectangle snakeHead = new Rectangle(20, 20);
-		snakeHead.xProperty().bind(new IntegerBinding() {
+		Rectangle snakeMiddle = new Rectangle(-20,0,20,20);
+		Rectangle snakeTail = new Rectangle(-40,0,20,20);
+		snakeHead.setFill(Color.GREEN);
+		snakeMiddle.setFill(Color.GREEN);
+		snakeTail.setFill(Color.GREEN);
+		snakeBody.addAll(snakeHead,snakeMiddle,snakeTail);
+		System.out.println(snakeBody.size());
+				
+		snakeGroup.translateXProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getXProperty());}
-			
+		
 			@Override
 			protected int computeValue() {
+				if(model.getSnake().getSnakeGrow())
+				{
+					int dir =model.getSnake().snakeGrowth();
+					Rectangle snakePart = new Rectangle(dir*20,0,20,20);
+					snakePart.setFill(Color.GREEN);
+					snakeBody.add(0,snakePart);
+					snakeGroup.autosize();
+					model.getSnake().setSnakeGrow(false);
+				}
 				return model.getSnake().getX() *20;
 			}
-			});
+		});
 		
-		snakeHead.yProperty().bind(new IntegerBinding() {
+		snakeGroup.translateYProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getYProperty());}
 		
 			@Override
 			protected int computeValue() {
-
+				if(model.getSnake().getSnakeGrow())
+				{
+					int dir =model.getSnake().snakeGrowth();
+					Rectangle snakePart = new Rectangle(0,dir*20,20,20);
+					snakePart.setFill(Color.GREEN);
+					snakeBody.add(0,snakePart);
+					snakeGroup.autosize();
+					model.getSnake().setSnakeGrow(false);
+				}
 				return model.getSnake().getY() *20;
 			}
 		});
-		snakeHead.setFill(Color.GREEN);
-
+		
 		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
 
 		ImageView ivYin = new ImageView();
@@ -66,7 +96,6 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return model.getYinYang().getY()*20;
 			}});
-
 		Image imageFood = new Image("file:src/images/Apple.jpg", 20, 20, true, true);
 
 		ImageView ivFood = new ImageView();
@@ -87,10 +116,8 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return model.getFood().getY()*20;
 			}});
-
-
-
-				
+		
+		
 		HBox hBox = new HBox(); 
 		Label highscore = new Label();
 		highscore.textProperty().bind(new StringBinding() {
@@ -106,11 +133,8 @@ public class GameView extends Pane{
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().add(highscore);
 		
-	
 		Pane snakePane = new Pane();
-		snakePane.getChildren().addAll(snakeHead);
-		
-
+		snakePane.getChildren().addAll(snakeGroup);
 
 		Pane imagePane = new Pane();
 		imagePane.getChildren().addAll(ivYin, ivFood);
@@ -124,10 +148,15 @@ public class GameView extends Pane{
 		this.getChildren().addAll(snakePane,highscorePane,imagePane);
 	}
 
-
-
 	public Pane getHighscorePane()
 	{
 		return highscorePane;
 	}
+	
+	public ObservableList<Node> snakeBody()
+	{
+		return snakeBody; 
+	}
+	
+	
 }

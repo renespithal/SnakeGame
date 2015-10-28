@@ -16,15 +16,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import welcome.WelcomeScene;
-import game.view.GameView;
 
 public class GamePresenter {
 	private GameModel model;
 	private GameView view;
 	private Timeline loop;
 	private KeyFrame snakeMovement;
-	private KeyFrame bonusFood;
 	private KeyFrame collision;
+	private KeyFrame grow;
 	public GamePresenter(GameModel model, GameView view, GameScene scene) {
 		this.model = model;
 		this.view = view;
@@ -33,7 +32,7 @@ public class GamePresenter {
 		snakeMovement = new KeyFrame(Duration.seconds(0.1),
 				e -> moveSnake(model.getSnake(),scene,view));
 		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
-//		bonusFood = new KeyFrame(Duration.seconds(5), e-> bonusFoodEffect(model.getYinYang()));
+		
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
 
@@ -99,7 +98,7 @@ public class GamePresenter {
 		
 		if(snake.getX() == food.getX() && snake.getY() == food.getY())
 		{
-			
+			snake.setSnakeGrow(true);
 			highscore.increaseValue();
 			if (highscore.getValue()%20==0 || highscore.getValue() ==0){
 				yin.generateRandomPosition();
@@ -119,16 +118,6 @@ public class GamePresenter {
 
 	}
 	
-//	private void bonusFoodEffect(YinYangFoodModel yin)
-//	{
-//		  FadeTransition t = new FadeTransition(Duration.seconds(4),yin.getYin().getRectangle());
-//	        t.setFromValue(0);
-//	        t.setToValue(90);
-//	        t.setCycleCount(Transition.INDEFINITE);
-//	        t.setAutoReverse(false);
-//	        t.setInterpolator(Interpolator.LINEAR);
-//	        t.play();
-//	}
 	public void startLoop() {
 		loop.play();
 	}

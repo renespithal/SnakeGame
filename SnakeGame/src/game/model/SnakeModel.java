@@ -1,9 +1,7 @@
 package game.model;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.Node;
 
 /**
 
@@ -16,9 +14,7 @@ public class SnakeModel {
 	private Direction direction;
 	private SimpleIntegerProperty x = new SimpleIntegerProperty();
 	private SimpleIntegerProperty y = new SimpleIntegerProperty();
-	private Group snakeBody;
-	
-	private ObservableList<Node> snake;
+	private SimpleBooleanProperty snakeGrow = new SimpleBooleanProperty(false);
 	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -27,21 +23,8 @@ public class SnakeModel {
 	public SnakeModel()
 	{
 		this.setDirection(Direction.RIGHT);
-		
-		snakeBody = new Group();
-
-		snake = snakeBody.getChildren();
-		
-		System.out.println("neue schlange");
-		
-		
 	}
-
-	public ObservableList<Node> getObservableList()
-	{
-		return snake;
-	}	
-
+	
 	public Direction getDirection() {
 		return direction;
 	}
@@ -85,4 +68,40 @@ public class SnakeModel {
 		}
 	}
 	
+	public Boolean getSnakeGrow()
+	{
+		return snakeGrow.get();
+	}
+	
+	public SimpleBooleanProperty getBooleanProperty()
+	{
+		return snakeGrow;
+	}
+	
+	public void setSnakeGrow(boolean grow)
+	{
+		snakeGrow.set(grow);
+	}
+	
+	public int snakeGrowth()
+	{
+		if(direction == Direction.UP)
+		{
+			return -1;
+		}
+		else if(direction == Direction.DOWN){
+			return 1;
+		}
+		else if(direction == Direction.LEFT)
+		{
+			return -1;
+		}
+		else if (direction == Direction.RIGHT)
+		{
+			return 1;
+		}
+		
+		return 0;
+	}
+		
 }

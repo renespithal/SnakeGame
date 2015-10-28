@@ -26,8 +26,7 @@ public class GameView extends Pane{
 			
 			@Override
 			protected int computeValue() {
-				snakeHead.setTranslateX(model.getSnake().getX() *20);
-				return 0;
+				return model.getSnake().getX() *20;
 			}
 			});
 		
@@ -37,8 +36,7 @@ public class GameView extends Pane{
 		
 			@Override
 			protected int computeValue() {
-				snakeHead.setTranslateY(model.getSnake().getY() *20);
-				return 0;
+				return model.getSnake().getY() *20;
 			}
 		});
 		snakeHead.setFill(Color.GREEN);

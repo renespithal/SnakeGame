@@ -32,8 +32,8 @@ public abstract class MyScene extends Scene {
 		
 		this.init();
 		parent.setScene(this);
-		parent.setWidth(500);
-		parent.setHeight(500);
+		parent.setWidth(510);
+		parent.setHeight(510);
 		parent.show();
 	}
 }

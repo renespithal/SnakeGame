@@ -4,6 +4,7 @@ import game.model.GameModel;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -21,12 +22,11 @@ public class GameView extends Pane{
 	
 	private Pane highscorePane;
 	public GameView(GameModel model) {
-
 		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
+
 		ImageView ivYin = new ImageView();
 		ivYin.setImage(imageYin);
 
-		
 		Rectangle snakeHead = new Rectangle(20, 20);
 		snakeHead.xProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getXProperty());}
@@ -39,22 +39,22 @@ public class GameView extends Pane{
 		
 		snakeHead.yProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getYProperty());}
-			
 		
 			@Override
 			protected int computeValue() {
+
 				return model.getSnake().getY() *20;
 			}
 		});
 		snakeHead.setFill(Color.GREEN);
-		
+
 		Rectangle yin = new Rectangle(20, 20);
 
 		yin.xProperty().bind(new IntegerBinding() {
 
 			{
 				bind(model.getYinYang().getXProperty());
-
+				ivYin.setX(model.getYinYang().getX());
 			}
 
 			@Override
@@ -64,9 +64,12 @@ public class GameView extends Pane{
 		});
 		
 		yin.yProperty().bind(new IntegerBinding() {
-			{bind(model.getYinYang().getYProperty());}
-			
-		
+
+			{
+				bind(model.getYinYang().getYProperty());
+				ivYin.setY(model.getYinYang().getY());
+			}
+
 			@Override
 			protected int computeValue() {
 				return model.getYinYang().getY()*20;
@@ -74,8 +77,9 @@ public class GameView extends Pane{
 		});
 		yin.setFill(Color.GOLD);
 
-		ivYin.setX(yin.getX());
-		ivYin.setY(yin.getY());
+
+
+
 
 		
 		Rectangle food = new Rectangle(20,20);

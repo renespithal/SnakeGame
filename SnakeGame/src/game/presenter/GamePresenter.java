@@ -41,6 +41,7 @@ public class GamePresenter {
 	}
 
 	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
+
 		snake.increaseValue();
 			if (snake.getY() < 0 || snake.getY() > 23 || snake.getX() < 0 || snake.getX() > 24) {
 				snakeDead(scene, view);

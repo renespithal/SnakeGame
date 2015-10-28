@@ -16,9 +16,7 @@ public class SnakeModel {
 	private Direction direction;
 	private SimpleIntegerProperty x = new SimpleIntegerProperty();
 	private SimpleIntegerProperty y = new SimpleIntegerProperty();
-	
-
-	Group snakeBody;
+	private Group snakeBody;
 	
 	private ObservableList<Node> snake;
 	

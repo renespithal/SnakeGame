@@ -1,6 +1,7 @@
 package game.model;
 
 import highscore.model.HighscoreModel;
+import options.model.SpeedSettingModel;
 
 public class GameModel {
 	
@@ -36,4 +37,5 @@ public class GameModel {
 	{
 		return highscore;
 	}
+	
 }

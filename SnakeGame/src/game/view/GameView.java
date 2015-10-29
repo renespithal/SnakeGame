@@ -2,13 +2,11 @@ package game.view;
 
 import game.model.GameModel;
 import game.model.SnakePartModel;
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,9 +25,6 @@ public class GameView extends Pane{
 	private Pane highscorePane;
 	public GameView(GameModel model) {
 		
-		
-
-//		Group snakeGroup = new Group();
 		Pane snakePane = new Pane(); 
 		
 //		Image imageSnake = new Image("file:src/images/snakePart.jpg", 20, 20, true, true);
@@ -37,10 +32,8 @@ public class GameView extends Pane{
 //		ivSnake.setImage(imageSnake);
 		
 		Rectangle snakeHead = new Rectangle(20, 20);
-		snakeHead.setFill(Color.GREEN);
-		
+		snakeHead.setFill(Color.GOLD);
 		snakePane.getChildren().add(snakeHead);
-		
 		bindSnakePart(model.getSnake().getHead(), snakeHead);
 		
 		model.getSnake().getList().addListener(new ListChangeListener<SnakePartModel>()
@@ -54,13 +47,11 @@ public class GameView extends Pane{
 							SnakePartModel newPart = c.getAddedSubList().get(0);
 							bindSnakePart(newPart, snakePartView);
 							snakePane.getChildren().add(snakePartView);
-							System.out.println(snakePane.getChildren().size());
 						}
 					}
 				});
 
 		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
-
 		ImageView ivYin = new ImageView();
 		ivYin.setImage(imageYin);
 
@@ -83,9 +74,20 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return model.getYinYang().getY()*20;
 			}});
+		
+		ivYin.visibleProperty().bind(new BooleanBinding() {
+			{bind(model.getYinYang().getVisibleProperty());}
+			{
+				bind(model.getYinYang().getYProperty());
+			}
+			@Override
+			protected boolean computeValue() {
+				return model.getYinYang().getVisible();
+			}
+			
+		});
 
 		Image imageFood = new Image("file:src/images/Apple.jpg", 20, 20, true, true);
-
 		ImageView ivFood = new ImageView();
 		ivFood.setImage(imageFood);
 
@@ -126,10 +128,6 @@ public class GameView extends Pane{
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().add(highscore);
 		
-		
-		
-
-
 		Pane imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
 

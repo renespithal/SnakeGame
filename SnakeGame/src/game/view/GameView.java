@@ -29,19 +29,18 @@ public class GameView extends Pane{
 
 		snakeGroup = new Group();
 		snakeBody = snakeGroup.getChildren();
-
+			
+//		Image imageSnake = new Image("file:src/images/snakePart.jpg", 20, 20, true, true);
+//		ImageView ivSnake = new ImageView();
+//		ivSnake.setImage(imageSnake);
+		
 		Rectangle snakeHead = new Rectangle(20, 20);
-		Rectangle snakeMiddle = new Rectangle(-20,0,20,20);
-		Rectangle snakeTail = new Rectangle(-40,0,20,20);
 		snakeHead.setFill(Color.GREEN);
-		snakeMiddle.setFill(Color.GREEN);
-		snakeTail.setFill(Color.GREEN);
-		snakeBody.addAll(snakeHead,snakeMiddle,snakeTail);
-		System.out.println(snakeBody.size());
-				
+		snakeBody.add(snakeHead);
+		
 		snakeGroup.translateXProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getXProperty());}
-		
+
 			@Override
 			protected int computeValue() {
 				if(model.getSnake().getSnakeGrow())
@@ -53,26 +52,10 @@ public class GameView extends Pane{
 					snakeGroup.autosize();
 					model.getSnake().setSnakeGrow(false);
 				}
-				return model.getSnake().getX() *20;
-			}
-		});
-		
-		snakeGroup.translateYProperty().bind(new IntegerBinding() {
-		Image imageSnake = new Image("file:src/images/snakePart.jpg", 20, 20, true, true);
-
-		ImageView ivSnake = new ImageView();
-		ivSnake.setImage(imageSnake);
-
-
-		ivSnake.xProperty().bind(new IntegerBinding() {
-			{bind(model.getSnake().getXProperty());}
-
-			@Override
-			protected int computeValue() {
 				return model.getSnake().getX()*20;
 			}});
 
-		ivSnake.yProperty().bind(new IntegerBinding() {
+		snakeGroup.translateYProperty().bind(new IntegerBinding() {
 			{bind(model.getSnake().getYProperty());}
 
 			@Override
@@ -89,9 +72,6 @@ public class GameView extends Pane{
 				return model.getSnake().getY() *20;
 			}
 		});
-		
-				return model.getSnake().getY()*20;
-			}});
 
 		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
 
@@ -117,9 +97,6 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return model.getYinYang().getY()*20;
 			}});
-				return model.getYinYang().getY() * 20;
-			}
-		});
 
 		Image imageFood = new Image("file:src/images/Apple.jpg", 20, 20, true, true);
 
@@ -145,12 +122,6 @@ public class GameView extends Pane{
 				return model.getFood().getY()*20;
 			}});
 		
-		
-		HBox hBox = new HBox(); 
-				return model.getFood().getY() * 20;
-			}
-		});
-
 
 		HBox hBox = new HBox();
 		Label highscore = new Label();
@@ -174,7 +145,7 @@ public class GameView extends Pane{
 
 
 		Pane imagePane = new Pane();
-		imagePane.getChildren().addAll(ivYin, ivFood, ivSnake);
+		imagePane.getChildren().addAll(ivFood, ivYin);
 
 		highscorePane = new StackPane(); 
 		highscorePane.getChildren().add(hBox);
@@ -182,8 +153,7 @@ public class GameView extends Pane{
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		highscorePane.autosize();
 		
-		this.getChildren().addAll(snakePane,highscorePane,imagePane);
-		this.getChildren().addAll(highscorePane,imagePane);
+		this.getChildren().addAll(snakePane,imagePane,highscorePane);
 	}
 
 	public Pane getHighscorePane()

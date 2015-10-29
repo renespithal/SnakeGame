@@ -42,7 +42,7 @@ public class GamePresenter {
 
 	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
 		snake.increaseValue();
-			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 23 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
+			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 				snakeDead(scene, view);
 			}
 			
@@ -106,6 +106,7 @@ public class GamePresenter {
 		
 		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
 		{
+			snake.grow();
 			highscore.increaseValue();
 			food.generateRandomPosition();
 		}

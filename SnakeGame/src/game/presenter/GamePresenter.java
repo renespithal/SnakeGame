@@ -11,6 +11,7 @@ import game.model.YinYangFoodModel;
 import game.view.GameView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -35,14 +36,13 @@ public class GamePresenter {
 		
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
-
 		scene.setOnKeyPressed(e -> moveSnakeControl(e, model.getSnake()));
 	}
 
 	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
 
 		snake.increaseValue();
-			if (snake.getY() < 0 || snake.getY() > 24 || snake.getX() < 0 || snake.getX() > 24) {
+			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 				snakeDead(scene, view);
 			}
 	}
@@ -96,9 +96,9 @@ public class GamePresenter {
 
 	private void checkCollision(SnakeModel snake, FoodModel food, YinYangFoodModel yin,HighscoreModel highscore) {
 		
-		if(snake.getX() == food.getX() && snake.getY() == food.getY())
+		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
 		{
-			snake.setSnakeGrow(true);
+			snake.grow();
 			highscore.increaseValue();
 			if (highscore.getValue()%20==0 || highscore.getValue() ==0){
 				yin.generateRandomPosition();
@@ -106,7 +106,7 @@ public class GamePresenter {
 			food.generateRandomPosition();
 		}
 		
-		if(snake.getX() == yin.getX() && snake.getY() == yin.getY())
+		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
 		{
 			highscore.increaseSpecialValue();
 			if (highscore.getValue()%20 == 0){

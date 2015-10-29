@@ -1,8 +1,10 @@
 package game.view;
 
 import game.model.GameModel;
+import game.model.SnakePartModel;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -23,55 +25,39 @@ import javafx.scene.text.Font;
 public class GameView extends Pane{
 	
 	private Pane highscorePane;
-	private Group snakeGroup;
-	private ObservableList<Node> snakeBody;
 	public GameView(GameModel model) {
+		
+		
 
-		snakeGroup = new Group();
-		snakeBody = snakeGroup.getChildren();
-			
+//		Group snakeGroup = new Group();
+		Pane snakePane = new Pane(); 
+		
 //		Image imageSnake = new Image("file:src/images/snakePart.jpg", 20, 20, true, true);
 //		ImageView ivSnake = new ImageView();
 //		ivSnake.setImage(imageSnake);
 		
 		Rectangle snakeHead = new Rectangle(20, 20);
 		snakeHead.setFill(Color.GREEN);
-		snakeBody.add(snakeHead);
 		
-		snakeGroup.translateXProperty().bind(new IntegerBinding() {
-			{bind(model.getSnake().getXProperty());}
-
-			@Override
-			protected int computeValue() {
-				if(model.getSnake().getSnakeGrow())
+		snakePane.getChildren().add(snakeHead);
+		
+		bindSnakePart(model.getSnake().getHead(), snakeHead);
+		
+		model.getSnake().getList().addListener(new ListChangeListener<SnakePartModel>()
 				{
-					int dir =model.getSnake().snakeGrowth();
-					Rectangle snakePart = new Rectangle(dir*20,0,20,20);
-					snakePart.setFill(Color.GREEN);
-					snakeBody.add(0,snakePart);
-					snakeGroup.autosize();
-					model.getSnake().setSnakeGrow(false);
-				}
-				return model.getSnake().getX()*20;
-			}});
 
-		snakeGroup.translateYProperty().bind(new IntegerBinding() {
-			{bind(model.getSnake().getYProperty());}
-
-			@Override
-			protected int computeValue() {
-				if(model.getSnake().getSnakeGrow())
-				{
-					int dir =model.getSnake().snakeGrowth();
-					Rectangle snakePart = new Rectangle(0,dir*20,20,20);
-					snakePart.setFill(Color.GREEN);
-					snakeBody.add(0,snakePart);
-					snakeGroup.autosize();
-					model.getSnake().setSnakeGrow(false);
-				}
-				return model.getSnake().getY() *20;
-			}
-		});
+					@Override
+					public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
+						while(c.next()){
+							Rectangle snakePartView = new Rectangle(20, 20);
+							snakePartView.setFill(Color.GREEN);
+							SnakePartModel newPart = c.getAddedSubList().get(0);
+							bindSnakePart(newPart, snakePartView);
+							snakePane.getChildren().add(snakePartView);
+							System.out.println(snakePane.getChildren().size());
+						}
+					}
+				});
 
 		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
 
@@ -140,8 +126,8 @@ public class GameView extends Pane{
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().add(highscore);
 		
-		Pane snakePane = new Pane();
-		snakePane.getChildren().addAll(snakeGroup);
+		
+		
 
 
 		Pane imagePane = new Pane();
@@ -156,15 +142,28 @@ public class GameView extends Pane{
 		this.getChildren().addAll(snakePane,imagePane,highscorePane);
 	}
 
+	private void bindSnakePart(SnakePartModel snakePart, Rectangle snakePartView) {
+		snakePartView.xProperty().bind(new IntegerBinding() {
+			{bind(snakePart.getXProperty());}
+
+			@Override
+			protected int computeValue() {
+
+				return snakePart.getX()*20;
+			}});
+
+		snakePartView.yProperty().bind(new IntegerBinding() {
+			{bind(snakePart.getYProperty());}
+
+			@Override
+			protected int computeValue() {
+				return snakePart.getY() *20;
+			}
+		});
+	}
+
 	public Pane getHighscorePane()
 	{
 		return highscorePane;
 	}
-	
-	public ObservableList<Node> snakeBody()
-	{
-		return snakeBody; 
-	}
-	
-	
 }

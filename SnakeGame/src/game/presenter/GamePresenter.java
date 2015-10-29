@@ -6,6 +6,7 @@ import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.HighscoreModel;
 import game.model.SnakeModel;
+import game.model.SnakePartModel;
 import game.model.SnakeModel.Direction;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
@@ -44,6 +45,14 @@ public class GamePresenter {
 		snake.increaseValue();
 			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 				snakeDead(scene, view);
+			}
+			
+			for(SnakePartModel currentPart : snake.getList())
+			{
+				if(snake.getHead().getX() == currentPart.getX() && snake.getHead().getY() == currentPart.getY())
+				{
+					snakeDead(scene, view);
+				}
 			}
 	}
 

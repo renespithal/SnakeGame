@@ -24,7 +24,7 @@ public class MultiplayerScene extends MyScene{
 
 	@Override
 	protected void createPresenter() {
-		parent.setTitle("Multiplayer");
+		parent.setTitle("Snake Multiplayer");
 		presenter = new MultiplayerPresenter(view, parent);
 		
 	}

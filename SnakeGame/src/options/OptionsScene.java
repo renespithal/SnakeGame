@@ -1,6 +1,6 @@
 package options;
 
-import framework.MyScene;
+import framework.MyScene; 
 import javafx.scene.Parent;
 import options.Presenter.OptionsPresenter;
 import options.view.OptionsView;
@@ -13,7 +13,6 @@ public class OptionsScene extends MyScene {
 	@Override
 	protected void createModel() {
 		// No model yet
-		
 	}
 
 	@Override

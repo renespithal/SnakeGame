@@ -21,8 +21,6 @@ public class CloseView extends VBox{
 		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(20));
 		titleLabel.setTextFill(Color.GREEN);
-		Border border = new Border(new BorderStroke(Color.GREEN, null, null, null));
-		titleLabel.setBorder(border);
 		
 		backButton = new Button("NOOOOOOOO!!!");
 		backButton.setAlignment(Pos.CENTER);

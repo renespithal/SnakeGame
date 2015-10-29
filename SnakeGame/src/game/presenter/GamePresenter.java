@@ -32,7 +32,7 @@ public class GamePresenter {
 		// TODO create loop properly:
 		snakeMovement = new KeyFrame(Duration.seconds(0.1),
 				e -> moveSnake(model.getSnake(),scene,view));
-		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.get()));
+		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
 //		bonusFood = new KeyFrame(Duration.seconds(5), e-> bonusFoodEffect(model.getYinYang()));
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
@@ -42,7 +42,7 @@ public class GamePresenter {
 
 	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
 		snake.increaseValue();
-			if (snake.getY() < 0 || snake.getY() > 23 || snake.getX() < 0 || snake.getX() > 24) {
+			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 23 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 				snakeDead(scene, view);
 			}
 			
@@ -104,13 +104,13 @@ public class GamePresenter {
 
 	private void checkCollision(SnakeModel snake, FoodModel food, YinYangFoodModel yin,HighscoreModel highscore) {
 		
-		if(snake.getX() == food.getX() && snake.getY() == food.getY())
+		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
 		{
 			highscore.increaseValue();
 			food.generateRandomPosition();
 		}
 		
-		if(snake.getX() == yin.getX() && snake.getY() == yin.getY())
+		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
 		{
 			highscore.increaseSpecialValue();
 			yin.generateRandomPosition();

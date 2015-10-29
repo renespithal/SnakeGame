@@ -1,6 +1,6 @@
 package welcome;
 
-import framework.MyScene;
+import framework.MyScene;  
 import javafx.scene.Parent;
 import welcome.presenter.WelcomePresenter;
 import welcome.view.WelcomeView;
@@ -22,7 +22,7 @@ public class WelcomeScene extends MyScene{
 
 	@Override
 	protected void createPresenter() {
-		parent.setTitle("Welcome to Snake");
+		parent.setTitle("YinYanYolo Snake");
 		presenter = new WelcomePresenter(view, parent);
 	}
 

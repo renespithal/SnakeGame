@@ -4,11 +4,11 @@ package game.presenter;
 import game.GameScene;
 import game.model.FoodModel;
 import game.model.GameModel;
-import game.model.HighscoreModel;
 import game.model.SnakeModel;
 import game.model.SnakeModel.Direction;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
+import highscore.model.HighscoreModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -46,7 +46,7 @@ public class GamePresenter {
 			}
 	}
 
-	private void snakeDead(Scene scene, GameView view) {
+	private void snakeDead(Scene scene, GameView view ) {
 		stopLoop();
 		view.getHighscorePane().setVisible(true);
 		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));

@@ -1,5 +1,7 @@
 package game.model;
 
+import highscore.model.HighscoreModel;
+
 public class GameModel {
 	
 	private SnakeModel snake;

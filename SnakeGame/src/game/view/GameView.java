@@ -1,6 +1,6 @@
 package game.view;
 
-import game.model.GameModel;
+import game.model.GameModel; 
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.geometry.Pos;
@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -81,7 +81,7 @@ public class GameView extends Pane{
 		});
 		food.setFill(Color.RED);
 				
-		HBox hBox = new HBox(); 
+		VBox vBox = new VBox(); 
 		Label highscore = new Label();
 		highscore.textProperty().bind(new StringBinding() {
 			{ bind(model.getHighscore().getValueProperty()); }
@@ -92,9 +92,10 @@ public class GameView extends Pane{
 			}
 		});
 		highscore.setFont(new Font(40));
+		highscore.setAlignment(Pos.TOP_CENTER);
 
-		hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().add(highscore);
+
+		vBox.getChildren().add(highscore);
 		
 	
 		Pane snakePane = new Pane();
@@ -104,7 +105,7 @@ public class GameView extends Pane{
 		foodPane.getChildren().addAll(food,yin);
 		
 		highscorePane = new StackPane(); 
-		highscorePane.getChildren().add(hBox);
+		highscorePane.getChildren().add(vBox);
 		highscorePane.setVisible(false);
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		highscorePane.autosize();

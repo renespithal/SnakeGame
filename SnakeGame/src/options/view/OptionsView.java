@@ -20,9 +20,9 @@ public class OptionsView extends VBox {
 	private ComboBox<String> SpeedBox = new ComboBox<String>();    //Geschwindigkeit
 	private ComboBox<String> ColorBox = new ComboBox<String>();    //Farbe der Schlange
 	
-	/*ComboBox<String> LifeBox = new ComboBox<String>();   // Leben der Schlange (brauchen wir nicht unbedingt)
+	/*private ComboBox<String> LifeBox = new ComboBox<String>();   // Leben der Schlange (brauchen wir nicht unbedingt)
 	 * 
-	 *ComboBox<String> StageBox = new ComboBox<String>();  // Hintergrund aussuchen (brauchen wir nicht unbedingt)
+	 *private ComboBox<String> StageBox = new ComboBox<String>();  // Hintergrund aussuchen (brauchen wir nicht unbedingt)
 	 */
 	/*ChoiceBox music = new ChoiceBox();
 	 music.getItems().addAll("on", "off"); */
@@ -32,13 +32,12 @@ public class OptionsView extends VBox {
 		titleLabel = new Label("Welcome to Options");
 		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(32));
-		titleLabel.setTextFill(Color.GREEN);
-		Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.SOLID, null, null));
+		titleLabel.setTextFill(Color.CORNFLOWERBLUE);
+		Border border = new Border(new BorderStroke(Color.CORNFLOWERBLUE, BorderStrokeStyle.DOTTED, null, null));
 		titleLabel.setBorder(border);
 		
 		backButton = new Button("back to menu");
 		backButton.setAlignment(Pos.BOTTOM_CENTER);
-//		backButton.setOnAction(e->returnToWelcomeWindow());
 
 		SpeedBox.getItems().addAll("Fast","Normal","Slow");	
         SpeedBox.setValue("Normal");

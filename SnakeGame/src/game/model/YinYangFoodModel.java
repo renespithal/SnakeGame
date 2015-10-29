@@ -1,5 +1,6 @@
 package game.model;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 /**
@@ -9,6 +10,7 @@ public class YinYangFoodModel {
 
 	private SimpleIntegerProperty x = new SimpleIntegerProperty();
 	private SimpleIntegerProperty y = new SimpleIntegerProperty();
+	private SimpleBooleanProperty visible = new SimpleBooleanProperty(false); 
 		
 	public YinYangFoodModel()
 	{
@@ -16,7 +18,7 @@ public class YinYangFoodModel {
 	}
 	public void generateRandomPosition() {
 		x.set((int)(Math.floor(Math.random()*24+1)));
-		y.set((int)(Math.floor(Math.random()*23+1)));
+		y.set((int)(Math.floor(Math.random()*24+1)));
 		
 	}
 	public void deletePosition(){
@@ -47,5 +49,19 @@ public class YinYangFoodModel {
 	
 	public void setYProperty(SimpleIntegerProperty y) {
 		this.y = y;
+	}
+	
+	public SimpleBooleanProperty getVisibleProperty() {
+		return visible;
+	}
+	
+	public void setVisible(boolean isVisible)
+	{
+		visible.set(isVisible);
+	}
+	
+	public Boolean getVisible()
+	{
+		return visible.get();
 	}
 }

@@ -5,8 +5,8 @@ import game.GameScene;
 import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.SnakeModel;
-import game.model.SnakePartModel;
 import game.model.SnakeModel.Direction;
+import game.model.SnakePartModel;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
 import highscore.model.HighscoreModel;
@@ -19,28 +19,32 @@ import javafx.util.Duration;
 import welcome.WelcomeScene;
 
 public class GamePresenter {
-	private GameModel model;
-	private GameView view;
 	private Timeline loop;
+	private Timeline bonusLoop;
 	private KeyFrame snakeMovement;
-	private KeyFrame bonusFood;
+	private KeyFrame bonusFoodShow;
+	private KeyFrame bonusFoodHide;
 	private KeyFrame collision;
+	private Direction direction;
+	
 	public GamePresenter(GameModel model, GameView view, GameScene scene) {
-		this.model = model;
-		this.view = view;
-
-		// TODO create loop properly:
+		direction = model.getSnake().getDirection();
+		scene.setOnKeyPressed(e -> moveSnakeControl(e, model.getSnake()));
+		
 		snakeMovement = new KeyFrame(Duration.seconds(0.1),
 				e -> moveSnake(model.getSnake(),scene,view));
 		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
-//		bonusFood = new KeyFrame(Duration.seconds(5), e-> bonusFoodEffect(model.getYinYang()));
+		bonusFoodShow = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> bonusFoodShow(model.getYinYang()));
+		bonusFoodHide = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->bonusFoodHide(model.getYinYang()));
+		bonusLoop = new Timeline(bonusFoodShow,bonusFoodHide);
+		bonusLoop.setCycleCount(Timeline.INDEFINITE);
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
 
-		scene.setOnKeyPressed(e -> moveSnakeControl(e, model.getSnake()));
 	}
 
 	private void moveSnake(SnakeModel snake,Scene scene, GameView view) {
+		snake.setDirection(direction);
 		snake.increaseValue();
 			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 				snakeDead(scene, view);
@@ -72,28 +76,28 @@ public class GamePresenter {
 		case UP:
 
 			if (snake.getDirection() != Direction.DOWN) {
-				snake.setDirection(Direction.UP);
+				direction = Direction.UP;
 			}
 			break;
 
 		case DOWN:
 
 			if (snake.getDirection() != Direction.UP) {
-				snake.setDirection(Direction.DOWN);
+				direction = Direction.DOWN;
 			}
 			break;
 
 		case LEFT:
 
 			if (snake.getDirection() != Direction.RIGHT) {
-				snake.setDirection(Direction.LEFT);
+				direction = Direction.LEFT;
 			}
 			break;
 
 		case RIGHT:
 
 			if (snake.getDirection() != Direction.LEFT) {
-				snake.setDirection(Direction.RIGHT);
+				direction = Direction.RIGHT;
 			}
 			break;
 		default:
@@ -108,31 +112,79 @@ public class GamePresenter {
 		{
 			snake.grow();
 			highscore.increaseValue();
-			food.generateRandomPosition();
+			generateFood(snake,food,yin);
 		}
 		
 		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
 		{
 			highscore.increaseSpecialValue();
-			yin.generateRandomPosition();
+			yin.setVisible(false);
+			generateYin(snake, yin,food);
 		}
 	}
 	
-//	private void bonusFoodEffect(YinYangFoodModel yin)
-//	{
-//		  FadeTransition t = new FadeTransition(Duration.seconds(4),yin.getYin().getRectangle());
-//	        t.setFromValue(0);
-//	        t.setToValue(90);
-//	        t.setCycleCount(Transition.INDEFINITE);
-//	        t.setAutoReverse(false);
-//	        t.setInterpolator(Interpolator.LINEAR);
-//	        t.play();
-//	}
+	private void bonusFoodShow(YinYangFoodModel yin)
+	{
+		  yin.setVisible(true);
+		  
+	}
+	
+	private void bonusFoodHide(YinYangFoodModel yin)
+	{
+		yin.setVisible(false);
+	}
+	
+	private void generateFood(SnakeModel snake,FoodModel food,YinYangFoodModel yin)
+	{
+		food.generateRandomPosition();
+		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
+		{
+			food.generateRandomPosition();
+		}
+		
+		for(SnakePartModel currentPart : snake.getList())
+		{
+			if(food.getX() == currentPart.getX() && food.getY() == currentPart.getY())
+			{
+				food.generateRandomPosition();
+			}
+		}
+		
+		if(food.getX() == yin.getX() && food.getY() == yin.getY())
+		{
+			food.generateRandomPosition();
+		}
+	}
+	
+	private void generateYin(SnakeModel snake,YinYangFoodModel yin,FoodModel food)
+	{
+		yin.generateRandomPosition();
+		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
+		{
+			yin.generateRandomPosition();
+		}
+		
+		for(SnakePartModel currentPart : snake.getList())
+		{
+			if(yin.getX() == currentPart.getX() && yin.getY() == currentPart.getY())
+			{
+				yin.generateRandomPosition();
+			}
+		}
+		
+		if(food.getX() == yin.getX() && food.getY() == yin.getY())
+		{
+			food.generateRandomPosition();
+		}
+	}
+	
 	public void startLoop() {
 		loop.play();
+		bonusLoop.play();
 	}
 
-	public void stopLoop() {
+	private void stopLoop() {
 		loop.stop();
+		bonusLoop.stop();
 	}
 }

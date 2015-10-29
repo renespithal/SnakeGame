@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Duration;
 
 /**
 
@@ -13,9 +14,10 @@ import javafx.collections.ObservableList;
 
 public class SnakeModel {
 
-	private Direction direction;
+	private Duration duration;
 	private ObservableList<SnakePartModel> list = FXCollections.observableList(new LinkedList<SnakePartModel>());
 	private SnakePartModel head = new SnakePartModel(0,0);
+	private Direction direction;
 	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -23,7 +25,7 @@ public class SnakeModel {
 	
 	public SnakeModel()
 	{
-		this.setDirection(Direction.RIGHT);
+		direction = Direction.RIGHT;
 	}
 	
 	public Direction getDirection() {
@@ -82,5 +84,13 @@ public class SnakeModel {
 	
 	public ObservableList<SnakePartModel> getList() {
 		return list;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
 	}
 }

@@ -13,7 +13,7 @@ public class FoodModel {
 	}
 	public void generateRandomPosition() {
 		x.set((int)(Math.floor(Math.random()*24+1)));
-		y.set((int)(Math.floor(Math.random()*23+1)));
+		y.set((int)(Math.floor(Math.random()*24+1)));
 
 	}
 	public SimpleIntegerProperty getXProperty() {

@@ -31,7 +31,7 @@ public class GamePresenter {
 		// TODO create loop properly:
 		snakeMovement = new KeyFrame(Duration.seconds(0.1),
 				e -> moveSnake(model.getSnake(),scene,view));
-		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
+		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.get()));
 //		bonusFood = new KeyFrame(Duration.seconds(5), e-> bonusFoodEffect(model.getYinYang()));
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);

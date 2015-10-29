@@ -1,9 +1,9 @@
 package game.model;
 
-import javafx.beans.property.SimpleIntegerProperty;
+import java.util.LinkedList;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
-import javafx.scene.Node;
 
 /**
 
@@ -14,13 +14,8 @@ import javafx.scene.Node;
 public class SnakeModel {
 
 	private Direction direction;
-	private SimpleIntegerProperty x = new SimpleIntegerProperty();
-	private SimpleIntegerProperty y = new SimpleIntegerProperty();
-	
-
-	Group snakeBody;
-	
-	private ObservableList<Node> snake;
+	private ObservableList<SnakePartModel> list = FXCollections.observableList(new LinkedList<SnakePartModel>());
+	private SnakePartModel head = new SnakePartModel(0,0);
 	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -29,21 +24,8 @@ public class SnakeModel {
 	public SnakeModel()
 	{
 		this.setDirection(Direction.RIGHT);
-		
-		snakeBody = new Group();
-
-		snake = snakeBody.getChildren();
-		
-		System.out.println("neue schlange");
-		
-		
 	}
-
-	public ObservableList<Node> getObservableList()
-	{
-		return snake;
-	}	
-
+	
 	public Direction getDirection() {
 		return direction;
 	}
@@ -51,40 +33,54 @@ public class SnakeModel {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
-
-	public SimpleIntegerProperty getYProperty() {
-		return y;
-	}
-
-	public SimpleIntegerProperty getXProperty() {
-		return x;
-	}
-	
-	public int getX(){
-		return x.get();
-	}
-	
-	public int getY(){
-		return y.get();
-	}
 	
 	public void increaseValue()
 	{
+		int oldX = head.getX();
+		int oldY = head.getY();
+		
 		if(direction == Direction.UP)
 		{
-			y.set(y.get() -1);
+			head.setY(head.getY() -1);
 		}
 		else if(direction == Direction.DOWN){
-			y.set(y.get() +1);
+			head.setY(head.getY() +1);
 		}
 		else if(direction == Direction.LEFT)
 		{
-			x.set(x.get()-1);
+			head.setX(head.getX()-1);
 		}
 		else if (direction == Direction.RIGHT)
 		{
-			x.set(x.get() +1);
+			head.setX(head.getX() +1);
+		}
+		
+		//Update the rest of the snake by iterating the list
+		int tempX, tempY;
+		for(SnakePartModel currentPart : list){
+			tempX = currentPart.getX();
+			tempY = currentPart.getY();
+			
+			currentPart.setX(oldX);
+			currentPart.setY(oldY);
+			
+			oldX = tempX;
+			oldY = tempY;
 		}
 	}
 	
+	public SnakePartModel getHead()
+	{
+		return head;
+	}
+	
+	public void grow()
+	{
+		SnakePartModel tail = list.isEmpty() ? head : list.get(list.size()-1);
+		list.add(new SnakePartModel(tail.getX(),tail.getY()));
+	}
+	
+	public ObservableList<SnakePartModel> getList() {
+		return list;
+	}
 }

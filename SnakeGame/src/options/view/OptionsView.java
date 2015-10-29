@@ -17,8 +17,8 @@ public class OptionsView extends VBox {
 	private Label titleLabel;
 	private Button backButton;
 	private BorderPane borderPane;
-	private ComboBox<String> SpeedBox = new ComboBox<String>();    //Geschwindigkeit
-	private ComboBox<String> ColorBox = new ComboBox<String>();    //Farbe der Schlange
+	private ComboBox<String> speedBox = new ComboBox<String>();    //Geschwindigkeit
+	private ComboBox<String> colorBox = new ComboBox<String>();    //Farbe der Schlange
 	
 	/*private ComboBox<String> LifeBox = new ComboBox<String>();   // Leben der Schlange (brauchen wir nicht unbedingt)
 	 * 
@@ -39,11 +39,11 @@ public class OptionsView extends VBox {
 		backButton = new Button("back to menu");
 		backButton.setAlignment(Pos.BOTTOM_CENTER);
 
-		SpeedBox.getItems().addAll("Fast","Normal","Slow");	
-        SpeedBox.setValue("Normal");
+		speedBox.getItems().addAll("Fast","Normal","Slow");	
+        speedBox.setValue("Normal");
         
-        ColorBox.getItems().addAll("Green","Red","Blue","Black"); // Farbe der Schalnge
-        ColorBox.setValue("Green");
+        colorBox.getItems().addAll("Green","Red","Blue","Black"); // Farbe der Schalnge
+        colorBox.setValue("Green");
         
        /* LifeBox.getItems().addAll("1","2","3","4","5"); // brauchen wir nicht unbedingt
         LifeBox.setValue("3");
@@ -58,7 +58,7 @@ public class OptionsView extends VBox {
         border.setRight(addvBox());
         border.setBottom(node);*/
         
-		this.getChildren().addAll(titleLabel,SpeedBox,ColorBox,backButton);
+		this.getChildren().addAll(titleLabel,speedBox,colorBox,backButton);
 		this.setAlignment(Pos.CENTER);
 		this.setSpacing(30);
 		

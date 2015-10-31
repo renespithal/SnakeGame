@@ -3,10 +3,14 @@ package highscore.model;
 import javafx.beans.property.IntegerProperty; 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+
 
 public class HighscoreModel {
-	
+
+
 private SimpleIntegerProperty highscoreValue = new SimpleIntegerProperty(0);
+private StringProperty playername = new SimpleStringProperty();
 
 //private StringProperty name = new StringProperty();
 
@@ -23,11 +27,18 @@ private SimpleIntegerProperty highscoreValue = new SimpleIntegerProperty(0);
 	public int getValue(){
 		return highscoreValue.get();
 	}
+
+	public String getPlayername() {
+		return playername.get();
+	}
+
+	public StringProperty playernameProperty() {
+		return playername;
+	}
 	
 	/*public StringProperty strProperty() {
 		//
 	}*/
-	       
 	
 	
 	public IntegerProperty getValueProperty(){

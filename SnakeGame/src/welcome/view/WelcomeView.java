@@ -3,16 +3,18 @@ package welcome.view;
 import javafx.geometry.Pos;  
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-/*import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;*/
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 
-public class WelcomeView extends VBox{
+
+public class WelcomeView extends BorderPane{
+
+	//Controls
 	private Label titleLabel;
 	private Button startButton;
 	private Button optionsButton;
@@ -21,7 +23,17 @@ public class WelcomeView extends VBox{
 	private Button highscoreButton;
 	
 	public WelcomeView() {
-		
+
+		//Images
+		Image logo1 = new Image("file:src/images/yin.png", 50, 50,true,true);
+		ImageView ivlogo1 = new ImageView();
+		ivlogo1.setImage(logo1);
+
+		Image logo2 = new Image("file:src/images/yin.png", 50, 50,true,true);
+		ImageView ivlogo2 = new ImageView();
+		ivlogo2.setImage(logo2);
+
+		//Title
 		titleLabel = new Label("Welcome to Snake");
 		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(32));
@@ -29,6 +41,7 @@ public class WelcomeView extends VBox{
 		Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, null, null));
 		titleLabel.setBorder(border);
 
+		//Create Controls
 		multiplayerButton = new Button ("Multiplayer");
 		multiplayerButton.setAlignment(Pos.CENTER);
 		multiplayerButton.setMaxWidth(100);
@@ -48,13 +61,18 @@ public class WelcomeView extends VBox{
 		exitButton = new Button("Exit Game");
 		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(100);
-		
-		/*Image img = new Image ("yinyanyolo.jpg");
-		ImageView imgView = new ImageView(img);*/
-	
-		this.getChildren().addAll(titleLabel,startButton,multiplayerButton,optionsButton,highscoreButton,exitButton);
-		this.setAlignment(Pos.CENTER);
-		this.setSpacing(10);
+
+		//Create Boxes
+		HBox hBox = new HBox(ivlogo1,titleLabel,ivlogo2);
+		hBox.setAlignment(Pos.CENTER);
+
+		VBox vBox1 = new VBox(hBox,startButton,multiplayerButton,optionsButton,highscoreButton,exitButton);
+		vBox1.setAlignment(Pos.CENTER);
+		vBox1.setSpacing(10);
+
+		//add Boxes to BorderPane
+		this.setCenter(vBox1);
+
 	}
 	
 	public Button getStartButton(){

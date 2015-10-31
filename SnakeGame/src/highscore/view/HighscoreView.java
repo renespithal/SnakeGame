@@ -1,139 +1,146 @@
 package highscore.view;
 
+import javafx.beans.binding.Binding;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos; 
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.*;
 import highscore.model.HighscoreModel;
+import javafx.util.converter.NumberStringConverter;
 
 
-public class HighscoreView extends BorderPane{
-	
+public class HighscoreView extends BorderPane {
+
 	private HighscoreModel model;
-		
+
 	private Label titleLabel;
-    TextField namefield;
-    TextField txtname;
+	private Label playerLabel;
+	private TextField playername;
 	private Button getbackButton;
+	//private Button playButton;
 	private Button clearButton;
 	private Button saveButton;
-	//TextArea writename;
-	
+
 	TableView<HighscoreModel> highscoreTable;
-	TableColumn<HighscoreModel, String> name ;
-	TableColumn<HighscoreModel, Integer> highscore ;
-	
-	public HighscoreView ()
-	{
+	TableColumn<HighscoreModel, String> player;
+	TableColumn<HighscoreModel, Integer> highscore;
+
+	public HighscoreView() {
+
+		//Images
+		Image logo1 = new Image("file:src/images/yin.png", 50, 50, true, true);
+		ImageView ivlogo1 = new ImageView();
+		ivlogo1.setImage(logo1);
+
+		Image logo2 = new Image("file:src/images/yin.png", 50, 50, true, true);
+		ImageView ivlogo2 = new ImageView();
+		ivlogo2.setImage(logo2);
+
+
+		//Controls
 		titleLabel = new Label("Highscore");
 		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.GOLD);
-		Border border = new Border(new BorderStroke(Color.GOLD, BorderStrokeStyle.DOTTED,null, null));
+		Border border = new Border(new BorderStroke(Color.GOLD, BorderStrokeStyle.DOTTED, null, null));
 		titleLabel.setBorder(border);
-		
-		TextField namefield = new TextField("Enter Name: ");
-		namefield.setAlignment(Pos.TOP_CENTER);
-		
-		txtname = new TextField();
-		txtname.setAlignment(Pos.CENTER);
-		txtname.setMaxWidth(200);
-		
-		//writename = new TextArea();
-		
-	    saveButton = new Button("Save");
-	    saveButton.setAlignment(Pos.CENTER);
-		saveButton.setMaxWidth(200);
-		
-	    clearButton = new Button("Clear");
-	    clearButton.setAlignment(Pos.CENTER);
-		clearButton.setMaxWidth(200);
-			
+
+
+		//Create Controls
+		playerLabel = new Label("Enter Player Name:");
+		playername = new TextField();
+		saveButton = new Button("Save Highscore");
+		clearButton = new Button("Clear Table");
 		getbackButton = new Button("back to menu");
-		getbackButton.setAlignment(Pos.CENTER);
-		getbackButton.setMaxWidth(200);
-		
-		/*GridPane gridPane = new GridPane();
-	    gridPane.setHgap(10);
-	    gridPane.setVgap(5);
-	    gridPane.add(namefield, 1, 1);
-	    gridPane.add(txtname, 1, 0, 10, 1);
-	    gridPane.add(saveButton, 0, 2);
-	    gridPane.add(clearButton,1, 2);
-	    gridPane.add(getbackButton, 2, 2);*/
-	    
-	    highscoreTable = new TableView<HighscoreModel>();
+		//playButton = new Button ("Play Again");
+		highscoreTable = new TableView<>();
 
-	    name = new TableColumn<HighscoreModel, String>("Name");
-	    name.setMaxWidth(100);
-	    name.setCellValueFactory(new PropertyValueFactory<HighscoreModel, String>("Name"));
 
-	    highscore = new TableColumn<HighscoreModel, Integer>("Highscore");
-	    highscore.setMinWidth(100);
-	    highscore.setCellValueFactory(new PropertyValueFactory<HighscoreModel, Integer>("Highscore"));
-	    
-	    /*VBox vBox = new VBox(); 
-		Label highscore = new Label();
-		highscore.textProperty().bind(new StringBinding() {
-			{ bind(model.getHighscore().getValueProperty()); }
-			
-			@Override
-			protected String computeValue() {
-				return "Highscore: "+model.getHighscore().getValue();
-			}*/
+		//Create Table
+		player = new TableColumn<>("Player");
+		player.setMinWidth(150);
+		player.setCellValueFactory(new PropertyValueFactory<>("Player"));
+		player.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().playernameProperty());
 
-	    highscoreTable.getColumns().addAll(name, highscore);
-	   
-	    VBox vBox = new VBox();
-        vBox.getChildren().addAll(highscoreTable);
-	    
-	    HBox hBox = new HBox();
-        hBox.getChildren().addAll(namefield, txtname, saveButton, clearButton,vBox);
-	    
-  
-       /* Label label1 = new Label("Name:");
-        TextField textField = new TextField ();
-        HBox hb = new HBox();
-        hb.getChildren().addAll(label1, textField);
-        hb.setSpacing(10);*/
-        
-        
-        // Add the HBox and GridPane to the BorderPane
-        this.setTop(titleLabel);
-        this.setCenter(vBox);
-        this.setBottom(getbackButton);
-        
+		highscore = new TableColumn<>("Highscore");
+		highscore.setMinWidth(350);
+		highscore.setCellValueFactory(new PropertyValueFactory<>("Highscore"));
+
+		highscoreTable.getColumns().addAll(player, highscore);
+
+
+		//Create boxes
+		HBox hbox1 = new HBox(ivlogo2,titleLabel,ivlogo1);
+		hbox1.setAlignment(Pos.CENTER);
+
+		HBox hBox2 = new HBox(8);
+		hBox2.setAlignment(Pos.CENTER);
+		hBox2.getChildren().addAll(playerLabel, playername, saveButton, clearButton);
+
+
+		VBox vBox1 = new VBox(highscoreTable, hBox2);
+		VBox vBox2= new VBox (getbackButton);
+		vBox2.setAlignment(Pos.CENTER);
+
+
+		// add Boxes to BorderPane
+		this.setTop(hbox1);
+		this.setCenter(vBox1);
+		this.setBottom(vBox2);
 
 	}
-		
-	public TableView<HighscoreModel> gethighscoreTable() 
-	{
-	    return highscoreTable;
-    }
-	
-	public Button saveButton()
-	{
+
+	public TableView<HighscoreModel> gethighscoreTable() {
+		return highscoreTable;
+	}
+
+
+	/*public void binding (HighscoreModek model){
+		playername.textProperty().bind(new StringBinding(){
+			{bind(model.getValueProperty());}
+
+			@Override
+			protected String computeValue() {
+				return model.getValue
+			}
+		});
+
+	}*/
+	/*highscore.textProperty().bind(new StringBinding() {
+			{
+				bind(model.getValueProperty());
+			}
+
+			@Override
+			protected String computeValue() {
+				return "Highscore: " + model.getValue();
+			}
+		};
+	*/
+
+	public Button saveButton() {
 		return saveButton;
 	}
 	 
-	public Button clearButton()
-	{
+	public Button clearButton() {
 		return clearButton;
 	}
+
+	/*public Button playButton(){
+		return playButton;
+	}*/
 	
-	public Button getBackButton()
-	{
+	public Button getBackButton() {
 		return getbackButton;
 	}
 		

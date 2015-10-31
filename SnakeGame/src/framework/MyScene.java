@@ -11,6 +11,7 @@ public abstract class MyScene extends Scene {
 	public MyScene() {
 		super(new HBox(),500,500);
 	}
+
 	
 	public void init(){
 		createModel();

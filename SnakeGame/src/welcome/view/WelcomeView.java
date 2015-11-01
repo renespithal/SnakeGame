@@ -1,6 +1,9 @@
 package welcome.view;
 
-import javafx.geometry.Pos;  
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.Transition;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -10,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 
 
 public class WelcomeView extends BorderPane{
@@ -24,14 +28,23 @@ public class WelcomeView extends BorderPane{
 	
 	public WelcomeView() {
 
+		//Background
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background2.jpg",600,600,false,false),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
+
 		//Images
-		Image logo1 = new Image("file:src/images/yin.png", 50, 50,true,true);
+		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50,true,true);
 		ImageView ivlogo1 = new ImageView();
 		ivlogo1.setImage(logo1);
 
-		Image logo2 = new Image("file:src/images/yin.png", 50, 50,true,true);
+		Image logo2 = new Image("file:src/images/yinyan1.png", 50, 50,true,true);
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
+
+		//Animation
+		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
+		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
 		//Title
 		titleLabel = new Label("Welcome to Snake");
@@ -72,9 +85,34 @@ public class WelcomeView extends BorderPane{
 
 		//add Boxes to BorderPane
 		this.setCenter(vBox1);
+		this.setBackground(new Background(backgrd));
 
 	}
-	
+	//Animation
+	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
+
+		RotateTransition t = new RotateTransition(duration, logo1);
+		t.setFromAngle(0);
+		t.setToAngle(360);
+		t.setCycleCount(Transition.INDEFINITE);
+		t.setAutoReverse(false);
+		t.setInterpolator(interpolator);
+		t.play();
+
+	}
+
+	public void rotate2(ImageView logo2, Duration duration, Interpolator interpolator) {
+
+		RotateTransition t = new RotateTransition(duration, logo2);
+		t.setFromAngle(0);
+		t.setToAngle(360);
+		t.setCycleCount(Transition.INDEFINITE);
+		t.setAutoReverse(false);
+		t.setInterpolator(interpolator);
+		t.play();
+
+	}
+
 	public Button getStartButton(){
 		return startButton;
 	}

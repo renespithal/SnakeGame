@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import multiplayer.MultiplayerScene;
 import options.OptionsScene;
 import welcome.view.WelcomeView;
+import highscore.HighscoreScene;
 
 public class WelcomePresenter {
 	
@@ -14,7 +15,7 @@ public class WelcomePresenter {
 		view.getStartButton().setOnAction(e->showGameScene(stage));
 		view.getMultiplayerButton().setOnAction(e->showMultiplayerScene(stage));
 		view.getOptionsButton().setOnAction(e->showOptionsScene(stage));
-//		view.getHighscoreButton().setOnAction(e-> showHighscoreScene (stage));
+     	view.getHighscoreButton().setOnAction(e-> showHighscoreScene (stage));
 		view.getExitButton().setOnAction(e->exitGame(stage));
 	}
 
@@ -32,10 +33,10 @@ public class WelcomePresenter {
 		(new OptionsScene()).show(stage);
 	}
 	
-//	private void showHighscoreScene (Stage stage)
-//	{
-//		(new HighscoreScene()).show(stage);
-//	}
+	private void showHighscoreScene (Stage stage)
+	{
+		(new HighscoreScene()).show(stage);
+	}
 	
 	private void exitGame(Stage stage)
 	{

@@ -2,23 +2,23 @@ package game.view;
 
 import game.model.GameModel;
 import game.model.SnakePartModel;
+import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 public class GameView extends Pane{
 	
@@ -51,10 +51,11 @@ public class GameView extends Pane{
 					}
 				});
 
-		Image imageYin = new Image("file:src/images/Yin.png", 20, 20, true, true);
+		Image imageYin = new Image("file:src/images/yinyan2.png", 20, 20, true, true);
 		ImageView ivYin = new ImageView();
 		ivYin.setImage(imageYin);
 
+		fade(ivYin, Duration.millis(1000), Interpolator.TANGENT(Duration.millis(0),100));
 
 		ivYin.xProperty().bind(new IntegerBinding() {
 			{bind(model.getYinYang().getXProperty());}
@@ -87,7 +88,7 @@ public class GameView extends Pane{
 			
 		});
 
-		Image imageFood = new Image("file:src/images/Apple.jpg", 20, 20, true, true);
+		Image imageFood = new Image("file:src/images/apple2.png", 20, 20, true, true);
 		ImageView ivFood = new ImageView();
 		ivFood.setImage(imageFood);
 
@@ -158,7 +159,24 @@ public class GameView extends Pane{
 				return snakePart.getY() *20;
 			}
 		});
+		//this.setBackground(new Background(new BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+
 	}
+
+	public void fade(ImageView ivYin, Duration duration, Interpolator interpolator) {
+
+		FadeTransition t = new FadeTransition(duration, ivYin );
+		t.setFromValue(0);
+		t.setToValue(1000);
+		t.setCycleCount(Transition.INDEFINITE);
+		t.setAutoReverse(true);
+		t.setInterpolator(interpolator);
+		t.play();
+
+
+	}
+
 
 	public Pane getHighscorePane()
 	{

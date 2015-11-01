@@ -1,5 +1,8 @@
 package highscore.view;
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.Transition;
 import javafx.beans.binding.Binding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,8 +17,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.*;
 import highscore.model.HighscoreModel;
+import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 
 
@@ -38,14 +41,17 @@ public class HighscoreView extends BorderPane {
 	public HighscoreView() {
 
 		//Images
-		Image logo1 = new Image("file:src/images/yin.png", 50, 50, true, true);
+		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
 		ImageView ivlogo1 = new ImageView();
 		ivlogo1.setImage(logo1);
 
-		Image logo2 = new Image("file:src/images/yin.png", 50, 50, true, true);
+		Image logo2 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
+		// Animation
+		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
+		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
 		//Controls
 		titleLabel = new Label("Highscore");
@@ -97,6 +103,7 @@ public class HighscoreView extends BorderPane {
 		this.setTop(hbox1);
 		this.setCenter(vBox1);
 		this.setBottom(vBox2);
+		this.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
 	}
 
@@ -128,6 +135,30 @@ public class HighscoreView extends BorderPane {
 		};
 	*/
 
+	//Animation
+	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
+
+		RotateTransition t = new RotateTransition(duration, logo1);
+		t.setFromAngle(0);
+		t.setToAngle(360);
+		t.setCycleCount(Transition.INDEFINITE);
+		t.setAutoReverse(false);
+		t.setInterpolator(interpolator);
+		t.play();
+
+	}
+
+	public void rotate2(ImageView logo2, Duration duration, Interpolator interpolator) {
+
+		RotateTransition t = new RotateTransition(duration, logo2);
+		t.setFromAngle(0);
+		t.setToAngle(360);
+		t.setCycleCount(Transition.INDEFINITE);
+		t.setAutoReverse(false);
+		t.setInterpolator(interpolator);
+		t.play();
+
+	}
 	public Button saveButton() {
 		return saveButton;
 	}

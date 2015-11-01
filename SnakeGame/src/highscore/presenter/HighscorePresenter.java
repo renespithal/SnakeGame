@@ -22,9 +22,8 @@ public class HighscorePresenter {
 	*/
 
 	/*public void clearTable(){
-		highscore.clear();
-		player.clear();
-	}*/
+		highscoreTable.set
+	}
 
 	/*public void returnToGameScene(Stage stage){
 		(new GameScene()).show(stage);

@@ -35,7 +35,7 @@ public class CloseView extends VBox{
 		exitButton.setMaxWidth(200);
 
 		//Background
-		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background4.jpg",500,500,false,false),
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background3.jpg",500,500,false,false),
 				BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 

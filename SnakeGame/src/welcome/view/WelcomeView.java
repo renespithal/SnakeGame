@@ -29,7 +29,7 @@ public class WelcomeView extends BorderPane{
 	public WelcomeView() {
 
 		//Background
-		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background2.jpg",600,600,false,false),
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background3.jpg",600,600,false,false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 

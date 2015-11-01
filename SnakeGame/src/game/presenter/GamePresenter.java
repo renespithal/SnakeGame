@@ -22,8 +22,8 @@ public class GamePresenter {
 	private Timeline loop;
 	private Timeline bonusLoop;
 	private KeyFrame snakeMovement;
-	private KeyFrame bonusFoodShow;
-	private KeyFrame bonusFoodHide;
+	private KeyFrame showBonusFood;
+	private KeyFrame hideBonusFood;
 	private KeyFrame collision;
 	private Direction direction;
 	
@@ -34,9 +34,9 @@ public class GamePresenter {
 		snakeMovement = new KeyFrame(Duration.seconds(0.1),
 				e -> moveSnake(model.getSnake(),scene,view));
 		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision(model.getSnake(), model.getFood(), model.getYinYang(),model.getHighscore()));
-		bonusFoodShow = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> bonusFoodShow(model.getYinYang()));
-		bonusFoodHide = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->bonusFoodHide(model.getYinYang()));
-		bonusLoop = new Timeline(bonusFoodShow,bonusFoodHide);
+		showBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> showBonusFood(view,model.getYinYang()));
+		hideBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->hideBonusFood(view,model.getYinYang()));
+		bonusLoop = new Timeline(showBonusFood,hideBonusFood);
 		bonusLoop.setCycleCount(Timeline.INDEFINITE);
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
@@ -123,15 +123,18 @@ public class GamePresenter {
 		}
 	}
 	
-	private void bonusFoodShow(YinYangFoodModel yin)
+	private void showBonusFood(GameView view,YinYangFoodModel yin)
 	{
-		  yin.setVisible(true);
+		view.startAnimation();
+		yin.generateRandomPosition();
+		yin.setVisible(true);
 		  
 	}
 	
-	private void bonusFoodHide(YinYangFoodModel yin)
+	private void hideBonusFood(GameView view,YinYangFoodModel yin)
 	{
-		yin.setVisible(false);
+			yin.setVisible(false);
+			view.stopAnimation();
 	}
 	
 	private void generateFood(SnakeModel snake,FoodModel food,YinYangFoodModel yin)

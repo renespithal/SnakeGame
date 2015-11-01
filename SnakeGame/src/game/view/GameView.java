@@ -23,6 +23,8 @@ import javafx.util.Duration;
 public class GameView extends Pane{
 	
 	private Pane highscorePane;
+	private FadeTransition t;
+
 	public GameView(GameModel model) {
 		
 		Pane snakePane = new Pane(); 
@@ -54,6 +56,7 @@ public class GameView extends Pane{
 		Image imageYin = new Image("file:src/images/yinyan2.png", 20, 20, true, true);
 		ImageView ivYin = new ImageView();
 		ivYin.setImage(imageYin);
+		
 
 		fade(ivYin, Duration.millis(1000), Interpolator.TANGENT(Duration.millis(0),100));
 
@@ -103,6 +106,7 @@ public class GameView extends Pane{
 		ivFood.yProperty().bind(new IntegerBinding() {
 			{bind(model.getFood().getYProperty());}
 			{
+				
 				bind(model.getFood().getYProperty());
 			}
 
@@ -165,15 +169,12 @@ public class GameView extends Pane{
 	}
 
 	public void fade(ImageView ivYin, Duration duration, Interpolator interpolator) {
-
-		FadeTransition t = new FadeTransition(duration, ivYin );
+		t = new FadeTransition(duration, ivYin );
 		t.setFromValue(0);
 		t.setToValue(1000);
 		t.setCycleCount(Transition.INDEFINITE);
 		t.setAutoReverse(true);
 		t.setInterpolator(interpolator);
-		t.play();
-
 
 	}
 
@@ -181,5 +182,13 @@ public class GameView extends Pane{
 	public Pane getHighscorePane()
 	{
 		return highscorePane;
+	}
+	
+	public void startAnimation() {
+		t.play();
+	}
+
+	public void stopAnimation() {
+		t.stop();
 	}
 }

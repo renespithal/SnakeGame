@@ -1,12 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import welcome.WelcomeScene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import java.io.File;
 public class Main extends Application {
 
 	@Override

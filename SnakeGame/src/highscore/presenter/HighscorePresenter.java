@@ -5,10 +5,15 @@ import javafx.stage.Stage;
 import welcome.WelcomeScene;
 
 public class HighscorePresenter {
+	
+	private HighscoreView view;
+	private Stage stage;
 		
 	public HighscorePresenter(HighscoreView view, Stage stage)
 	{
-		view.getBackButton().setOnAction(e->returnToWelcomeWindow(view,stage));
+		this.view = view;
+		this.stage = stage;
+		view.getBackButton().setOnAction(e->returnToWelcomeWindow());
 		//view.playButton().setOnAction(e-> returnToGameScene(stage));
 		//view.clearButton().setOnAction(e-> clearTable());
 		/*view.saveButton().setOnAction(e-> saveTable());*/
@@ -27,7 +32,7 @@ public class HighscorePresenter {
 		(new GameScene()).show(stage);
 	}*/
 
-	private void returnToWelcomeWindow(HighscoreView view,Stage stage) {
+	private void returnToWelcomeWindow() {
 		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}

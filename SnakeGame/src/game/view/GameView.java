@@ -1,7 +1,10 @@
 package game.view;
 
+import game.model.FoodModel;
 import game.model.GameModel;
+import game.model.SnakeModel;
 import game.model.SnakePartModel;
+import game.model.YinYangFoodModel;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
@@ -24,8 +27,15 @@ public class GameView extends Pane{
 	
 	private Pane highscorePane;
 	private FadeTransition t;
-
+	private SnakeModel snake;
+	private FoodModel food;
+	private YinYangFoodModel yin;
+	
 	public GameView(GameModel model) {
+		
+		this.snake = model.getSnake();
+		this.food = model.getFood();
+		this.yin = model.getYinYang();
 		
 		Pane snakePane = new Pane(); 
 		
@@ -36,9 +46,9 @@ public class GameView extends Pane{
 		Rectangle snakeHead = new Rectangle(20, 20);
 		snakeHead.setFill(Color.GOLD);
 		snakePane.getChildren().add(snakeHead);
-		bindSnakePart(model.getSnake().getHead(), snakeHead);
+		bindSnakePart(snake.getHead(), snakeHead);
 		
-		model.getSnake().getList().addListener(new ListChangeListener<SnakePartModel>()
+		snake.getList().addListener(new ListChangeListener<SnakePartModel>()
 				{
 
 					@Override
@@ -61,32 +71,32 @@ public class GameView extends Pane{
 		fade(ivYin, Duration.millis(1000), Interpolator.TANGENT(Duration.millis(0),100));
 
 		ivYin.xProperty().bind(new IntegerBinding() {
-			{bind(model.getYinYang().getXProperty());}
+			{bind(yin.getXProperty());}
 
 			@Override
 			protected int computeValue() {
-				return model.getYinYang().getX()*20;
+				return yin.getX()*20;
 			}});
 
 		ivYin.yProperty().bind(new IntegerBinding() {
-			{bind(model.getYinYang().getYProperty());}
+			{bind(yin.getYProperty());}
 			{
-				bind(model.getYinYang().getYProperty());
+				bind(yin.getYProperty());
 			}
 
 			@Override
 			protected int computeValue() {
-				return model.getYinYang().getY()*20;
+				return yin.getY()*20;
 			}});
 		
 		ivYin.visibleProperty().bind(new BooleanBinding() {
-			{bind(model.getYinYang().getVisibleProperty());}
+			{bind(yin.getVisibleProperty());}
 			{
-				bind(model.getYinYang().getYProperty());
+				bind(yin.getYProperty());
 			}
 			@Override
 			protected boolean computeValue() {
-				return model.getYinYang().getVisible();
+				return yin.getVisible();
 			}
 			
 		});
@@ -96,23 +106,23 @@ public class GameView extends Pane{
 		ivFood.setImage(imageFood);
 
 		ivFood.xProperty().bind(new IntegerBinding() {
-			{bind(model.getFood().getXProperty());}
+			{bind(food.getXProperty());}
 
 			@Override
 			protected int computeValue() {
-				return model.getFood().getX()*20;
+				return food.getX()*20;
 			}});
 
 		ivFood.yProperty().bind(new IntegerBinding() {
-			{bind(model.getFood().getYProperty());}
+			{bind(food.getYProperty());}
 			{
 				
-				bind(model.getFood().getYProperty());
+				bind(food.getYProperty());
 			}
 
 			@Override
 			protected int computeValue() {
-				return model.getFood().getY()*20;
+				return food.getY()*20;
 			}});
 		
 

@@ -10,15 +10,22 @@ public class OptionsPresenter {
 	private final static String slow ="Slow";
 	private final static String normal ="Normal";
 	private final static String fast ="Fast";
+	private Stage stage;
+	private OptionsView view;
+	private SpeedSettingModel model;
 	
 	public OptionsPresenter(SpeedSettingModel model,OptionsView view,Stage stage )
 	{
-		view.getBackButton().setOnAction(e-> returnToWelcomeWindow(stage));
+		this.model = model;
+		this.stage = stage;
+		this.view = view;
+		
+		view.getBackButton().setOnAction(e-> returnToWelcomeWindow());
 		model.setSpeed(model.getMedium());
-		view.getSpeedBox().setOnAction(e->test(model,view));
+		view.getSpeedBox().setOnAction(e->test());
 	}
 	
-	private void test(SpeedSettingModel model,OptionsView view)
+	private void test()
 	{
 		String value = view.getSpeedBox().getValue();
 		if(value.equals(slow))
@@ -35,7 +42,7 @@ public class OptionsPresenter {
 		System.out.println(model.getSpeed());
 	}
 
-	private void returnToWelcomeWindow(Stage stage) {
+	private void returnToWelcomeWindow() {
 		(new WelcomeScene()).show(stage);
 	}
 

@@ -6,12 +6,17 @@ import welcome.WelcomeScene;
 
 public class MultiplayerPresenter {
 	
+	private MultiplayerView view;
+	private Stage stage;
+	
 	public MultiplayerPresenter(MultiplayerView view, Stage stage)
 	{
-		view.getBackButton().setOnAction(e->returnToWelcomeWindow(stage));
+		this.view = view;
+		this.stage = stage;
+		view.getBackButton().setOnAction(e->returnToWelcomeWindow());
 	}
 
-	private void returnToWelcomeWindow(Stage stage) {
+	private void returnToWelcomeWindow() {
 		(new WelcomeScene()).show(stage);
 	}
 }

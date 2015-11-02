@@ -10,40 +10,46 @@ import welcome.view.WelcomeView;
 
 public class WelcomePresenter {
 	
+	private Stage stage;
+	private WelcomeView view;
+	
 	public WelcomePresenter(WelcomeView view,Stage stage)
 	{
-		view.getStartButton().setOnAction(e->showGameScene(view,stage));
-		view.getMultiplayerButton().setOnAction(e->showMultiplayerScene(view,stage));
-		view.getOptionsButton().setOnAction(e->showOptionsScene(view,stage));
-     	view.getHighscoreButton().setOnAction(e-> showHighscoreScene (view,stage));
-		view.getExitButton().setOnAction(e->exitGame(view,stage));
+		this.view = view;
+		this.stage = stage;
+		
+		view.getStartButton().setOnAction(e->showGameScene());
+		view.getMultiplayerButton().setOnAction(e->showMultiplayerScene());
+		view.getOptionsButton().setOnAction(e->showOptionsScene());
+     	view.getHighscoreButton().setOnAction(e-> showHighscoreScene ());
+		view.getExitButton().setOnAction(e->exitGame());
 	}
 
-	private void showGameScene(WelcomeView view,Stage stage) 
+	private void showGameScene() 
 	{
 		view.stopRotation();
 		(new GameScene()).show(stage);
 	}
 	
-	private void showMultiplayerScene(WelcomeView view,Stage stage)
+	private void showMultiplayerScene()
 	{	
 		view.stopRotation();
 		(new MultiplayerScene()).show(stage);
 	}
 	
-	private void showOptionsScene(WelcomeView view,Stage stage)
+	private void showOptionsScene()
 	{
 		view.stopRotation();
 		(new OptionsScene()).show(stage);
 	}
 	
-	private void showHighscoreScene (WelcomeView view,Stage stage)
+	private void showHighscoreScene ()
 	{
 		view.stopRotation();
 		(new HighscoreScene()).show(stage);
 	}
 	
-	private void exitGame(WelcomeView view,Stage stage)
+	private void exitGame()
 	{
 		view.stopRotation();
 		(new CloseScene()).show(stage);

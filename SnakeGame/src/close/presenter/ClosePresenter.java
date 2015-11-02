@@ -6,17 +6,22 @@ import welcome.WelcomeScene;
 
 public class ClosePresenter {
 	
+	private CloseView view;
+	private Stage stage;
+	
 	public ClosePresenter(CloseView view, Stage stage)
 	{
-		view.getBackButton().setOnAction(e-> returnToWelcomeWindow(stage));
-		view.getExitButton().setOnAction(e-> closeGame(stage));
+		this.view = view;
+		this.stage = stage;
+		view.getBackButton().setOnAction(e-> returnToWelcomeWindow());
+		view.getExitButton().setOnAction(e-> closeGame());
 	}
 
-	private void closeGame(Stage stage) {
+	private void closeGame() {
 		stage.close();
 	}
 
-	private void returnToWelcomeWindow(Stage stage) {
+	private void returnToWelcomeWindow() {
 		(new WelcomeScene()).show(stage);
 	}
 

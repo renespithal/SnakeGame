@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Background;
 import javafx.util.Duration;
+import options.Options;
 
 public class OptionsView extends BorderPane {
 
@@ -68,7 +69,18 @@ public class OptionsView extends BorderPane {
 
 		//Create Options
 		speedBox.getItems().addAll("Slow", "Normal", "Fast");
-		speedBox.setValue("Normal");
+		
+		if(Options.speed == Options.SLOW)
+		{
+			speedBox.setValue("Slow");
+		} else if(Options.speed == Options.MEDIUM)
+		{
+			speedBox.setValue("Normal");
+		}
+		else if(Options.speed == Options.FAST)
+		{
+			speedBox.setValue("Fast");
+		}
 
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black"); // Farbe der Schalnge
 		colorBox.setValue("Green");

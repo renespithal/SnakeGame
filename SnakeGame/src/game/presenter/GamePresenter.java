@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import options.Options;
 import welcome.WelcomeScene;
 
 public class GamePresenter {
@@ -43,8 +44,8 @@ public class GamePresenter {
 		this.highscore = model.getHighscore();
 		this.scene = scene;
 		
-		direction = model.getSnake().getDirection();
-		scene.setOnKeyPressed(e -> moveSnakeControl(e));
+		direction = snake.getDirection();
+		this.scene.setOnKeyPressed(e -> moveSnakeControl(e));
 		
 		createKeyFrames();
 		createTimelines();
@@ -53,9 +54,9 @@ public class GamePresenter {
 
 	private void createKeyFrames()
 	{
-		snakeMovement = new KeyFrame(Duration.seconds(0.1),
+		snakeMovement = new KeyFrame(Options.speed,
 				e -> moveSnake());
-		collision = new KeyFrame(Duration.seconds(0.1), e->checkCollision());
+		collision = new KeyFrame(Options.speed, e->checkCollision());
 		showBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> showBonusFood());
 		hideBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->hideBonusFood());
 	}
@@ -70,20 +71,9 @@ public class GamePresenter {
 	private void moveSnake() {
 		snake.setDirection(direction);
 		snake.increaseValue();
-			if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
-				snakeDead(scene, view);
-			}
-			
-			for(SnakePartModel currentPart : snake.getList())
-			{
-				if(snake.getHead().getX() == currentPart.getX() && snake.getHead().getY() == currentPart.getY())
-				{
-					snakeDead(scene, view);
-				}
-			}
 	}
 
-	private void snakeDead(Scene scene, GameView view ) {
+	private void snakeDead() {
 		stopLoop();
 		view.getHighscorePane().setVisible(true);
 		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
@@ -131,6 +121,18 @@ public class GamePresenter {
 	}
 
 	private void checkCollision() {
+		
+		if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
+			snakeDead();
+		}
+		
+		for(SnakePartModel currentPart : snake.getList())
+		{
+			if(snake.getHead().getX() == currentPart.getX() && snake.getHead().getY() == currentPart.getY())
+			{
+				snakeDead();
+			}
+		}
 		
 		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
 		{

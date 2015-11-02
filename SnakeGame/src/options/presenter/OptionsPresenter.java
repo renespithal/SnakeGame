@@ -1,7 +1,7 @@
 package options.presenter;
 
 import javafx.stage.Stage;
-import options.model.SpeedSettingModel;
+import options.Options;
 import options.view.OptionsView;
 import welcome.WelcomeScene;
 
@@ -12,34 +12,30 @@ public class OptionsPresenter {
 	private final static String fast ="Fast";
 	private Stage stage;
 	private OptionsView view;
-	private SpeedSettingModel model;
 	
-	public OptionsPresenter(SpeedSettingModel model,OptionsView view,Stage stage )
+	public OptionsPresenter(OptionsView view,Stage stage )
 	{
-		this.model = model;
 		this.stage = stage;
 		this.view = view;
 		
 		view.getBackButton().setOnAction(e-> returnToWelcomeWindow());
-		model.setSpeed(model.getMedium());
-		view.getSpeedBox().setOnAction(e->test());
+		view.getSpeedBox().setOnAction(e->setSpeed());
 	}
 	
-	private void test()
+	private void setSpeed()
 	{
 		String value = view.getSpeedBox().getValue();
 		if(value.equals(slow))
 		{
-			model.setSpeed(model.getSlow());
+			Options.speed = Options.SLOW;
 		} else if(value.equals(normal))
 		{
-			model.setSpeed(model.getMedium());
+			Options.speed = Options.MEDIUM;
 		}
 		else if(value.equals(fast))
 		{
-			model.setSpeed(model.getFast());
+			Options.speed = Options.FAST;
 		}
-		System.out.println(model.getSpeed());
 	}
 
 	private void returnToWelcomeWindow() {

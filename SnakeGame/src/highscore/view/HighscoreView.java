@@ -1,25 +1,31 @@
 package highscore.view;
 
+import highscore.model.HighscoreModel;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
-import javafx.beans.binding.Binding;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.binding.StringBinding;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos; 
-import javafx.scene.control.*;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import highscore.model.HighscoreModel;
 import javafx.util.Duration;
-import javafx.util.converter.NumberStringConverter;
 
 
 public class HighscoreView extends BorderPane {
@@ -33,6 +39,8 @@ public class HighscoreView extends BorderPane {
 	//private Button playButton;
 	private Button clearButton;
 	private Button saveButton;
+	private RotateTransition t1;
+	private RotateTransition t2;
 
 	TableView<HighscoreModel> highscoreTable;
 	TableColumn<HighscoreModel, String> player;
@@ -138,25 +146,23 @@ public class HighscoreView extends BorderPane {
 	//Animation
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo1);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
+		t1 = new RotateTransition(duration, logo1);
+		t1.setFromAngle(0);
+		t1.setToAngle(360);
+		t1.setCycleCount(Transition.INDEFINITE);
+		t1.setAutoReverse(false);
+		t1.setInterpolator(interpolator);
 
 	}
 
 	public void rotate2(ImageView logo2, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo2);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
+		t2 = new RotateTransition(duration, logo2);
+		t2.setFromAngle(0);
+		t2.setToAngle(360);
+		t2.setCycleCount(Transition.INDEFINITE);
+		t2.setAutoReverse(false);
+		t2.setInterpolator(interpolator);
 
 	}
 	public Button saveButton() {
@@ -173,6 +179,18 @@ public class HighscoreView extends BorderPane {
 	
 	public Button getBackButton() {
 		return getbackButton;
+	}
+	
+	public void startRotation()
+	{
+		t1.play();
+		t2.play();
+	}
+	
+	public void stopRotation()
+	{
+		t1.stop();
+		t2.stop();
 	}
 		
 }

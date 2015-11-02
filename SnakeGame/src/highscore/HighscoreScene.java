@@ -4,6 +4,7 @@ import framework.MyScene;
 import highscore.presenter.HighscorePresenter;
 import highscore.view.HighscoreView;
 import javafx.scene.Parent;
+import javafx.stage.Stage;
 
 public class HighscoreScene extends MyScene{
 
@@ -26,6 +27,14 @@ public class HighscoreScene extends MyScene{
 		parent.setTitle("Highscore");
 		presenter = new HighscorePresenter(view,parent);
 		
+	}
+	
+	@Override
+	public void show(Stage parent) {
+		super.show(parent);
+		
+		// start rotation!
+		view.startRotation();
 	}
 
 }

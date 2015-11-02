@@ -1,16 +1,14 @@
 package highscore.presenter;
 
-import game.GameScene;
-import javafx.stage.Stage;
 import highscore.view.HighscoreView;
+import javafx.stage.Stage;
 import welcome.WelcomeScene;
-import highscore.model.HighscoreModel;
 
 public class HighscorePresenter {
 		
 	public HighscorePresenter(HighscoreView view, Stage stage)
 	{
-		view.getBackButton().setOnAction(e->returnToWelcomeWindow(stage));
+		view.getBackButton().setOnAction(e->returnToWelcomeWindow(view,stage));
 		//view.playButton().setOnAction(e-> returnToGameScene(stage));
 		//view.clearButton().setOnAction(e-> clearTable());
 		/*view.saveButton().setOnAction(e-> saveTable());*/
@@ -29,7 +27,8 @@ public class HighscorePresenter {
 		(new GameScene()).show(stage);
 	}*/
 
-	private void returnToWelcomeWindow(Stage stage) {
+	private void returnToWelcomeWindow(HighscoreView view,Stage stage) {
+		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}
 }

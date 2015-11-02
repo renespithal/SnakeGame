@@ -31,7 +31,7 @@ public class WelcomeScene extends MyScene{
 	public void show(Stage parent) {
 		super.show(parent);
 		
-		// start loop!
+		// start rotation!
 		view.startRotation();
 	}
 

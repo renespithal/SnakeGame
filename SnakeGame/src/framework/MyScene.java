@@ -2,6 +2,7 @@ package framework;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -32,6 +33,8 @@ public abstract class MyScene extends Scene {
 		parent.hide();
 		
 		this.init();
+		parent.getIcons().add(new Image("file:src/images/yinyanyolologo.jpg")); // Icon on Window
+		parent.setResizable(false);
 		parent.setScene(this);
 		parent.sizeToScene();
 		parent.show();

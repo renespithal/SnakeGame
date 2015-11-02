@@ -4,21 +4,24 @@ import framework.MyScene;
 import javafx.scene.Parent;
 import multiplayer.presenter.MultiplayerPresenter;
 import multiplayer.view.MultiplayerView;
+import network.client.model.ClientModel;
 
 public class MultiplayerScene extends MyScene{
 
+	private ClientModel model;
 	private MultiplayerView view;
 	private MultiplayerPresenter presenter;
 	
+	
 	@Override
 	protected void createModel() {
-		// TODO Auto-generated method stub
+		model = new ClientModel(); 
 		
 	}
 
 	@Override
 	protected Parent createView() {
-		view = new MultiplayerView();
+		view = new MultiplayerView(model);
 		return view;
 	}
 

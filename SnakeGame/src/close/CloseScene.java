@@ -1,6 +1,6 @@
 package close;
 
-import close.presenter.ClosePresenter; 
+import close.presenter.ClosePresenter;
 import close.view.CloseView;
 import framework.MyScene;
 import javafx.scene.Parent;

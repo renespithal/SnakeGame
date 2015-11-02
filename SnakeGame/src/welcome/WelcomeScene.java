@@ -2,6 +2,7 @@ package welcome;
 
 import framework.MyScene;  
 import javafx.scene.Parent;
+import javafx.stage.Stage;
 import welcome.presenter.WelcomePresenter;
 import welcome.view.WelcomeView;
 
@@ -24,6 +25,14 @@ public class WelcomeScene extends MyScene{
 	protected void createPresenter() {
 		parent.setTitle("YinYanYolo Snake");
 		presenter = new WelcomePresenter(view, parent);
+	}
+	
+	@Override
+	public void show(Stage parent) {
+		super.show(parent);
+		
+		// start loop!
+		view.startRotation();
 	}
 
 }

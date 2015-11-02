@@ -25,6 +25,8 @@ public class WelcomeView extends BorderPane{
 	private Button exitButton;
 	private Button multiplayerButton;
 	private Button highscoreButton;
+	private RotateTransition t1;
+	private RotateTransition t2;
 	
 	public WelcomeView() {
 
@@ -91,25 +93,22 @@ public class WelcomeView extends BorderPane{
 	//Animation
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo1);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
-
+		t1 = new RotateTransition(duration, logo1);
+		t1.setFromAngle(0);
+		t1.setToAngle(360);
+		t1.setCycleCount(Transition.INDEFINITE);
+		t1.setAutoReverse(false);
+		t1.setInterpolator(interpolator);
 	}
 
 	public void rotate2(ImageView logo2, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo2);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
+		t2 = new RotateTransition(duration, logo2);
+		t2.setFromAngle(0);
+		t2.setToAngle(360);
+		t2.setCycleCount(Transition.INDEFINITE);
+		t2.setAutoReverse(false);
+		t2.setInterpolator(interpolator);
 
 	}
 
@@ -135,5 +134,17 @@ public class WelcomeView extends BorderPane{
 	public Button getExitButton()
 	{
 		return exitButton;
+	}
+	
+	public void startRotation()
+	{
+		t1.play();
+		t2.play();
+	}
+	
+	public void stopRotation()
+	{
+		t1.stop();
+		t2.stop();
 	}
 }

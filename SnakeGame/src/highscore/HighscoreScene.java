@@ -1,10 +1,9 @@
 package highscore;
 
 import framework.MyScene;
-import javafx.scene.Parent;
-import highscore.model.HighscoreModel;
 import highscore.presenter.HighscorePresenter;
 import highscore.view.HighscoreView;
+import javafx.scene.Parent;
 
 public class HighscoreScene extends MyScene{
 

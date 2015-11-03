@@ -25,11 +25,13 @@ import javafx.util.Duration;
 
 public class GameView extends Pane{
 	
-	private Pane highscorePane;
+	protected Pane highscorePane;
 	private FadeTransition t;
 	private SnakeModel snake;
 	private FoodModel food;
 	private YinYangFoodModel yin;
+	protected Pane snakePane;
+	protected Pane imagePane;
 	
 	public GameView(GameModel model) {
 		
@@ -37,12 +39,8 @@ public class GameView extends Pane{
 		this.food = model.getFood();
 		this.yin = model.getYinYang();
 		
-		Pane snakePane = new Pane(); 
-		
-//		Image imageSnake = new Image("file:src/images/snakePart.jpg", 20, 20, true, true);
-//		ImageView ivSnake = new ImageView();
-//		ivSnake.setImage(imageSnake);
-		
+		snakePane = new Pane(); 
+				
 		Rectangle snakeHead = new Rectangle(20, 20);
 		snakeHead.setFill(Color.GOLD);
 		snakePane.getChildren().add(snakeHead);
@@ -143,7 +141,7 @@ public class GameView extends Pane{
 		hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().add(highscore);
 		
-		Pane imagePane = new Pane();
+		imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
 
 		highscorePane = new StackPane(); 
@@ -152,10 +150,14 @@ public class GameView extends Pane{
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		highscorePane.autosize();
 		
-		this.getChildren().addAll(snakePane,imagePane,highscorePane);
+		addPanesToMainPane(snakePane, imagePane,highscorePane);
 	}
 
-	private void bindSnakePart(SnakePartModel snakePart, Rectangle snakePartView) {
+	protected void addPanesToMainPane(Pane... panes) {
+		this.getChildren().addAll(panes);
+	}
+
+	protected void bindSnakePart(SnakePartModel snakePart, Rectangle snakePartView) {
 		snakePartView.xProperty().bind(new IntegerBinding() {
 			{bind(snakePart.getXProperty());}
 

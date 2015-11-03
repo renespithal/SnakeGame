@@ -11,7 +11,7 @@ public class GameModel {
 	
 	public GameModel()
 	{
-		snake = new SnakeModel();
+		snake = new SnakeModel(0,0);
 		food = new FoodModel();
 		yin = new YinYangFoodModel();
 		highscore = new HighscoreModel();

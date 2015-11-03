@@ -6,10 +6,6 @@ public class ClientInfo {
     private int clientPort;
     private String clientNickname;
 
-    public ClientInfo(){
-
-    }
-
     public ClientInfo(String clientIP, int clientPort){
         this.clientIP = clientIP;
         this.clientPort = clientPort;

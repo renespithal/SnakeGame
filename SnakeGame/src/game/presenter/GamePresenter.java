@@ -1,7 +1,7 @@
 package game.presenter;
 
 
-import game.GameScene;
+import framework.MyScene;
 import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.SnakeModel;
@@ -26,17 +26,17 @@ public class GamePresenter {
 	private KeyFrame showBonusFood;
 	private KeyFrame hideBonusFood;
 	private KeyFrame collision;
-	private Direction direction;
+	protected Direction direction;
 	
 	private GameView view;
-	private FoodModel food;
-	private SnakeModel snake;
-	private YinYangFoodModel yin;
-	private HighscoreModel highscore;
-	private GameScene scene;
+	protected FoodModel food;
+	protected SnakeModel snake;
+	protected YinYangFoodModel yin;
+	protected HighscoreModel highscore;
+	private Scene scene;
 
 	
-	public GamePresenter(GameModel model, GameView view, GameScene scene) {
+	public GamePresenter(GameModel model, GameView view, MyScene scene) {
 		this.view = view;
 		this.food = model.getFood();
 		this.snake = model.getSnake();
@@ -68,22 +68,23 @@ public class GamePresenter {
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
 	}
-	private void moveSnake() {
+	
+	protected void moveSnake() {
 		snake.setDirection(direction);
 		snake.increaseValue();
 	}
 
-	private void snakeDead() {
+	protected void snakeDead() {
 		stopLoop();
 		view.getHighscorePane().setVisible(true);
 		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
 	}
 
-	private void returnToWelcomeWindow(Scene scene) {
+	protected void returnToWelcomeWindow(Scene scene) {
 		(new WelcomeScene()).show((Stage) scene.getWindow());
 	}
 
-	private void moveSnakeControl(KeyEvent e) {
+	protected void moveSnakeControl(KeyEvent e) {
 
 		switch (e.getCode()) {
 
@@ -120,7 +121,7 @@ public class GamePresenter {
 		}
 	}
 
-	private void checkCollision() {
+	protected void checkCollision() {
 		
 		if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
 			snakeDead();
@@ -149,7 +150,7 @@ public class GamePresenter {
 		}
 	}
 	
-	private void showBonusFood()
+	protected void showBonusFood()
 	{
 		view.startAnimation();
 		yin.generateRandomPosition();
@@ -157,13 +158,13 @@ public class GamePresenter {
 		  
 	}
 	
-	private void hideBonusFood()
+	protected void hideBonusFood()
 	{
 			yin.setVisible(false);
 			view.stopAnimation();
 	}
 	
-	private void generateFood()
+	protected void generateFood()
 	{
 		food.generateRandomPosition();
 		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
@@ -185,7 +186,7 @@ public class GamePresenter {
 		}
 	}
 	
-	private void generateYin()
+	protected void generateYin()
 	{
 		yin.generateRandomPosition();
 		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
@@ -212,7 +213,7 @@ public class GamePresenter {
 		bonusLoop.play();
 	}
 
-	private void stopLoop() {
+	protected void stopLoop() {
 		loop.stop();
 		bonusLoop.stop();
 	}

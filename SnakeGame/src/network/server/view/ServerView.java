@@ -67,5 +67,13 @@ public class ServerView extends Tab {
         this.setContent(vBoxLayout);
  
     }
+    
+    public Button getStartButton() {
+		return startButton;
+	}
+    
+    public Button getInterruptButton() {
+		return interruptButton;
+	}
 	
 }

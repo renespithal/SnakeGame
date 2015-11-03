@@ -4,7 +4,7 @@ import close.CloseScene;
 import game.GameScene;
 import highscore.HighscoreScene;
 import javafx.stage.Stage;
-import multiplayer.MultiplayerScene;
+import multiplayer.MultiplayerOptionsScene;
 import options.OptionsScene;
 import welcome.view.WelcomeView;
 
@@ -34,7 +34,7 @@ public class WelcomePresenter {
 	private void showMultiplayerScene()
 	{	
 		view.stopRotation();
-		(new MultiplayerScene()).show(stage);
+		(new MultiplayerOptionsScene()).show(stage);
 	}
 	
 	private void showOptionsScene()

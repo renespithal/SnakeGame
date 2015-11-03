@@ -16,15 +16,16 @@ public class SnakeModel {
 
 	private Duration duration;
 	private ObservableList<SnakePartModel> list = FXCollections.observableList(new LinkedList<SnakePartModel>());
-	private SnakePartModel head = new SnakePartModel(0,0);
+	private SnakePartModel head;
 	private Direction direction;
 	
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
 	}
 	
-	public SnakeModel()
+	public SnakeModel(int x,int y)
 	{
+		head = new SnakePartModel(x, y);
 		direction = Direction.RIGHT;
 	}
 	

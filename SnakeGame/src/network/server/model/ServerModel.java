@@ -11,7 +11,6 @@ public class ServerModel {
         return port.get();
     }
 
-
     public final void setPort(int port){
         this.port.set(port);
     }

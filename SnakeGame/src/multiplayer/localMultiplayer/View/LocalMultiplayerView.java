@@ -9,12 +9,7 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -23,6 +18,8 @@ public class LocalMultiplayerView extends GameView {
 	
 	private Pane secondSnakePane;
 	private Pane highscorePane2;
+	private Pane winPane;
+	private Label winLabel;
 	private HighscoreModel highScore2;
 	private SnakeModel snake;
 	
@@ -45,7 +42,7 @@ public class LocalMultiplayerView extends GameView {
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 				while(c.next()){
 					Rectangle snakePartView = new Rectangle(20, 20);
-					snakePartView.setFill(Color.GREEN);
+					snakePartView.setFill(Color.RED);
 					SnakePartModel newPart = c.getAddedSubList().get(0);
 					bindSnakePart(newPart, snakePartView);
 					secondSnakePane.getChildren().add(snakePartView);
@@ -68,21 +65,50 @@ public class LocalMultiplayerView extends GameView {
 		});
 		highscoreLabel.setFont(new Font(40));
 
-		hBox.setAlignment(Pos.BOTTOM_RIGHT);
 		hBox.getChildren().add(highscoreLabel);
-		
-		highscorePane2 = new StackPane(); 
+
+		highscorePane2 = new StackPane();
+		highscorePane2.setLayoutX(275);
+		highscorePane2.setLayoutY(440);
 		highscorePane2.getChildren().add(hBox);
 		highscorePane2.setVisible(false);
+		//highscorePane2.setMinSize(280,50);
+		//highscorePane2.setPrefWidth(500);
 		highscorePane2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		highscorePane2.autosize();
+		//highscorePane2.autosize();
+
+		HBox hBoxwin = new HBox();
+		winLabel = new Label();
+		winLabel.setFont(new Font (40));
+		hBoxwin.getChildren().add(winLabel);
+
+		winPane = new StackPane();
+		winPane.setVisible(false);
+		winPane.setLayoutX(150);
+		winPane.setLayoutY(200);
+		highscorePane2.setLayoutY(440);
+		winPane.getChildren().add(hBoxwin);
 		
-		addPanesToMainPane(secondSnakePane,highscorePane2);
-		
+		addPanesToMainPane(secondSnakePane,highscorePane2,winPane);
+
 	}
-	
+
+	public Label getWinLabel(){
+		return winLabel;
+	}
+
+	public Pane getWinPane(){
+		return winPane;
+	}
+
 	public Pane getHighscorePane2() {
 		return highscorePane2;
+	}
+
+	@Override
+	protected void highscoreSetPosition() {
+		highscorePane.setLayoutX(0);
+		highscorePane.setLayoutY(0);
 	}
 	
 }

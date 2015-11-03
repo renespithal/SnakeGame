@@ -144,25 +144,29 @@ public class GameView extends Pane{
 		imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
 
-		Label enterName = new Label("Player Name:");
+		/*Label enterName = new Label("Player Name:");
 		TextField textField = new TextField();
 		highscore.setFont(new Font(40));
 
-		HBox hBox = new HBox (enterName,textField);
+		HBox hBox = new HBox (enterName,textField);*/
 
-		VBox vBox = new VBox(highscore,hBox);
-		vBox.setAlignment(Pos.CENTER);
+		VBox vBox = new VBox(highscore);
 		vBox.setSpacing(10);
-
+		highscore.setFont(new Font(40));
 
 		highscorePane = new StackPane();
 		highscorePane.getChildren().add(vBox);
-		highscorePane.setLayoutX(140);
-		highscorePane.setLayoutY(180);
+		highscoreSetPosition();
 		highscorePane.setVisible(false);
+		//highscorePane.setMinSize(280,0);
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		
 		addPanesToMainPane(snakePane, imagePane,highscorePane);
+	}
+
+	protected void highscoreSetPosition() {
+		highscorePane.setLayoutX(140);
+		highscorePane.setLayoutY(180);
 	}
 
 	protected void addPanesToMainPane(Pane... panes) {
@@ -189,6 +193,7 @@ public class GameView extends Pane{
 		});
 		//this.setBackground(new Background(new BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+		//this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		//this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
 
 	}

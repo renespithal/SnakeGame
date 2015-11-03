@@ -72,7 +72,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	
 	@Override
 	protected void moveSnake() {
-		super.moveSnake();
+		//super.moveSnake();
 		snake2.setDirection(direction2);
 		snake2.increaseValue();
 	}
@@ -81,7 +81,20 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	protected void snakeDead() {
 		stopLoop();
 		localView.getHighscorePane().setVisible(true);
+		//localView.getHighscorePane().autosize();
+		localView.getWinPane().setVisible(true);
 		localView.getHighscorePane2().setVisible(true);
+		if(highscore.getValue() > highscore2.getValue())
+		{
+			localView.getWinLabel().setText("Player 1 won!");
+		}
+		else localView.getWinLabel().setText("Player 2 won!");
+
+		//localView.getWinLabel().setVisible(true);
+		//localView.getHighscorePane2().setVisible(true);
+		//localView.getHighscorePane2().autosize();
+
+
 		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
 	}
 	

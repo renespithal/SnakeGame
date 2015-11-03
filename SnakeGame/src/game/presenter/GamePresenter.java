@@ -161,6 +161,7 @@ public class GamePresenter {
 	protected void hideBonusFood()
 	{
 			yin.setVisible(false);
+		    yin.deletePosition();
 			view.stopAnimation();
 	}
 	

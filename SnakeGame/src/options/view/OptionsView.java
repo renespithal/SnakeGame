@@ -11,15 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -36,6 +28,8 @@ public class OptionsView extends BorderPane {
 	private RadioButton offButton;
 	private ComboBox<String> speedBox = new ComboBox<>();    //Geschwindigkeit
 	private ComboBox<String> colorBox = new ComboBox<>();    //Farbe der Schlange
+	private RotateTransition t1;
+	private RotateTransition t2;
 	/*
 	 *private ComboBox<String> StageBox = new ComboBox<String>();  // Hintergrund aussuchen (brauchen wir nicht unbedingt)
 	 */
@@ -43,6 +37,11 @@ public class OptionsView extends BorderPane {
 	 music.getItems().addAll("on", "off"); */
 	
 	public OptionsView() {
+
+		//Background
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background3.jpg", 600, 600, false, false),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
 
 
 		//Images
@@ -76,24 +75,19 @@ public class OptionsView extends BorderPane {
 
 		//Create Options
 		speedBox.getItems().addAll("Slow", "Normal", "Fast");
-		
-		if(Options.speed == Options.SLOW)
-		{
+
+		if (Options.speed == Options.SLOW) {
 			speedBox.setValue("Slow");
-		} else if(Options.speed == Options.MEDIUM)
-		{
+		} else if (Options.speed == Options.MEDIUM) {
 			speedBox.setValue("Normal");
-		}
-		else if(Options.speed == Options.FAST)
-		{
+		} else if (Options.speed == Options.FAST) {
 			speedBox.setValue("Fast");
 		}
 
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black"); // Farbe der Schalnge
 		colorBox.setValue("Green");
 
-		/*ImageView image = new ImageView();
-
+		/*
 		onButton.setonOption("on");
 		offButton.setffOption("off");
 
@@ -136,33 +130,32 @@ public class OptionsView extends BorderPane {
 		vBox.setSpacing(15);
 
 		this.setCenter(vBox);
-		this.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setBackground(new Background(backgrd));
 	}
 
 	//Animation
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo1);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
-
+		t1 = new RotateTransition(duration, logo1);
+		t1.setFromAngle(0);
+		t1.setToAngle(360);
+		t1.setCycleCount(Transition.INDEFINITE);
+		t1.setAutoReverse(false);
+		t1.setInterpolator(interpolator);
 	}
 
 	public void rotate2(ImageView logo2, Duration duration, Interpolator interpolator) {
 
-		RotateTransition t = new RotateTransition(duration, logo2);
-		t.setFromAngle(0);
-		t.setToAngle(360);
-		t.setCycleCount(Transition.INDEFINITE);
-		t.setAutoReverse(false);
-		t.setInterpolator(interpolator);
-		t.play();
+		t2 = new RotateTransition(duration, logo2);
+		t2.setFromAngle(0);
+		t2.setToAngle(360);
+		t2.setCycleCount(Transition.INDEFINITE);
+		t2.setAutoReverse(false);
+		t2.setInterpolator(interpolator);
 
 	}
+
+
 	public Button getBackButton()
 	{
 		return backButton;
@@ -175,5 +168,19 @@ public class OptionsView extends BorderPane {
 	public ComboBox<String>getColorBox(){ return colorBox; }
 
 	//public ToggleGroup.getSelectedToggle(){ return }
+
+	public void startRotation()
+	{
+		t1.play();
+		t2.play();
+	}
+
+	public void stopRotation()
+	{
+		t1.stop();
+		t2.stop();
+	}
+
+
 
 }

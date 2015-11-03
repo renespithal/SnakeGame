@@ -58,7 +58,6 @@ public class WelcomeView extends BorderPane{
 
 		//Title
 		titleLabel = new Label("Welcome to Snake");
-		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.GREEN);
 		Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, null, null));
@@ -66,23 +65,18 @@ public class WelcomeView extends BorderPane{
 
 		//Create Controls
 		multiplayerButton = new Button ("Multiplayer");
-		multiplayerButton.setAlignment(Pos.CENTER);
 		multiplayerButton.setMaxWidth(100);
 
 		startButton = new Button("Start Game");
-		startButton.setAlignment(Pos.CENTER);
 		startButton.setMaxWidth(100);
 
 		optionsButton = new Button("Options");
-		optionsButton.setAlignment(Pos.CENTER);
 		optionsButton.setMaxWidth(100);
 		
 		highscoreButton = new Button("Highscore");
-		highscoreButton.setAlignment(Pos.CENTER);
 		highscoreButton.setMaxWidth(100);
 
 		exitButton = new Button("Exit Game");
-		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(100);
 
 		//Create Boxes

@@ -34,7 +34,7 @@ public class GameView extends Pane{
 	private YinYangFoodModel yin;
 	protected Pane snakePane;
 	protected Pane imagePane;
-	
+
 	public GameView(GameModel model) {
 		
 		this.snake = model.getSnake();
@@ -144,15 +144,19 @@ public class GameView extends Pane{
 		imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
 
-		/*Label enterName = new Label("Player Name:");
+		Label enterName = new Label("Player Name:");
+		enterName.setFont(new Font (15));
 		TextField textField = new TextField();
 		highscore.setFont(new Font(40));
 
-		HBox hBox = new HBox (enterName,textField);*/
+		HBox hBox = new HBox (enterName,textField);
+		hBox.setSpacing(10);
 
 		VBox vBox = new VBox(highscore);
 		vBox.setSpacing(10);
 		highscore.setFont(new Font(40));
+		vBox.getChildren().add(hBox);
+
 
 		highscorePane = new StackPane();
 		highscorePane.getChildren().add(vBox);

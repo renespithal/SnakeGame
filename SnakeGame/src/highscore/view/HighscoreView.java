@@ -14,15 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -33,8 +25,6 @@ public class HighscoreView extends BorderPane {
 	private HighscoreModel model;
 
 	private Label titleLabel;
-	private Label playerLabel;
-	private TextField playername;
 	private Button getbackButton;
 	//private Button playButton;
 	private Button clearButton;
@@ -47,6 +37,11 @@ public class HighscoreView extends BorderPane {
 	TableColumn<HighscoreModel, Integer> highscore;
 
 	public HighscoreView() {
+
+		//Background
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background3.jpg",600,600,false,false),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
 
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
@@ -63,17 +58,13 @@ public class HighscoreView extends BorderPane {
 
 		//Controls
 		titleLabel = new Label("Highscore");
-		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(32));
-		titleLabel.setTextFill(Color.GOLD);
-		Border border = new Border(new BorderStroke(Color.GOLD, BorderStrokeStyle.DOTTED, null, null));
+		titleLabel.setTextFill(Color.DARKGREEN);
+		Border border = new Border(new BorderStroke(Color.DARKGREEN, BorderStrokeStyle.DOTTED, null, null));
 		titleLabel.setBorder(border);
 
 
 		//Create Controls
-		playerLabel = new Label("Enter Player Name:");
-		playername = new TextField();
-		saveButton = new Button("Save Highscore");
 		clearButton = new Button("Clear Table");
 		getbackButton = new Button("back to menu");
 		//playButton = new Button ("Play Again");
@@ -99,20 +90,20 @@ public class HighscoreView extends BorderPane {
 
 		HBox hBox2 = new HBox(8);
 		hBox2.setAlignment(Pos.CENTER);
-		hBox2.getChildren().addAll(playerLabel, playername, saveButton, clearButton);
+		hBox2.getChildren().addAll(clearButton);
 
 
 		VBox vBox1 = new VBox(highscoreTable, hBox2);
 		VBox vBox2= new VBox (getbackButton);
-		vBox2.setAlignment(Pos.CENTER);
+		vBox2.setAlignment(Pos.BOTTOM_RIGHT);
 
 
 		// add Boxes to BorderPane
 		this.setTop(hbox1);
 		this.setCenter(vBox1);
 		this.setBottom(vBox2);
-		this.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-
+		//this.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+		this.setBackground(new Background(backgrd));
 	}
 
 	public TableView<HighscoreModel> gethighscoreTable() {

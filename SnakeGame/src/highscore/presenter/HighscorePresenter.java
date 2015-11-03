@@ -16,13 +16,8 @@ public class HighscorePresenter {
 		view.getBackButton().setOnAction(e->returnToWelcomeWindow());
 		//view.playButton().setOnAction(e-> returnToGameScene(stage));
 		//view.clearButton().setOnAction(e-> clearTable());
-		/*view.saveButton().setOnAction(e-> saveTable());*/
 	}
-	
-	/*public void saveTable(){
-		view.getValue();
-	}
-	*/
+
 
 	/*public void clearTable(){
 		highscoreTable.set

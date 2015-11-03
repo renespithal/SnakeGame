@@ -45,7 +45,7 @@ public class LocalMultiplayerView extends GameView {
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 				while(c.next()){
 					Rectangle snakePartView = new Rectangle(20, 20);
-					snakePartView.setFill(Color.GREEN);
+					snakePartView.setFill(Color.RED);
 					SnakePartModel newPart = c.getAddedSubList().get(0);
 					bindSnakePart(newPart, snakePartView);
 					secondSnakePane.getChildren().add(snakePartView);

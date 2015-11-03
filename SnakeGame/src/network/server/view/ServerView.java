@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -18,6 +19,7 @@ public class ServerView extends Tab {
     private TextField portTxtField;
     private Button startButton;
     private Button interruptButton;
+    private TextArea textArea;
 
     // Table
     private TableView<ClientInfo> clientInfoTable;
@@ -62,7 +64,9 @@ public class ServerView extends Tab {
         VBox vBox = new VBox(10, studentTableLabel, clientInfoTable);
         vBox.setPadding(new Insets(10, 10, 10, 10));
         
-        VBox vBoxLayout = new VBox(gridPane,vBox);
+        textArea = new TextArea();
+        
+        VBox vBoxLayout = new VBox(gridPane,vBox,textArea);
         vBoxLayout.setMaxHeight(430);
         this.setContent(vBoxLayout);
  
@@ -76,4 +80,11 @@ public class ServerView extends Tab {
 		return interruptButton;
 	}
 	
+    public TextField getPortTxtField() {
+		return portTxtField;
+	}
+    
+    public TextArea getTextArea() {
+		return textArea;
+	}
 }

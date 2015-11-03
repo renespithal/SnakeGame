@@ -1,4 +1,4 @@
-package multiplayer.view;
+package multiplayer.onlineMultiplayer.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -37,6 +37,14 @@ public class MultiplayerView extends BorderPane {
 	public Button getBackButton()
 	{
 		return backButton;
+	}
+	
+	public Tab getServerTab() {
+		return serverTab;
+	}
+	
+	public Tab getClientTab() {
+		return clientTab;
 	}
 
 }

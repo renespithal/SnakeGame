@@ -1,8 +1,8 @@
 package multiplayer.presenter;
 
 import javafx.stage.Stage;
-import multiplayer.MultiplayerScene;
 import multiplayer.localMultiplayer.LocalMultiplayerScene;
+import multiplayer.onlineMultiplayer.MultiplayerScene;
 import multiplayer.view.MultiplayerOptionsView;
 import welcome.WelcomeScene;
 

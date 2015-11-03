@@ -1,9 +1,9 @@
-package multiplayer;
+package multiplayer.onlineMultiplayer;
 
 import framework.MyScene;
 import javafx.scene.Parent;
-import multiplayer.presenter.MultiplayerPresenter;
-import multiplayer.view.MultiplayerView;
+import multiplayer.onlineMultiplayer.presenter.MultiplayerPresenter;
+import multiplayer.onlineMultiplayer.view.MultiplayerView;
 import network.client.model.ClientModel;
 
 public class MultiplayerScene extends MyScene{

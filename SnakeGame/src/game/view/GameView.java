@@ -1,5 +1,6 @@
 package game.view;
 
+import com.sun.javafx.scene.layout.region.BorderImageSlices;
 import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.SnakeModel;
@@ -15,6 +16,7 @@ import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -122,9 +124,8 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return food.getY()*20;
 			}});
-		
 
-		HBox hBox = new HBox();
+
 		Label highscore = new Label();
 		highscore.textProperty().bind(new StringBinding() {
 			{
@@ -136,19 +137,30 @@ public class GameView extends Pane{
 				return "Highscore: "+model.getHighscore().getValue();
 			}
 		});
-		highscore.setFont(new Font(40));
 
-		hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().add(highscore);
+		/*hBox.setAlignment(Pos.CENTER);
+		hBox.getChildren().add(highscore);*/
 		
 		imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
 
-		highscorePane = new StackPane(); 
-		highscorePane.getChildren().add(hBox);
+		Label enterName = new Label("Player Name:");
+		TextField textField = new TextField();
+		highscore.setFont(new Font(40));
+
+		HBox hBox = new HBox (enterName,textField);
+
+		VBox vBox = new VBox(highscore,hBox);
+		vBox.setAlignment(Pos.CENTER);
+		vBox.setSpacing(10);
+
+
+		highscorePane = new StackPane();
+		highscorePane.getChildren().add(vBox);
+		highscorePane.setLayoutX(140);
+		highscorePane.setLayoutY(180);
 		highscorePane.setVisible(false);
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		highscorePane.autosize();
 		
 		addPanesToMainPane(snakePane, imagePane,highscorePane);
 	}
@@ -177,6 +189,7 @@ public class GameView extends Pane{
 		});
 		//this.setBackground(new Background(new BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+		//this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
 
 	}
 

@@ -163,7 +163,7 @@ public class GameView extends Pane{
 		highscoreSetPosition();
 		highscorePane.setVisible(false);
 		//highscorePane.setMinSize(280,0);
-		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		
 		addPanesToMainPane(snakePane, imagePane,highscorePane);
 	}
@@ -195,8 +195,15 @@ public class GameView extends Pane{
 				return snakePart.getY() *20;
 			}
 		});
+
+		//Background
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground1.jpg",700,600,false,false),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
+
+		this.setBackground(new Background(backgrd));
 		//this.setBackground(new Background(new BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-		this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+		//this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
 		//this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
 		//this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
 

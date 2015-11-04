@@ -74,12 +74,13 @@ public class LocalMultiplayerView extends GameView {
 		highscorePane2.setVisible(false);
 		//highscorePane2.setMinSize(280,50);
 		//highscorePane2.setPrefWidth(500);
-		highscorePane2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
+		highscorePane2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		//highscorePane2.autosize();
 
 		HBox hBoxwin = new HBox();
 		winLabel = new Label();
 		winLabel.setFont(new Font (40));
+		winLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		hBoxwin.getChildren().add(winLabel);
 
 		winPane = new StackPane();
@@ -88,7 +89,7 @@ public class LocalMultiplayerView extends GameView {
 		winPane.setLayoutY(200);
 		highscorePane2.setLayoutY(440);
 		winPane.getChildren().add(hBoxwin);
-		
+
 		addPanesToMainPane(secondSnakePane,highscorePane2,winPane);
 
 	}

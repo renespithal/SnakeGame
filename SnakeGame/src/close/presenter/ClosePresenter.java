@@ -22,6 +22,7 @@ public class ClosePresenter {
 	}
 
 	private void returnToWelcomeWindow() {
+		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}
 

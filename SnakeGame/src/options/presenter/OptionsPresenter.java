@@ -38,7 +38,9 @@ public class OptionsPresenter {
 		}
 	}
 
+
 	private void returnToWelcomeWindow() {
+		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}
 

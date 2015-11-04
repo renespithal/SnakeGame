@@ -2,6 +2,7 @@ package multiplayer;
 
 import framework.MyScene;
 import javafx.scene.Parent;
+import javafx.stage.Stage;
 import multiplayer.presenter.MultiplayerOptionsPresenter;
 import multiplayer.view.MultiplayerOptionsView;
 
@@ -27,5 +28,14 @@ public class MultiplayerOptionsScene extends MyScene {
 		presenter = new MultiplayerOptionsPresenter(view, parent);
 		
 	}
+
+	@Override
+	public void show(Stage parent) {
+		super.show(parent);
+
+		// start rotation!
+		view.startRotation();
+	}
+
 
 }

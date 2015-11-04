@@ -26,6 +26,7 @@ public class MultiplayerOptionsPresenter {
 	}
 
 	private void backToWelcomeWindow() {
+		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}
 

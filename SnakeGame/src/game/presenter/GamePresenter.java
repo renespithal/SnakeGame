@@ -17,7 +17,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import options.Options;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import utils.FileUtils;
 import welcome.WelcomeScene;
+
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Properties;
 
 public class GamePresenter {
 	private Timeline loop;
@@ -27,7 +35,7 @@ public class GamePresenter {
 	private KeyFrame hideBonusFood;
 	private KeyFrame collision;
 	protected Direction direction;
-	
+
 	private GameView view;
 	protected FoodModel food;
 	protected SnakeModel snake;
@@ -54,8 +62,7 @@ public class GamePresenter {
 
 	private void createKeyFrames()
 	{
-		snakeMovement = new KeyFrame(Options.speed,
-				e -> moveSnake());
+		snakeMovement = new KeyFrame(Options.speed, e -> moveSnake());
 		collision = new KeyFrame(Options.speed, e->checkCollision());
 		showBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> showBonusFood());
 		hideBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->hideBonusFood());
@@ -77,10 +84,58 @@ public class GamePresenter {
 	protected void snakeDead() {
 		stopLoop();
 		view.getHighscorePane().setVisible(true);
-		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
+        highscore.playernameProperty().bind(view.textField.textProperty());
+		//scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
+		scene.setOnKeyPressed(e -> {
+            saveHisghscore();
+            returnToWelcomeWindow(scene);
+        });
 	}
 
-	protected void returnToWelcomeWindow(Scene scene) {
+	private void saveHisghscore() {
+		Properties properties = new Properties();
+
+		try(FileInputStream is = new FileInputStream("res/Highscore.properties")) {
+			properties.load(is);
+		} catch (IOException e) {}
+
+		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
+		try(FileWriter writer = new FileWriter("res/Highscore.properties")) {
+			properties.store(writer, "highscore snake");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/*private void saveHisghscore() {
+        String jsonData = FileUtils.readFile("res/Highscore.json");
+        JSONObject jobj = new JSONObject(jsonData);
+
+        JSONArray jsonArray;
+        if (jobj.has("highscore")){
+            jsonArray = jobj.getJSONArray("highscore");
+        }
+        else {
+            jsonArray = new JSONArray();
+        }
+
+        JSONObject newhighscore = new JSONObject();
+        newhighscore.put(highscore.getPlayername(),highscore.getValue());
+        jsonArray.put(newhighscore);
+
+        jobj.put("highscore",jsonArray);
+
+        try (FileWriter fw= new FileWriter("res/Highscore.json")){
+            fw.write(jobj.toString());
+            fw.flush();
+        } catch (IOException e){
+            e.printStackTrace();
+        };
+
+    }
+    */
+
+    protected void returnToWelcomeWindow(Scene scene) {
 		(new WelcomeScene()).show((Stage) scene.getWindow());
 	}
 

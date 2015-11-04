@@ -30,9 +30,9 @@ public class HighscoreView extends BorderPane {
 	private RotateTransition t1;
 	private RotateTransition t2;
 
-	TableView<HighscoreModel> highscoreTable;
+	public TableView<HighscoreModel> highscoreTable;
 	TableColumn<HighscoreModel, String> player;
-	TableColumn<HighscoreModel, Integer> highscore;
+	TableColumn<HighscoreModel, Number> highscore;
 
 	public HighscoreView() {
 
@@ -66,18 +66,18 @@ public class HighscoreView extends BorderPane {
 		clearButton = new Button("Clear Table");
 		getbackButton = new Button("back to menu");
 		//playButton = new Button ("Play Again");
-		highscoreTable = new TableView<>();
+		highscoreTable = new TableView<HighscoreModel>();
 
 
 		//Create Table
-		player = new TableColumn<>("Player");
+		player = new TableColumn<HighscoreModel, String>("Player");
 		player.setMinWidth(150);
 		player.setCellValueFactory(new PropertyValueFactory<>("Player"));
 		player.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().playernameProperty());
 
-		highscore = new TableColumn<>("Highscore");
+		highscore = new TableColumn<HighscoreModel, Number>("Highscore");
 		highscore.setMinWidth(350);
-		highscore.setCellValueFactory(new PropertyValueFactory<>("Highscore"));
+		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());
 
 		highscoreTable.getColumns().addAll(player, highscore);
 

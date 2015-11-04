@@ -9,12 +9,18 @@ import javafx.beans.property.*;
 public class HighscoreModel {
 
 
-private SimpleIntegerProperty highscoreValue = new SimpleIntegerProperty(0);
+private IntegerProperty highscoreValue = new SimpleIntegerProperty(0);
 private StringProperty playername = new SimpleStringProperty();
 
 //private StringProperty name = new StringProperty();
 
-	
+	public HighscoreModel(){}
+
+	public HighscoreModel(String name, int value) {
+		highscoreValue.set(value);
+		playernameProperty().set(name);
+	}
+
 	public void increaseValue(){
 		highscoreValue.set(highscoreValue.get()+2);
 	}

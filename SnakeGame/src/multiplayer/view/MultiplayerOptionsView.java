@@ -16,8 +16,8 @@ import javafx.util.Duration;
 public class MultiplayerOptionsView extends BorderPane {
 
 	private Label titleLabel;
-	private Button localButton;
-	private Button onlineButton;
+	private Button normalButton;
+	private Button survivalButton;
 	private Button backButton;
 	private RotateTransition t1;
 	private RotateTransition t2;
@@ -44,12 +44,13 @@ public class MultiplayerOptionsView extends BorderPane {
 		titleLabel = new Label("Multiplayer");
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.BLACK);
-		Border border = new Border(new BorderStroke(Color.GOLD, BorderStrokeStyle.DOTTED, null, null));
-		titleLabel.setBorder(border);
 
-		localButton = new Button("Start local multiplayer game");
-		onlineButton = new Button("Start online multiplayer game");
-		backButton = new Button("back to menu");
+		normalButton = new Button("Normal Mode");
+		normalButton.setMaxWidth(150);
+		survivalButton = new Button("Survival Mode");
+		survivalButton.setMaxWidth(150);
+		backButton = new Button("Main Menu");
+		backButton.setMaxWidth(150);
 
 
 		//Create Boxes
@@ -57,7 +58,7 @@ public class MultiplayerOptionsView extends BorderPane {
 		hBox.setAlignment(Pos.CENTER);
 
 		
-		VBox vBox = new VBox(hBox,localButton,onlineButton,backButton);
+		VBox vBox = new VBox(hBox,normalButton,survivalButton,backButton);
 		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(10);
 
@@ -88,12 +89,12 @@ public class MultiplayerOptionsView extends BorderPane {
 		t2.setInterpolator(interpolator);
 	}
 
-	public Button getLocalButton() {
-		return localButton;
+	public Button getNormalButton() {
+		return normalButton;
 	}
 	
-	public Button getOnlineButton() {
-		return onlineButton;
+	public Button getSurvivalButton() {
+		return survivalButton;
 	}
 	
 	public Button getBackButton() {

@@ -29,6 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -46,7 +47,10 @@ public class GameView extends Pane{
 	protected Pane imagePane;
 	public final TextField textField;
 	private HBox hBox;
-
+	private AudioClip bonusFoodEaten;
+	private AudioClip foodEaten;
+	private AudioClip gameOver;
+	
 	public GameView(GameModel model) {
 		
 		this.snake = model.getSnake();
@@ -112,6 +116,8 @@ public class GameView extends Pane{
 			}
 			
 		});
+		
+		bonusFoodEaten = new AudioClip("file:src/sounds/BonusFoodSound.wav");
 
 		Image imageFood = new Image("file:src/images/apple2.png", 20, 20, true, true);
 		ImageView ivFood = new ImageView();
@@ -136,7 +142,8 @@ public class GameView extends Pane{
 			protected int computeValue() {
 				return food.getY()*20;
 			}});
-
+		
+		foodEaten = new AudioClip("file:src/sounds/FoodSound.wav");
 
 		Label highscore = new Label();
 		highscore.textProperty().bind(new StringBinding() {
@@ -152,6 +159,8 @@ public class GameView extends Pane{
 
 		/*hBox.setAlignment(Pos.CENTER);
 		hBox.getChildren().add(highscore);*/
+		
+		gameOver = new AudioClip("file:src/sounds/GameOver.wav");
 		
 		imagePane = new Pane();
 		imagePane.getChildren().addAll(ivFood, ivYin);
@@ -256,5 +265,20 @@ public class GameView extends Pane{
 
 	public void stopAnimation() {
 		t.stop();
+	}
+	
+	public void playBonusFoodMusic()
+	{
+		bonusFoodEaten.play();
+	}
+	
+	public void playFoodMusic()
+	{
+		foodEaten.play();
+	}
+	
+	public void playGameOverMusic()
+	{
+		gameOver.play();
 	}
 }

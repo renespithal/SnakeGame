@@ -2,7 +2,6 @@ package multiplayer.presenter;
 
 import javafx.stage.Stage;
 import multiplayer.localMultiplayer.LocalMultiplayerScene;
-import multiplayer.onlineMultiplayer.MultiplayerScene;
 import multiplayer.view.MultiplayerOptionsView;
 import welcome.WelcomeScene;
 
@@ -19,8 +18,8 @@ public class MultiplayerOptionsPresenter {
 	}
 
 	private void activateEvents() {
-		view.getLocalButton().setOnAction(e->startLocalGame());
-		view.getOnlineButton().setOnAction(e->startOnlineGame());
+		view.getNormalButton().setOnAction(e->startMultiplayer(true));
+		view.getSurvivalButton().setOnAction(e->startMultiplayer(false));
 		view.getBackButton().setOnAction(e->backToWelcomeWindow());
 		
 	}
@@ -30,12 +29,9 @@ public class MultiplayerOptionsPresenter {
 		(new WelcomeScene()).show(stage);
 	}
 
-	private void startOnlineGame() {
-		(new MultiplayerScene()).show(stage);
-	}
-
-	private void startLocalGame() {
-		(new LocalMultiplayerScene()).show(stage);
+	private void startMultiplayer(boolean normalMode) {
+		view.stopRotation();
+		(new LocalMultiplayerScene(normalMode)).show(stage);
 	}
 
 }

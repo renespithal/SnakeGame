@@ -35,8 +35,8 @@ public class OptionsView extends BorderPane {
 	private Button backButton;
 	private RadioButton onButton;
 	private RadioButton offButton;
-	private ComboBox<String> speedBox = new ComboBox<>();    //Geschwindigkeit
-	private ComboBox<String> colorBox = new ComboBox<>();    //Farbe der Schlange
+	private ComboBox<String> speedBox;   //Geschwindigkeit
+	private ComboBox<String> colorBox;  //Farbe der Schlange
 	private RotateTransition t1;
 	private RotateTransition t2;
 	/*
@@ -70,19 +70,22 @@ public class OptionsView extends BorderPane {
 		titleLabel = new Label("Welcome to Options");
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.CORNFLOWERBLUE);
-		Border border = new Border(new BorderStroke(Color.CORNFLOWERBLUE, BorderStrokeStyle.DOTTED, null, null));
-		titleLabel.setBorder(border);
 
 		speedLabel = new Label("Choose Speed:");
 		speedLabel.setFont(new Font(13));
+		speedLabel.setMaxWidth(150);
 
 		colorLabel = new Label("Choose Color:");
 		colorLabel.setFont(new Font(13));
+		colorLabel.setMaxWidth(150);
 
-		backButton = new Button("back to menu");
-		;
+		backButton = new Button("Main Menu");
+		backButton.setMaxWidth(150);
+		
 
 		//Create Options
+		speedBox = new ComboBox<>();
+		speedBox.setMaxWidth(150);
 		speedBox.getItems().addAll("Slow", "Normal", "Fast");
 
 		if (Options.speed == Options.SLOW) {
@@ -92,7 +95,9 @@ public class OptionsView extends BorderPane {
 		} else if (Options.speed == Options.FAST) {
 			speedBox.setValue("Fast");
 		}
-
+		
+		colorBox = new ComboBox<>();
+		colorBox.setMaxWidth(150);
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black"); // Farbe der Schalnge
 		if (Options.color == Options.GREEN) {
 			colorBox.setValue("Green");

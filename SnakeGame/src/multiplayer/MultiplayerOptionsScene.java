@@ -12,8 +12,7 @@ public class MultiplayerOptionsScene extends MyScene {
 	private MultiplayerOptionsPresenter presenter;
 	@Override
 	protected void createModel() {
-		// TODO Auto-generated method stub
-		
+		//no model here
 	}
 
 	@Override
@@ -32,7 +31,6 @@ public class MultiplayerOptionsScene extends MyScene {
 	@Override
 	public void show(Stage parent) {
 		super.show(parent);
-
 		// start rotation!
 		view.startRotation();
 	}

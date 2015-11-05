@@ -60,24 +60,22 @@ public class WelcomeView extends BorderPane{
 		titleLabel = new Label("Welcome to Snake");
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.GREEN);
-		Border border = new Border(new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, null, null));
-		titleLabel.setBorder(border);
 
 		//Create Controls
 		multiplayerButton = new Button ("Multiplayer");
-		multiplayerButton.setMaxWidth(100);
+		multiplayerButton.setMaxWidth(150);
 
 		startButton = new Button("Start Game");
-		startButton.setMaxWidth(100);
+		startButton.setMaxWidth(150);
 
 		optionsButton = new Button("Options");
-		optionsButton.setMaxWidth(100);
+		optionsButton.setMaxWidth(150);
 		
 		highscoreButton = new Button("Highscore");
-		highscoreButton.setMaxWidth(100);
+		highscoreButton.setMaxWidth(150);
 
 		exitButton = new Button("Exit Game");
-		exitButton.setMaxWidth(100);
+		exitButton.setMaxWidth(150);
 
 		//Create Boxes
 		HBox hBox = new HBox(ivlogo1,titleLabel,ivlogo2);

@@ -1,6 +1,11 @@
 package game.presenter;
 
 
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Properties;
+
 import framework.MyScene;
 import game.model.FoodModel;
 import game.model.GameModel;
@@ -17,15 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import options.Options;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import utils.FileUtils;
 import welcome.WelcomeScene;
-
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Properties;
 
 public class GamePresenter {
 	private Timeline loop;
@@ -83,6 +80,7 @@ public class GamePresenter {
 
 	protected void snakeDead() {
 		stopLoop();
+		view.playGameOverMusic();
 		view.getHighscorePane().setVisible(true);
         highscore.playernameProperty().bind(view.textField.textProperty());
 		//scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
@@ -143,28 +141,28 @@ public class GamePresenter {
 
 		switch (e.getCode()) {
 
-		case UP:
+		case W:
 
 			if (snake.getDirection() != Direction.DOWN) {
 				direction = Direction.UP;
 			}
 			break;
 
-		case DOWN:
+		case S:
 
 			if (snake.getDirection() != Direction.UP) {
 				direction = Direction.DOWN;
 			}
 			break;
 
-		case LEFT:
+		case A:
 
 			if (snake.getDirection() != Direction.RIGHT) {
 				direction = Direction.LEFT;
 			}
 			break;
 
-		case RIGHT:
+		case D:
 
 			if (snake.getDirection() != Direction.LEFT) {
 				direction = Direction.RIGHT;
@@ -193,6 +191,7 @@ public class GamePresenter {
 		if(snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY())
 		{
 			snake.grow();
+			view.playFoodMusic();
 			highscore.increaseValue();
 			generateFood();
 		}
@@ -200,6 +199,7 @@ public class GamePresenter {
 		if(snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY())
 		{
 			highscore.increaseSpecialValue();
+			view.playBonusFoodMusic();
 			yin.setVisible(false);
 			generateYin();
 		}

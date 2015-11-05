@@ -18,8 +18,15 @@ public class LocalMultiplayerScene extends MyScene{
 	private LocalMultiplayerPresenter localPresenter;
 	private SnakeModel snakeModel;
 	private HighscoreModel highscoreModel;
+	private boolean normalMode;
 	
-	
+	/**
+	 * 
+	 * @param normalMode if true start normal mode else start survival mode
+	 */
+	public LocalMultiplayerScene(boolean normalMode) {
+		this.normalMode = normalMode;
+	}
 	@Override
 	protected void createModel() {
 		model = new GameModel();
@@ -35,7 +42,7 @@ public class LocalMultiplayerScene extends MyScene{
 
 	@Override
 	protected void createPresenter() {
-		localPresenter = new LocalMultiplayerPresenter(model, view, this, localView, snakeModel,highscoreModel);
+		localPresenter = new LocalMultiplayerPresenter(model, view, this, localView, snakeModel,highscoreModel,normalMode);
 	}
 	
 	@Override

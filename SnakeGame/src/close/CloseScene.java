@@ -12,7 +12,7 @@ public class CloseScene extends MyScene {
 	private ClosePresenter presenter;
 	@Override
 	protected void createModel() {
-		// TODO Auto-generated method stub
+		// no model here
 		
 	}
 

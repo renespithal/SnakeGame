@@ -34,7 +34,7 @@ public class CloseView extends BorderPane{
 		
 		exitButton  = new Button ("Yes,bye");
 		exitButton.setAlignment(Pos.CENTER);
-		exitButton.setMaxWidth(80);
+		exitButton.setMaxWidth(150);
 
 		//Background
 		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/background2.jpg",600,500,false,false),

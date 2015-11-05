@@ -23,14 +23,17 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private boolean snake1Dead;
 	private boolean snake2Dead;
 	private boolean bothSnakeDead;
+	private Boolean normalMode;
+	private String info  = "Press 'N' for new game.\nPress 'B' for main menu.";
 	
-	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2) {
+	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2, boolean normalMode) {
 		super(model, view, scene);
 		
 		this.localView = localView;
 		snake2 = localModel;
 		this.scene = scene;
 		this.highscore2 = highscore2;
+		this.normalMode = normalMode;
 		
 		snake2.setDirection(Direction.LEFT);
 		direction2 = snake2.getDirection();
@@ -41,28 +44,28 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		super.moveSnakeControl(e);
 		switch (e.getCode()) {
 
-		case W:
+		case UP:
 
 			if (snake2.getDirection() != Direction.DOWN) {
 				direction2 = Direction.UP;
 			}
 			break;
 
-		case S:
+		case DOWN:
 
 			if (snake2.getDirection() != Direction.UP) {
 				direction2 = Direction.DOWN;
 			}
 			break;
 
-		case A:
+		case LEFT:
 
 			if (snake2.getDirection() != Direction.RIGHT) {
 				direction2 = Direction.LEFT;
 			}
 			break;
 
-		case D:
+		case RIGHT:
 
 			if (snake2.getDirection() != Direction.LEFT) {
 				direction2 = Direction.RIGHT;
@@ -86,11 +89,19 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	protected void snakeDead() {
 		localView.getSnakePane().setVisible(false);
 		snake1Dead = true;
+		if(!normalMode)
+		{
+			survivalModeEndGame();
+		}
 	}
 	
 	private void snake2Dead() {
 		localView.getSecondSnakePane().setVisible(false);
 		snake2Dead = true;
+		if(!normalMode)
+		{
+			survivalModeEndGame();
+		}
 	}
 	
 	private void bothSnakeDead()
@@ -101,8 +112,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	}
 	
 
-	private void endGame() {
-		String info  = "Press 'N' for new game.\nPress 'B' for main menu.";
+	private void normalModeEndGame() {
 		stopLoop();
 		localView.getHighscorePane().setVisible(true);
 		localView.getWinPane().setVisible(true);
@@ -122,11 +132,29 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		scene.setOnKeyPressed(e->endGameOptions(e));
 	}
 	
+	private void survivalModeEndGame()
+	{
+		stopLoop();
+		localView.playGameOverMusic();
+		if(snake1Dead)
+		{
+			localView.getWinLabel().setText("Player 2 won!");
+		}
+		else if(snake2Dead)
+		{
+			localView.getWinLabel().setText("Player 1 won!");
+		}
+		localView.getInfoLabel().setText(info);
+		localView.getWinPane().setVisible(true);
+		scene.setOnKeyPressed(e->endGameOptions(e));
+	}
 	private void specialEnd()
 	{
 		stopLoop();
-		localView.getWinPane().setVisible(true);
+		localView.playGameOverMusic();
 		localView.getWinLabel().setText("It's a draw.");
+		localView.getInfoLabel().setText(info);
+		localView.getWinPane().setVisible(true);
 		scene.setOnKeyPressed(e->endGameOptions(e));
 	}
 	
@@ -149,7 +177,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	
 	private void newGame()
 	{
-		(new LocalMultiplayerScene()).show((Stage) scene.getWindow());
+		(new LocalMultiplayerScene(normalMode)).show((Stage) scene.getWindow());
 	}
 	
 	@Override
@@ -184,6 +212,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		if(snake2.getHead().getX() == food.getX() && snake2.getHead().getY() == food.getY())
 		{
 			snake2.grow();
+			localView.playFoodMusic();
 			highscore2.increaseValue();
 			generateFood();
 		}
@@ -191,6 +220,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		if(snake2.getHead().getX() == yin.getX() && snake2.getHead().getY() == yin.getY())
 		{
 			highscore2.increaseSpecialValue();
+			localView.playBonusFoodMusic();
 			yin.setVisible(false);
 			generateYin();
 		}
@@ -220,9 +250,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		{
 			specialEnd();
 		}
-		if(snake1Dead && snake2Dead)
+		if(snake1Dead && snake2Dead && normalMode)
 		{
-			endGame();
+			normalModeEndGame();
 		}
 	}
 

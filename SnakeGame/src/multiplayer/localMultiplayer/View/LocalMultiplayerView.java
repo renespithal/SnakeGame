@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import options.Options;
 
 public class LocalMultiplayerView extends GameView {
 	
@@ -37,7 +38,7 @@ public class LocalMultiplayerView extends GameView {
 		
 		secondSnakePane = new Pane();
 		Rectangle snakeHead = new Rectangle(20, 20);
-		snakeHead.setFill(Color.BLACK);
+		snakeHead.setFill(chooseColor());
 		secondSnakePane.getChildren().add(snakeHead);
 		bindSnakePart(snake.getHead(), snakeHead);
 		
@@ -48,7 +49,7 @@ public class LocalMultiplayerView extends GameView {
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 				while(c.next()){
 					Rectangle snakePartView = new Rectangle(20, 20);
-					snakePartView.setFill(Color.RED);
+					snakePartView.setFill(chooseColor());
 					SnakePartModel newPart = c.getAddedSubList().get(0);
 					bindSnakePart(newPart, snakePartView);
 					secondSnakePane.getChildren().add(snakePartView);
@@ -134,4 +135,25 @@ public class LocalMultiplayerView extends GameView {
 		return super.getSnakePane();
 	}
 	
+	private Color chooseColor(){
+		
+		if(Options.color == Options.GREEN)
+		{
+			return Options.BLACK;
+		} else if(Options.color == Options.RED)
+		{
+			return Options.BLUE;
+		} else if(Options.color == Options.BLUE)
+		{
+			return Options.RED;
+		} else if(Options.color == Options.YELLOW)
+		{
+			return Options.GREEN;
+		} else if(Options.color == Options.BLACK)
+		{
+			return Options.YELLOW;
+		}
+		return null;
+		
+	}
 }

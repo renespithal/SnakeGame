@@ -10,6 +10,12 @@ public class OptionsPresenter {
 	private final static String slow ="Slow";
 	private final static String normal ="Normal";
 	private final static String fast ="Fast";
+	private final static String green ="Green";
+	private final static String red ="Red";
+	private final static String blue ="Blue";
+	private final static String yellow ="Yellow";
+	private final static String black ="Black";
+
 	private Stage stage;
 	private OptionsView view;
 	
@@ -20,6 +26,7 @@ public class OptionsPresenter {
 		
 		view.getBackButton().setOnAction(e-> returnToWelcomeWindow());
 		view.getSpeedBox().setOnAction(e->setSpeed());
+		view.getColorBox().setOnAction(e->setColor());
 	}
 	
 	private void setSpeed()
@@ -35,6 +42,29 @@ public class OptionsPresenter {
 		else if(value.equals(fast))
 		{
 			Options.speed = Options.FAST;
+		}
+	}
+	
+	private void setColor() {
+		String value = view.getColorBox().getValue();
+		if(value.equals(green))
+		{
+			Options.color = Options.GREEN;
+		} else if(value.equals(red))
+		{
+			Options.color = Options.RED;
+		}
+		else if(value.equals(blue))
+		{
+			Options.color = Options.BLUE;
+		}
+		else if(value.equals(yellow))
+		{
+			Options.color = Options.YELLOW;
+		}
+		else if(value.equals(black))
+		{
+			Options.color = Options.BLACK;
 		}
 	}
 

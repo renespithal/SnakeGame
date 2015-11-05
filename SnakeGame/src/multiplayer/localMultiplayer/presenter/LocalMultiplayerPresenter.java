@@ -22,6 +22,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private HighscoreModel highscore2;
 	private boolean snake1Dead;
 	private boolean snake2Dead;
+	private boolean bothSnakeDead;
 	
 	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2) {
 		super(model, view, scene);
@@ -92,6 +93,13 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		snake2Dead = true;
 	}
 	
+	private void bothSnakeDead()
+	{
+		localView.getSnakePane().setVisible(false);
+		localView.getSecondSnakePane().setVisible(false);
+		bothSnakeDead = true;
+	}
+	
 
 	private void endGame() {
 		String info  = "Press 'N' for new game.\nPress 'B' for main menu.";
@@ -111,6 +119,14 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		else{localView.getWinLabel().setText("It's a draw!");}
 		
 		localView.getInfoLabel().setText(info);
+		scene.setOnKeyPressed(e->endGameOptions(e));
+	}
+	
+	private void specialEnd()
+	{
+		stopLoop();
+		localView.getWinPane().setVisible(true);
+		localView.getWinLabel().setText("It's a draw.");
 		scene.setOnKeyPressed(e->endGameOptions(e));
 	}
 	
@@ -181,7 +197,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		
 		if(snake2.getHead().getX() == snake.getHead().getX() && snake2.getHead().getY() == snake.getHead().getY())
 		{
-			snake2Dead();
+			bothSnakeDead();
 		}
 		
 		for(SnakePartModel currentPart : snake.getList())
@@ -200,6 +216,10 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 			}
 		}
 		
+		if(bothSnakeDead)
+		{
+			specialEnd();
+		}
 		if(snake1Dead && snake2Dead)
 		{
 			endGame();

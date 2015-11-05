@@ -33,6 +33,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import options.Options;
 
 public class GameView extends Pane{
 	
@@ -55,7 +56,7 @@ public class GameView extends Pane{
 		snakePane = new Pane(); 
 				
 		Rectangle snakeHead = new Rectangle(20, 20);
-		snakeHead.setFill(Color.GOLD);
+		snakeHead.setFill(Options.color);
 		snakePane.getChildren().add(snakeHead);
 		bindSnakePart(snake.getHead(), snakeHead);
 		
@@ -66,7 +67,7 @@ public class GameView extends Pane{
 					public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 						while(c.next()){
 							Rectangle snakePartView = new Rectangle(20, 20);
-							snakePartView.setFill(Color.GREEN);
+							snakePartView.setFill(Options.color);
 							SnakePartModel newPart = c.getAddedSubList().get(0);
 							bindSnakePart(newPart, snakePartView);
 							snakePane.getChildren().add(snakePartView);

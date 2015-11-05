@@ -10,7 +10,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -84,7 +94,17 @@ public class OptionsView extends BorderPane {
 		}
 
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black"); // Farbe der Schalnge
-		colorBox.setValue("Green");
+		if (Options.color == Options.GREEN) {
+			colorBox.setValue("Green");
+		} else if (Options.color == Options.RED) {
+			colorBox.setValue("Red");
+		} else if (Options.color == Options.BLUE) {
+			colorBox.setValue("Blue");
+		} else if (Options.color == Options.YELLOW) {
+			colorBox.setValue("Yellow");
+		} else if (Options.color == Options.BLACK) {
+			colorBox.setValue("Black");
+		}
 
 		/*
 		onButton.setonOption("on");

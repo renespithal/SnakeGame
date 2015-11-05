@@ -9,6 +9,8 @@ import game.presenter.GamePresenter;
 import game.view.GameView;
 import highscore.model.HighscoreModel;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import multiplayer.localMultiplayer.LocalMultiplayerScene;
 import multiplayer.localMultiplayer.View.LocalMultiplayerView;
 
 public class LocalMultiplayerPresenter extends GamePresenter {
@@ -18,6 +20,8 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private Direction direction2;
 	private SnakeModel snake2;
 	private HighscoreModel highscore2;
+	private boolean snake1Dead;
+	private boolean snake2Dead;
 	
 	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2) {
 		super(model, view, scene);
@@ -79,23 +83,57 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	
 	@Override
 	protected void snakeDead() {
+		localView.getSnakePane().setVisible(false);
+		snake1Dead = true;
+	}
+	
+	private void snake2Dead() {
+		localView.getSecondSnakePane().setVisible(false);
+		snake2Dead = true;
+	}
+	
+
+	private void endGame() {
+		String info  = "Press 'N' for new game.\nPress 'B' for main menu.";
 		stopLoop();
 		localView.getHighscorePane().setVisible(true);
-		//localView.getHighscorePane().autosize();
 		localView.getWinPane().setVisible(true);
 		localView.getHighscorePane2().setVisible(true);
+		
 		if(highscore.getValue() > highscore2.getValue())
 		{
 			localView.getWinLabel().setText("Player 1 won!");
 		}
-		else localView.getWinLabel().setText("Player 2 won!");
+		else if(highscore.getValue() < highscore2.getValue())
+			{
+			localView.getWinLabel().setText("Player 2 won!");
+			}
+		else{localView.getWinLabel().setText("It's a draw!");}
+		
+		localView.getInfoLabel().setText(info);
+		scene.setOnKeyPressed(e->endGameOptions(e));
+	}
+	
+	private void endGameOptions(KeyEvent e)
+	{
+		switch (e.getCode()) {
+		case B:
+			returnToWelcomeWindow(scene);
+			break;
 
-		//localView.getWinLabel().setVisible(true);
-		//localView.getHighscorePane2().setVisible(true);
-		//localView.getHighscorePane2().autosize();
-
-
-		scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
+		case N:
+			newGame();
+			break;
+			
+		default:
+			break;
+			
+		}
+	}
+	
+	private void newGame()
+	{
+		(new LocalMultiplayerScene()).show((Stage) scene.getWindow());
 	}
 	
 	@Override
@@ -116,14 +154,14 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	protected void checkCollision() {
 		super.checkCollision();
 		if (snake2.getHead().getY() < 0 || snake2.getHead().getY() > 24 || snake2.getHead().getX() < 0 || snake2.getHead().getX() > 24) {
-			snakeDead();
+			snake2Dead();
 		}
 		
 		for(SnakePartModel currentPart : snake2.getList())
 		{
 			if(snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY())
 			{
-				snakeDead();
+				snake2Dead();
 			}
 		}
 		
@@ -143,14 +181,14 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		
 		if(snake2.getHead().getX() == snake.getHead().getX() && snake2.getHead().getY() == snake.getHead().getY())
 		{
-			snakeDead();
+			snake2Dead();
 		}
 		
 		for(SnakePartModel currentPart : snake.getList())
 		{
 			if(snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY())
 			{
-				snakeDead();
+				snake2Dead();
 			}
 		}
 		
@@ -160,6 +198,11 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 			{
 				snakeDead();
 			}
+		}
+		
+		if(snake1Dead && snake2Dead)
+		{
+			endGame();
 		}
 	}
 

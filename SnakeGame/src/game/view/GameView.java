@@ -1,6 +1,5 @@
 package game.view;
 
-import com.sun.javafx.scene.layout.region.BorderImageSlices;
 import game.model.FoodModel;
 import game.model.GameModel;
 import game.model.SnakeModel;
@@ -13,13 +12,23 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -35,6 +44,7 @@ public class GameView extends Pane{
 	protected Pane snakePane;
 	protected Pane imagePane;
 	public final TextField textField;
+	private HBox hBox;
 
 	public GameView(GameModel model) {
 		
@@ -69,7 +79,7 @@ public class GameView extends Pane{
 		ivYin.setImage(imageYin);
 		
 
-		fade(ivYin, Duration.millis(1000), Interpolator.TANGENT(Duration.millis(0),100));
+		fade(ivYin, Duration.millis(1000),Transition.INDEFINITE, Interpolator.TANGENT(Duration.millis(0),100));
 
 		ivYin.xProperty().bind(new IntegerBinding() {
 			{bind(yin.getXProperty());}
@@ -150,7 +160,7 @@ public class GameView extends Pane{
 		textField = new TextField();
 		highscore.setFont(new Font(40));
 
-		HBox hBox = new HBox (enterName, textField);
+		hBox = new HBox (enterName, textField);
 		hBox.setSpacing(10);
 
 		VBox vBox = new VBox(highscore);
@@ -167,6 +177,21 @@ public class GameView extends Pane{
 		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		
 		addPanesToMainPane(snakePane, imagePane,highscorePane);
+		
+		// Background
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground1.jpg", 700, 600, false, false),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+				BackgroundSize.DEFAULT);
+
+		this.setBackground(new Background(backgrd));
+		// this.setBackground(new Background(new
+		// BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY,
+		// Insets.EMPTY)));
+		// this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN,
+		// CornerRadii.EMPTY, Insets.EMPTY)));
+		// this.setBorder(new Border(new BorderStroke(Color.BLACK,
+		// BorderStrokeStyle.SOLID, null, null)));
+		// this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
 	}
 
 	protected void highscoreSetPosition() {
@@ -197,24 +222,13 @@ public class GameView extends Pane{
 			}
 		});
 
-		//Background
-		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground1.jpg",700,600,false,false),
-				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-				BackgroundSize.DEFAULT);
-
-		this.setBackground(new Background(backgrd));
-		//this.setBackground(new Background(new BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-		//this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-		//this.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, null, null)));
-		//this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
-
 	}
-
-	public void fade(ImageView ivYin, Duration duration, Interpolator interpolator) {
-		t = new FadeTransition(duration, ivYin );
+	
+	public void fade(Node node, Duration duration,int cycle, Interpolator interpolator) {
+		t = new FadeTransition(duration, node);
 		t.setFromValue(0);
-		t.setToValue(1000);
-		t.setCycleCount(Transition.INDEFINITE);
+		t.setToValue(100);
+		t.setCycleCount(cycle);
 		t.setAutoReverse(true);
 		t.setInterpolator(interpolator);
 
@@ -224,6 +238,15 @@ public class GameView extends Pane{
 	public Pane getHighscorePane()
 	{
 		return highscorePane;
+	}
+	
+	protected Pane getSnakePane() {
+		return snakePane;
+	}
+	
+	protected void setHBoxUnvisible()
+	{
+		hBox.setVisible(false);
 	}
 	
 	public void startAnimation() {

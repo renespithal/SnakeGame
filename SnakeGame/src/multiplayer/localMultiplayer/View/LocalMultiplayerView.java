@@ -7,9 +7,14 @@ import game.view.GameView;
 import highscore.model.HighscoreModel;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -20,12 +25,13 @@ public class LocalMultiplayerView extends GameView {
 	private Pane highscorePane2;
 	private Pane winPane;
 	private Label winLabel;
+	private Label infoLabel;
 	private HighscoreModel highScore2;
 	private SnakeModel snake;
 	
 	public LocalMultiplayerView(GameModel model,SnakeModel multiplayerModel,HighscoreModel highscore) {
 		super(model);
-		
+		super.setHBoxUnvisible();
 		this.snake = multiplayerModel;
 		this.highScore2 = highscore;
 		
@@ -77,18 +83,21 @@ public class LocalMultiplayerView extends GameView {
 		highscorePane2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		//highscorePane2.autosize();
 
-		HBox hBoxwin = new HBox();
+		VBox vBoxwin = new VBox();
 		winLabel = new Label();
 		winLabel.setFont(new Font (40));
-		winLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
-		hBoxwin.getChildren().add(winLabel);
+//		winLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
+		infoLabel = new Label();
+		infoLabel.setFont(new Font(12));
+		vBoxwin.setSpacing(30);
+		vBoxwin.getChildren().addAll(winLabel,infoLabel);
 
 		winPane = new StackPane();
 		winPane.setVisible(false);
 		winPane.setLayoutX(150);
 		winPane.setLayoutY(200);
 		highscorePane2.setLayoutY(440);
-		winPane.getChildren().add(hBoxwin);
+		winPane.getChildren().add(vBoxwin);
 
 		addPanesToMainPane(secondSnakePane,highscorePane2,winPane);
 
@@ -96,6 +105,10 @@ public class LocalMultiplayerView extends GameView {
 
 	public Label getWinLabel(){
 		return winLabel;
+	}
+	
+	public Label getInfoLabel() {
+		return infoLabel;
 	}
 
 	public Pane getWinPane(){
@@ -110,6 +123,15 @@ public class LocalMultiplayerView extends GameView {
 	protected void highscoreSetPosition() {
 		highscorePane.setLayoutX(0);
 		highscorePane.setLayoutY(0);
+	}
+	
+	public Pane getSecondSnakePane() {
+		return secondSnakePane;
+	}
+	
+	public Pane getSnakePane()
+	{
+		return super.getSnakePane();
 	}
 	
 }

@@ -3,9 +3,11 @@ package close.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -23,14 +25,27 @@ public class CloseView extends BorderPane{
 	
 	public CloseView()
 	{
+		//Button Color
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
+
 		titleLabel = new Label("Do you really want to leave?");
 		titleLabel.setFont(new Font(23));
 		titleLabel.setTextFill(Color.BLACK);
 		
 		backButton = new Button("NOOOOOOOO!!!");
+		backButton.setEffect(dropShadow);
+		backButton.setBackground(buttonbackgrd);
 		backButton.setMaxWidth(150);
 		
 		exitButton  = new Button ("Yes,bye");
+		exitButton.setEffect(dropShadow);
+		exitButton.setBackground(buttonbackgrd);
 		exitButton.setMaxWidth(150);
 
 		//Background

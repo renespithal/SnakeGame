@@ -3,20 +3,15 @@ package options.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -42,6 +37,9 @@ public class OptionsView extends BorderPane {
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
+		//Button Color
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
 
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
@@ -52,6 +50,12 @@ public class OptionsView extends BorderPane {
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
+
 		//Animation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
@@ -59,7 +63,7 @@ public class OptionsView extends BorderPane {
 		//Create Controls
 		titleLabel = new Label("Welcome to Options");
 		titleLabel.setFont(new Font(32));
-		titleLabel.setTextFill(Color.CORNFLOWERBLUE);
+		titleLabel.setTextFill(Color.DARKGREEN);
 
 		speedLabel = new Label("Choose Speed:");
 		speedLabel.setFont(new Font(13));
@@ -70,12 +74,16 @@ public class OptionsView extends BorderPane {
 		colorLabel.setMaxWidth(150);
 
 		backButton = new Button("Main Menu");
+		backButton.setEffect(dropShadow);
+		backButton.setBackground(buttonbackgrd);
 		backButton.setMaxWidth(150);
 		
 
 		//Create Options
 		speedBox = new ComboBox<>();
 		speedBox.setMaxWidth(150);
+		speedBox.setEffect(dropShadow);
+		speedBox.setBackground(buttonbackgrd);
 		speedBox.getItems().addAll("Slow", "Normal", "Fast");
 
 		if (Options.speed == Options.SLOW) {
@@ -88,6 +96,8 @@ public class OptionsView extends BorderPane {
 		
 		colorBox = new ComboBox<>();
 		colorBox.setMaxWidth(150);
+		colorBox.setEffect(dropShadow);
+		colorBox.setBackground(buttonbackgrd);
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black");
 		if (Options.color == Options.GREEN) {
 			colorBox.setValue("Green");

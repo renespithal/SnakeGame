@@ -3,9 +3,11 @@ package multiplayer.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,6 +31,9 @@ public class MultiplayerOptionsView extends BorderPane {
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
+		//Button Color
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
 		ImageView ivlogo1 = new ImageView();
@@ -38,18 +43,33 @@ public class MultiplayerOptionsView extends BorderPane {
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
+
+		//Animation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
 		titleLabel = new Label("Multiplayer");
 		titleLabel.setFont(new Font(32));
-		titleLabel.setTextFill(Color.BLACK);
+		titleLabel.setTextFill(Color.DARKGREEN);
 
 		normalButton = new Button("Normal Mode");
+		normalButton.setEffect(dropShadow);
+		normalButton.setBackground(buttonbackgrd);
 		normalButton.setMaxWidth(150);
+
 		survivalButton = new Button("Survival Mode");
+		survivalButton.setEffect(dropShadow);
+		survivalButton.setBackground(buttonbackgrd);
 		survivalButton.setMaxWidth(150);
+
 		backButton = new Button("Main Menu");
+		backButton.setEffect(dropShadow);
+		backButton.setBackground(buttonbackgrd);
 		backButton.setMaxWidth(150);
 
 
@@ -60,7 +80,7 @@ public class MultiplayerOptionsView extends BorderPane {
 		
 		VBox vBox = new VBox(hBox,normalButton,survivalButton,backButton);
 		vBox.setAlignment(Pos.CENTER);
-		vBox.setSpacing(10);
+		vBox.setSpacing(15);
 
 
 		this.setCenter(vBox);

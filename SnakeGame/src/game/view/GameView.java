@@ -12,6 +12,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -166,6 +167,7 @@ public class GameView extends Pane{
 		Label enterName = new Label("Player Name:");
 		enterName.setFont(new Font (15));
 		textField = new TextField();
+
 		highscore.setFont(new Font(40));
 
 		hBox = new HBox (enterName, textField);

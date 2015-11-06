@@ -4,22 +4,17 @@ import highscore.model.HighscoreModel;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -46,6 +41,9 @@ public class HighscoreView extends BorderPane {
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
+		//Button Color
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
 		ImageView ivlogo1 = new ImageView();
@@ -54,6 +52,12 @@ public class HighscoreView extends BorderPane {
 		Image logo2 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
+
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
 
 		// Animation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
@@ -66,7 +70,13 @@ public class HighscoreView extends BorderPane {
 
 		//Create Controls
 		clearButton = new Button("Clear Table");
+		clearButton.setBackground(buttonbackgrd);
+		clearButton.setEffect(dropShadow);
+
 		getbackButton = new Button("Main Menu");
+		getbackButton.setBackground(buttonbackgrd);
+		getbackButton.setEffect(dropShadow);
+
 		highscoreTable = new TableView<HighscoreModel>();
 
 

@@ -3,21 +3,17 @@ package welcome.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 
@@ -40,6 +36,19 @@ public class WelcomeView extends BorderPane{
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
+		//Button Color
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
+
+		//Bloom
+		Bloom bloom = new Bloom();
+		bloom.setThreshold(0.8);
+
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50,true,true);
 		ImageView ivlogo1 = new ImageView();
@@ -55,32 +64,51 @@ public class WelcomeView extends BorderPane{
 
 		//Title
 		titleLabel = new Label("Welcome to Snake");
-		titleLabel.setFont(new Font(32));
-		titleLabel.setTextFill(Color.GREEN);
+		//titleLabel.setFont(new Font(,32));
+		//titleLabel.setFont(Font.font ("AR BERKLEY", 40));
+		//titleLabel.setFont(Font.font ("AR DELANEY", 40));
+		//titleLabel.setFont(Font.font ("AR BONNIE", 40));
+		titleLabel.setFont(Font.font ("AR DESTINE", 40));
+		titleLabel.setEffect(bloom);
+		titleLabel.setTextFill(Color.DARKGREEN);
+
 
 		//Create Controls
 		multiplayerButton = new Button ("Multiplayer");
+		multiplayerButton.setEffect(dropShadow);
+		multiplayerButton.setBackground(buttonbackgrd);
 		multiplayerButton.setMaxWidth(150);
 
 		startButton = new Button("Start Game");
+		startButton.setFont(Font.font("AR DESTINE", 20));
+		startButton.setEffect(dropShadow);
+		startButton.setBackground(buttonbackgrd);
 		startButton.setMaxWidth(150);
 
 		optionsButton = new Button("Options");
+		optionsButton.setEffect(dropShadow);
+		optionsButton.setBackground(buttonbackgrd);
 		optionsButton.setMaxWidth(150);
 		
 		highscoreButton = new Button("Highscore");
+		highscoreButton.setEffect(dropShadow);
+		highscoreButton.setBackground(buttonbackgrd);
 		highscoreButton.setMaxWidth(150);
 
 		exitButton = new Button("Exit Game");
+		exitButton.setEffect(dropShadow);
+		exitButton.setBackground(buttonbackgrd);
 		exitButton.setMaxWidth(150);
 
 		//Create Boxes
 		HBox hBox = new HBox(ivlogo1,titleLabel,ivlogo2);
 		hBox.setAlignment(Pos.CENTER);
+		hBox.setLayoutY(100);
+		hBox.setLayoutX(300);
 
 		VBox vBox1 = new VBox(hBox,startButton,multiplayerButton,optionsButton,highscoreButton,exitButton);
 		vBox1.setAlignment(Pos.CENTER);
-		vBox1.setSpacing(10);
+		vBox1.setSpacing(15);
 
 		//add Boxes to BorderPane
 		this.setCenter(vBox1);

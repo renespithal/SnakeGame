@@ -83,7 +83,6 @@ public class GamePresenter {
 		view.playGameOverMusic();
 		view.getHighscorePane().setVisible(true);
         highscore.playernameProperty().bind(view.textField.textProperty());
-		//scene.setOnKeyPressed(e->returnToWelcomeWindow(scene));
 		scene.setOnKeyPressed(e -> {
             saveHisghscore();
             returnToWelcomeWindow(scene);
@@ -105,33 +104,6 @@ public class GamePresenter {
 		}
 	}
 
-	/*private void saveHisghscore() {
-        String jsonData = FileUtils.readFile("res/Highscore.json");
-        JSONObject jobj = new JSONObject(jsonData);
-
-        JSONArray jsonArray;
-        if (jobj.has("highscore")){
-            jsonArray = jobj.getJSONArray("highscore");
-        }
-        else {
-            jsonArray = new JSONArray();
-        }
-
-        JSONObject newhighscore = new JSONObject();
-        newhighscore.put(highscore.getPlayername(),highscore.getValue());
-        jsonArray.put(newhighscore);
-
-        jobj.put("highscore",jsonArray);
-
-        try (FileWriter fw= new FileWriter("res/Highscore.json")){
-            fw.write(jobj.toString());
-            fw.flush();
-        } catch (IOException e){
-            e.printStackTrace();
-        };
-
-    }
-    */
 
     protected void returnToWelcomeWindow(Scene scene) {
 		(new WelcomeScene()).show((Stage) scene.getWindow());
@@ -176,7 +148,7 @@ public class GamePresenter {
 
 	protected void checkCollision() {
 		
-		if (snake.getHead().getY() < 0 || snake.getHead().getY() > 24 || snake.getHead().getX() < 0 || snake.getHead().getX() > 24) {
+		if (snake.getHead().getY() < 1 || snake.getHead().getY() > 23 || snake.getHead().getX() < 1 || snake.getHead().getX() > 23) {
 			snakeDead();
 		}
 		

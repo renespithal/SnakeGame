@@ -30,7 +30,7 @@ public class LocalMultiplayerScene extends MyScene{
 	@Override
 	protected void createModel() {
 		model = new GameModel();
-		snakeModel = new SnakeModel(24, 24);
+		snakeModel = new SnakeModel(23, 23);
 		highscoreModel = new HighscoreModel();
 	}
 

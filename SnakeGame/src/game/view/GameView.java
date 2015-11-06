@@ -17,20 +17,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -45,6 +41,10 @@ public class GameView extends Pane{
 	private YinYangFoodModel yin;
 	protected Pane snakePane;
 	protected Pane imagePane;
+	protected Pane wallPaneTop;
+	protected Pane wallPaneBottom;
+	protected Pane wallPaneRight;
+	protected Pane wallPaneLeft;
 	public final TextField textField;
 	private HBox hBox;
 	private AudioClip bonusFoodEaten;
@@ -56,7 +56,7 @@ public class GameView extends Pane{
 		this.snake = model.getSnake();
 		this.food = model.getFood();
 		this.yin = model.getYinYang();
-		
+
 		snakePane = new Pane(); 
 				
 		Rectangle snakeHead = new Rectangle(20, 20);
@@ -157,9 +157,7 @@ public class GameView extends Pane{
 			}
 		});
 
-		/*hBox.setAlignment(Pos.CENTER);
-		hBox.getChildren().add(highscore);*/
-		
+
 		gameOver = new AudioClip("file:src/sounds/GameOver.wav");
 		
 		imagePane = new Pane();
@@ -178,30 +176,59 @@ public class GameView extends Pane{
 		highscore.setFont(new Font(40));
 		vBox.getChildren().add(hBox);
 
-
 		highscorePane = new StackPane();
 		highscorePane.getChildren().add(vBox);
 		highscoreSetPosition();
 		highscorePane.setVisible(false);
-		//highscorePane.setMinSize(280,0);
-		highscorePane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
-		
-		addPanesToMainPane(snakePane, imagePane,highscorePane);
-		
+
+
+		//Create wall
+		wallPaneTop = new Pane();
+		Image imageWallTop = new Image("file:src/images/bamboowall2.jpg");
+		ImageView ivWallTop = new ImageView();
+		ivWallTop.setImage(imageWallTop);
+		ivWallTop.setFitHeight(20);
+		ivWallTop.setFitWidth(500);
+		wallPaneTop.getChildren().add(ivWallTop);
+
+		wallPaneBottom = new Pane();
+		Image imageWallBottom = new Image("file:src/images/bamboowall2.jpg");
+		ImageView ivWallBottom = new ImageView();
+		ivWallBottom.setImage(imageWallBottom);
+		ivWallBottom.setFitHeight(20);
+		ivWallBottom.setFitWidth(500);
+		ivWallBottom.setLayoutY(480);
+		wallPaneBottom.getChildren().add(ivWallBottom);
+
+		wallPaneLeft = new Pane();
+		Image imageWallLeft = new Image("file:src/images/bamboowall1.jpg");
+		ImageView ivWallLeft = new ImageView();
+		ivWallLeft.setImage(imageWallLeft);
+		ivWallLeft.setFitHeight(500);
+		ivWallLeft.setFitWidth(20);
+		wallPaneLeft.getChildren().add(ivWallLeft);
+
+		wallPaneRight = new Pane();
+		Image imageWallRight = new Image("file:src/images/bamboowall1.jpg");
+		ImageView ivWallRight = new ImageView();
+		ivWallRight.setImage(imageWallRight);
+		ivWallRight.setFitHeight(500);
+		ivWallRight.setFitWidth(20);
+		ivWallRight.setLayoutX(480);
+		wallPaneRight.getChildren().add(ivWallRight);
+
+
+		addPanesToMainPane(wallPaneTop, wallPaneBottom, wallPaneLeft, wallPaneRight,snakePane, imagePane, highscorePane);
+
+
 		// Background
 		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground1.jpg", 700, 600, false, false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
+
 		this.setBackground(new Background(backgrd));
-		// this.setBackground(new Background(new
-		// BackgroundFill(Color.MEDIUMSPRINGGREEN, CornerRadii.EMPTY,
-		// Insets.EMPTY)));
-		// this.setBackground(new Background(new BackgroundFill(Color.PALEGREEN,
-		// CornerRadii.EMPTY, Insets.EMPTY)));
-		// this.setBorder(new Border(new BorderStroke(Color.BLACK,
-		// BorderStrokeStyle.SOLID, null, null)));
-		// this.setBorder(new Border(new BorderImage(new Image("file:src/images/background3.jpg",600,600,false,false),null,null, BorderImageSlices.DEFAULT,true,null));
+
 	}
 
 	protected void highscoreSetPosition() {
@@ -281,4 +308,5 @@ public class GameView extends Pane{
 	{
 		gameOver.play();
 	}
+
 }

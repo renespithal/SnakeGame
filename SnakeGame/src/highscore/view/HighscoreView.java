@@ -12,7 +12,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -24,15 +31,13 @@ public class HighscoreView extends BorderPane {
 
 	private Label titleLabel;
 	private Button getbackButton;
-	//private Button playButton;
 	private Button clearButton;
-	private Button saveButton;
 	private RotateTransition t1;
 	private RotateTransition t2;
 
 	public TableView<HighscoreModel> highscoreTable;
 	TableColumn<HighscoreModel, String> player;
-	TableColumn<HighscoreModel, Number> highscore;
+	TableColumn<HighscoreModel, Number> highscore; // Number instead of Integer
 
 	public HighscoreView() {
 
@@ -58,14 +63,10 @@ public class HighscoreView extends BorderPane {
 		titleLabel = new Label("Highscore");
 		titleLabel.setFont(new Font(32));
 		titleLabel.setTextFill(Color.DARKGREEN);
-		Border border = new Border(new BorderStroke(Color.DARKGREEN, BorderStrokeStyle.DOTTED, null, null));
-		titleLabel.setBorder(border);
-
 
 		//Create Controls
 		clearButton = new Button("Clear Table");
-		getbackButton = new Button("back to menu");
-		//playButton = new Button ("Play Again");
+		getbackButton = new Button("Main Menu");
 		highscoreTable = new TableView<HighscoreModel>();
 
 
@@ -73,11 +74,11 @@ public class HighscoreView extends BorderPane {
 		player = new TableColumn<HighscoreModel, String>("Player");
 		player.setMinWidth(150);
 		player.setCellValueFactory(new PropertyValueFactory<>("Player"));
-		player.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().playernameProperty());
+		player.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().playernameProperty()); //Binding
 
 		highscore = new TableColumn<HighscoreModel, Number>("Highscore");
 		highscore.setMinWidth(350);
-		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());
+		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());//Binding
 
 		highscoreTable.getColumns().addAll(player, highscore);
 
@@ -100,7 +101,6 @@ public class HighscoreView extends BorderPane {
 		this.setTop(hbox1);
 		this.setCenter(vBox1);
 		this.setBottom(vBox2);
-		//this.setBackground(new Background(new BackgroundFill(Color.FLORALWHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 		this.setBackground(new Background(backgrd));
 	}
 
@@ -108,29 +108,6 @@ public class HighscoreView extends BorderPane {
 		return highscoreTable;
 	}
 
-
-	/*public void binding (HighscoreModek model){
-		playername.textProperty().bind(new StringBinding(){
-			{bind(model.getValueProperty());}
-
-			@Override
-			protected String computeValue() {
-				return model.getValue
-			}
-		});
-
-	}*/
-	/*highscore.textProperty().bind(new StringBinding() {
-			{
-				bind(model.getValueProperty());
-			}
-
-			@Override
-			protected String computeValue() {
-				return "Highscore: " + model.getValue();
-			}
-		};
-	*/
 
 	//Animation
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
@@ -154,17 +131,11 @@ public class HighscoreView extends BorderPane {
 		t2.setInterpolator(interpolator);
 
 	}
-	public Button saveButton() {
-		return saveButton;
-	}
 	 
 	public Button clearButton() {
 		return clearButton;
 	}
 
-	/*public Button playButton(){
-		return playButton;
-	}*/
 	
 	public Button getBackButton() {
 		return getbackButton;

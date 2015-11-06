@@ -24,16 +24,13 @@ public class CloseView extends BorderPane{
 	public CloseView()
 	{
 		titleLabel = new Label("Do you really want to leave?");
-		titleLabel.setAlignment(Pos.TOP_CENTER);
 		titleLabel.setFont(new Font(23));
 		titleLabel.setTextFill(Color.BLACK);
 		
 		backButton = new Button("NOOOOOOOO!!!");
-		backButton.setAlignment(Pos.CENTER);
 		backButton.setMaxWidth(150);
 		
 		exitButton  = new Button ("Yes,bye");
-		exitButton.setAlignment(Pos.CENTER);
 		exitButton.setMaxWidth(150);
 
 		//Background

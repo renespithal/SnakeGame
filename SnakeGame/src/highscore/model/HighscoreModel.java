@@ -12,7 +12,6 @@ public class HighscoreModel {
 private IntegerProperty highscoreValue = new SimpleIntegerProperty(0);
 private StringProperty playername = new SimpleStringProperty();
 
-//private StringProperty name = new StringProperty();
 
 	public HighscoreModel(){}
 

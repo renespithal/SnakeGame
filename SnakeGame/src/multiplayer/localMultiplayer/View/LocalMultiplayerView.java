@@ -8,9 +8,6 @@ import highscore.model.HighscoreModel;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -81,13 +78,11 @@ public class LocalMultiplayerView extends GameView {
 		highscorePane2.setVisible(false);
 		//highscorePane2.setMinSize(280,50);
 		//highscorePane2.setPrefWidth(500);
-		highscorePane2.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
-		//highscorePane2.autosize();
+
 
 		VBox vBoxwin = new VBox();
 		winLabel = new Label();
 		winLabel.setFont(new Font (40));
-//		winLabel.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.DASHED, null, null)));
 		infoLabel = new Label();
 		infoLabel.setFont(new Font(12));
 		vBoxwin.setSpacing(30);

@@ -24,7 +24,6 @@ public class HighscorePresenter {
         view.highscoreTable.setItems(highscoreList);
 		this.stage = stage;
 		view.getBackButton().setOnAction(e->returnToWelcomeWindow());
-		//view.playButton().setOnAction(e-> returnToGameScene(stage));
 		//view.clearButton().setOnAction(e-> clearTable());
 	}
 
@@ -39,7 +38,7 @@ public class HighscorePresenter {
 
 		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 			highscores.add(new HighscoreModel(
-					(String) entry.getKey(),
+                    (String) entry.getKey(),                        //cast to String
 					Integer.valueOf((String) entry.getValue())));
 		}
 
@@ -51,9 +50,7 @@ public class HighscorePresenter {
 		highscoreTable.set
 	}
 
-	/*public void returnToGameScene(Stage stage){
-		(new GameScene()).show(stage);
-	}*/
+	*/
 
 	private void returnToWelcomeWindow() {
 		view.stopRotation();

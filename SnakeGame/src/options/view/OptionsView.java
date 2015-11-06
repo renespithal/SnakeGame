@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -15,10 +14,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,17 +29,11 @@ public class OptionsView extends BorderPane {
 	private Label speedLabel;
 	private Label colorLabel;
 	private Button backButton;
-	private RadioButton onButton;
-	private RadioButton offButton;
-	private ComboBox<String> speedBox;   //Geschwindigkeit
-	private ComboBox<String> colorBox;  //Farbe der Schlange
+	private ComboBox<String> speedBox;   //Speed
+	private ComboBox<String> colorBox;  //Color
 	private RotateTransition t1;
 	private RotateTransition t2;
-	/*
-	 *private ComboBox<String> StageBox = new ComboBox<String>();  // Hintergrund aussuchen (brauchen wir nicht unbedingt)
-	 */
-	/*ChoiceBox music = new ChoiceBox();
-	 music.getItems().addAll("on", "off"); */
+
 	
 	public OptionsView() {
 
@@ -98,7 +88,7 @@ public class OptionsView extends BorderPane {
 		
 		colorBox = new ComboBox<>();
 		colorBox.setMaxWidth(150);
-		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black"); // Farbe der Schalnge
+		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black");
 		if (Options.color == Options.GREEN) {
 			colorBox.setValue("Green");
 		} else if (Options.color == Options.RED) {
@@ -111,33 +101,6 @@ public class OptionsView extends BorderPane {
 			colorBox.setValue("Black");
 		}
 
-		/*
-		onButton.setonOption("on");
-		offButton.setffOption("off");
-
-
-		final ToggleGroup group = new ToggleGroup();
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-			public void changed(ObservableValue<? extends Toggle> ov,
-								Toggle old_toggle, Toggle new_toggle) {
-				if (group.getSelectedToggle() != null) {
-					final Image image = new Image(
-							getClass().getResourceAsStream(
-									group.getSelectedToggle().getUserData().toString() +
-											".jpg"
-							)
-					);
-					icon.setImage(image);
-				}
-			}
-		});*/
-
-		/*ToggleGroup group = new ToggleGroup();
-		RadioButton button1 = new RadioButton("on");
-		button1.setToggleGroup(group);
-		button1.setSelected(true);
-		RadioButton button2 = new RadioButton("off");
-		button2.setToggleGroup(group);*/
 
 		//add Boxes to Border Pane
 		HBox hBox1 = new HBox(ivlogo1, titleLabel, ivlogo2);
@@ -191,7 +154,6 @@ public class OptionsView extends BorderPane {
 
 	public ComboBox<String>getColorBox(){ return colorBox; }
 
-	//public ToggleGroup.getSelectedToggle(){ return }
 
 	public void startRotation()
 	{

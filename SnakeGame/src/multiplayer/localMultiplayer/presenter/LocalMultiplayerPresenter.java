@@ -24,7 +24,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private boolean snake2Dead;
 	private boolean bothSnakeDead;
 	private Boolean normalMode;
-	private String info  = "Press 'N' for new game.\nPress 'B' for main menu.";
+	private String info  = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
 	
 	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2, boolean normalMode) {
 		super(model, view, scene);
@@ -114,6 +114,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 
 	private void normalModeEndGame() {
 		stopLoop();
+		localView.playGameOverMusic();
 		localView.getHighscorePane().setVisible(true);
 		localView.getWinPane().setVisible(true);
 		localView.getHighscorePane2().setVisible(true);
@@ -127,7 +128,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 			localView.getWinLabel().setText("Player 2 won!");
 			}
 		else{localView.getWinLabel().setText("It's a draw!");}
-		
+
 		localView.getInfoLabel().setText(info);
 		scene.setOnKeyPressed(e->endGameOptions(e));
 	}
@@ -197,7 +198,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	@Override
 	protected void checkCollision() {
 		super.checkCollision();
-		if (snake2.getHead().getY() < 0 || snake2.getHead().getY() > 24 || snake2.getHead().getX() < 0 || snake2.getHead().getX() > 24) {
+		if (snake2.getHead().getY() < 1 || snake2.getHead().getY() > 23 || snake2.getHead().getX() < 1 || snake2.getHead().getX() > 23) {
 			snake2Dead();
 		}
 		
@@ -250,8 +251,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		{
 			specialEnd();
 		}
-		if(snake1Dead && snake2Dead && normalMode)
-		{
+		if(snake1Dead && snake2Dead && normalMode) {
 			normalModeEndGame();
 		}
 	}

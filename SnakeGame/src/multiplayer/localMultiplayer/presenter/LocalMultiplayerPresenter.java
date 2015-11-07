@@ -8,8 +8,12 @@ import game.model.SnakePartModel;
 import game.presenter.GamePresenter;
 import game.view.GameView;
 import highscore.model.HighscoreModel;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import multiplayer.localMultiplayer.LocalMultiplayerScene;
 import multiplayer.localMultiplayer.View.LocalMultiplayerView;
 
@@ -25,6 +29,8 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private boolean bothSnakeDead;
 	private Boolean normalMode;
 	private String info  = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
+	private KeyFrame disposeSnake2;
+	private Timeline deadSnake2;
 	
 	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2, boolean normalMode) {
 		super(model, view, scene);
@@ -37,6 +43,17 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		
 		snake2.setDirection(Direction.LEFT);
 		direction2 = snake2.getDirection();
+		disposeSnake2 = new KeyFrame(Duration.seconds(0.1), e-> disposeSnake2());
+		deadSnake2 = new Timeline(disposeSnake2);
+		deadSnake2.setCycleCount(1);
+	}
+
+	private void disposeSnake2() {
+		for( Node body : localView.getSnakePane2().getChildren())
+		{
+			localView.fade(body);
+			localView.startDisposeAnimation();
+		}
 	}
 
 	@Override
@@ -80,40 +97,69 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	
 	@Override
 	protected void moveSnake() {
-		super.moveSnake();
+//		super.moveSnake();
 		snake2.setDirection(direction2);
 		snake2.increaseValue();
 	}
 	
 	@Override
-	protected void snakeDead() {
-		localView.getSnakePane().setVisible(false);
-		snake1Dead = true;
-		if(!normalMode)
+	protected void disposeSnake()
+	{
+		for( Node body : localView.getSnakePane().getChildren())
 		{
+			localView.fade(body);
+			localView.startDisposeAnimation();
+		}
+	}
+	
+	@Override
+	protected void snakeDead() {
+//		localView.getSnakeHead().setVisible(false);
+		if(normalMode)
+		{
+			localView.getSnakePane().getChildren().clear();
+			snake1Dead = true;
+		}
+
+		else
+		{
+			disposeSnake();
+			super.startDisposeSnake();
+			disposeSnake2();
+			deadSnake2.play();
 			survivalModeEndGame();
 		}
 	}
 	
 	private void snake2Dead() {
-		localView.getSecondSnakePane().setVisible(false);
-		snake2Dead = true;
-		if(!normalMode)
+//		localView.getSnakeHead2().setVisible(false);
+		if(normalMode)
 		{
+			localView.getSnakePane2().getChildren().clear();
+			snake2Dead = true;
+		}
+
+		else
+		{
+			disposeSnake2();
+			deadSnake2.play();
+			disposeSnake();
+			super.startDisposeSnake();
 			survivalModeEndGame();
 		}
 	}
 	
 	private void bothSnakeDead()
 	{
-		localView.getSnakePane().setVisible(false);
-		localView.getSecondSnakePane().setVisible(false);
+//		localView.getSnakeHead().setVisible(false);
+//		localView.getSnakeHead2().setVisible(false);
 		bothSnakeDead = true;
 	}
 	
 
 	private void normalModeEndGame() {
 		stopLoop();
+		localView.stopAnimation();
 		localView.playGameOverMusic();
 		localView.getHighscorePane().setVisible(true);
 		localView.getWinPane().setVisible(true);
@@ -136,6 +182,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private void survivalModeEndGame()
 	{
 		stopLoop();
+		localView.stopAnimation();
+		super.stopDisposeSnake();
+		deadSnake2.stop();
 		localView.playGameOverMusic();
 		if(snake1Dead)
 		{
@@ -147,11 +196,13 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		}
 		localView.getInfoLabel().setText(info);
 		localView.getWinPane().setVisible(true);
+		deadSnake2.stop();
 		scene.setOnKeyPressed(e->endGameOptions(e));
 	}
 	private void specialEnd()
 	{
 		stopLoop();
+		localView.stopAnimation();
 		localView.playGameOverMusic();
 		localView.getWinLabel().setText("It's a draw.");
 		localView.getInfoLabel().setText(info);
@@ -196,8 +247,8 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	}
 	
 	@Override
-	protected void checkCollision() {
-		super.checkCollision();
+	protected void checkCollision(GameView view) {
+		super.checkCollision(localView);
 		if (snake2.getHead().getY() < 1 || snake2.getHead().getY() > 23 || snake2.getHead().getX() < 1 || snake2.getHead().getX() > 23) {
 			snake2Dead();
 		}
@@ -255,5 +306,5 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 			normalModeEndGame();
 		}
 	}
-
+	
 }

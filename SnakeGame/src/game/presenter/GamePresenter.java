@@ -17,6 +17,7 @@ import game.view.GameView;
 import highscore.model.HighscoreModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -27,10 +28,12 @@ import welcome.WelcomeScene;
 public class GamePresenter {
 	private Timeline loop;
 	private Timeline bonusLoop;
+	private Timeline deadSnake;
 	private KeyFrame snakeMovement;
 	private KeyFrame showBonusFood;
 	private KeyFrame hideBonusFood;
 	private KeyFrame collision;
+	private KeyFrame disposeSnake;
 	protected Direction direction;
 
 	private GameView view;
@@ -60,9 +63,10 @@ public class GamePresenter {
 	private void createKeyFrames()
 	{
 		snakeMovement = new KeyFrame(Options.speed, e -> moveSnake());
-		collision = new KeyFrame(Options.speed, e->checkCollision());
+		collision = new KeyFrame(Options.speed, e->checkCollision(view));
 		showBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 5) + 1), e-> showBonusFood());
 		hideBonusFood = new KeyFrame(Duration.seconds((int)(Math.random() * 10) + 6), e->hideBonusFood());
+		disposeSnake = new KeyFrame(Duration.seconds(0.1), e-> disposeSnake());
 	}
 	
 	private void createTimelines()
@@ -71,6 +75,8 @@ public class GamePresenter {
 		bonusLoop.setCycleCount(Timeline.INDEFINITE);
 		loop = new Timeline(snakeMovement,collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
+		deadSnake = new Timeline(disposeSnake);
+		deadSnake.setCycleCount(1);
 	}
 	
 	protected void moveSnake() {
@@ -79,6 +85,9 @@ public class GamePresenter {
 	}
 
 	protected void snakeDead() {
+//		view.getSnakeHead().setVisible(false);
+		startDisposeSnake();
+		view.stopAnimation();
 		stopLoop();
 		view.playGameOverMusic();
 		view.getHighscorePane().setVisible(true);
@@ -86,9 +95,26 @@ public class GamePresenter {
 		scene.setOnKeyPressed(e -> {
             saveHisghscore();
             returnToWelcomeWindow(scene);
+            stopDisposeSnake();
         });
 	}
 
+	protected void stopDisposeSnake() {
+		deadSnake.stop();
+	}
+
+	protected void startDisposeSnake() {
+		deadSnake.play();
+	}
+
+	protected void disposeSnake()
+	{
+		for( Node body : view.getSnakePane().getChildren())
+		{
+			view.fade(body);
+			view.startDisposeAnimation();
+		}
+	}
 	private void saveHisghscore() {
 		Properties properties = new Properties();
 
@@ -146,7 +172,7 @@ public class GamePresenter {
 		}
 	}
 
-	protected void checkCollision() {
+	protected void checkCollision(GameView view) {
 		
 		if (snake.getHead().getY() < 1 || snake.getHead().getY() > 23 || snake.getHead().getX() < 1 || snake.getHead().getX() > 23) {
 			snakeDead();
@@ -241,7 +267,7 @@ public class GamePresenter {
 		bonusLoop.play();
 	}
 
-	protected void stopLoop() {
+	public void stopLoop() {
 		loop.stop();
 		bonusLoop.stop();
 	}

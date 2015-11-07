@@ -12,21 +12,20 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -37,15 +36,17 @@ public class GameView extends Pane{
 	
 	protected Pane highscorePane;
 	private FadeTransition t;
+	private FadeTransition snakeDispose;
 	private SnakeModel snake;
 	private FoodModel food;
 	private YinYangFoodModel yin;
-	protected Pane snakePane;
-	protected Pane imagePane;
-	protected Pane wallPaneTop;
-	protected Pane wallPaneBottom;
-	protected Pane wallPaneRight;
-	protected Pane wallPaneLeft;
+	private Pane snakePane;
+	private Pane imagePane;
+	private Pane wallPaneTop;
+	private Pane wallPaneBottom;
+	private Pane wallPaneRight;
+	private Pane wallPaneLeft;
+	private Rectangle snakeHead;
 	public final TextField textField;
 	private HBox hBox;
 	private AudioClip bonusFoodEaten;
@@ -60,7 +61,7 @@ public class GameView extends Pane{
 
 		snakePane = new Pane(); 
 				
-		Rectangle snakeHead = new Rectangle(20, 20);
+		snakeHead = new Rectangle(20, 20);
 		snakeHead.setFill(Options.color);
 		snakePane.getChildren().add(snakeHead);
 		bindSnakePart(snake.getHead(), snakeHead);
@@ -157,7 +158,6 @@ public class GameView extends Pane{
 				return "Highscore: "+model.getHighscore().getValue();
 			}
 		});
-
 
 		gameOver = new AudioClip("file:src/sounds/GameOver.wav");
 		
@@ -270,7 +270,15 @@ public class GameView extends Pane{
 		t.setCycleCount(cycle);
 		t.setAutoReverse(true);
 		t.setInterpolator(interpolator);
-
+	}
+	
+	public void fade(Node node)
+	{
+		snakeDispose = new FadeTransition(Duration.millis(1000), node);
+		snakeDispose.setFromValue(1);
+		snakeDispose.setToValue(0);
+		snakeDispose.setCycleCount(1);
+		t.setInterpolator(Interpolator.LINEAR);
 	}
 
 
@@ -279,8 +287,16 @@ public class GameView extends Pane{
 		return highscorePane;
 	}
 	
-	protected Pane getSnakePane() {
+	public Pane getSnakePane() {
 		return snakePane;
+	}
+	
+	public Rectangle getSnakeHead() {
+		return snakeHead;
+	}
+	
+	public FadeTransition getSnakeDispose() {
+		return snakeDispose;
 	}
 	
 	protected void setHBoxUnvisible()
@@ -294,6 +310,16 @@ public class GameView extends Pane{
 
 	public void stopAnimation() {
 		t.stop();
+	}
+	
+	public void startDisposeAnimation()
+	{
+		snakeDispose.play();
+	}
+	
+	public void stopDisposeAnimation()
+	{
+		snakeDispose.stop();
 	}
 	
 	public void playBonusFoodMusic()

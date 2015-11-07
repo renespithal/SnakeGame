@@ -24,6 +24,7 @@ public class LocalMultiplayerView extends GameView {
 	private Pane winPane;
 	private Label winLabel;
 	private Label infoLabel;
+	private Rectangle snakeHead2;
 	private HighscoreModel highScore2;
 	private SnakeModel snake;
 	
@@ -34,10 +35,10 @@ public class LocalMultiplayerView extends GameView {
 		this.highScore2 = highscore;
 		
 		secondSnakePane = new Pane();
-		Rectangle snakeHead = new Rectangle(20, 20);
-		snakeHead.setFill(chooseColor());
-		secondSnakePane.getChildren().add(snakeHead);
-		bindSnakePart(snake.getHead(), snakeHead);
+		snakeHead2 = new Rectangle(20, 20);
+		snakeHead2.setFill(chooseColor());
+		secondSnakePane.getChildren().add(snakeHead2);
+		bindSnakePart(snake.getHead(), snakeHead2);
 		
 		snake.getList().addListener(new ListChangeListener<SnakePartModel>()
 		{
@@ -121,13 +122,12 @@ public class LocalMultiplayerView extends GameView {
 		highscorePane.setLayoutY(0);
 	}
 	
-	public Pane getSecondSnakePane() {
+	public Pane getSnakePane2() {
 		return secondSnakePane;
 	}
 	
-	public Pane getSnakePane()
-	{
-		return super.getSnakePane();
+	public Rectangle getSnakeHead2() {
+		return snakeHead2;
 	}
 	
 	private Color chooseColor(){
@@ -151,4 +151,5 @@ public class LocalMultiplayerView extends GameView {
 		return null;
 		
 	}
+
 }

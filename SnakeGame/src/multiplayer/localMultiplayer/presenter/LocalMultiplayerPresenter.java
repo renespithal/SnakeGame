@@ -97,7 +97,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	
 	@Override
 	protected void moveSnake() {
-//		super.moveSnake();
+		super.moveSnake();
 		snake2.setDirection(direction2);
 		snake2.increaseValue();
 	}

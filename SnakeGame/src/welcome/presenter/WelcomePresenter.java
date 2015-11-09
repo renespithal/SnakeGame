@@ -1,8 +1,9 @@
 package welcome.presenter;
 
-import close.CloseScene;
+
 import game.GameScene;
 import highscore.HighscoreScene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import multiplayer.MultiplayerOptionsScene;
 import options.OptionsScene;
@@ -22,7 +23,12 @@ public class WelcomePresenter {
 		view.getMultiplayerButton().setOnAction(e->showMultiplayerScene());
 		view.getOptionsButton().setOnAction(e->showOptionsScene());
      	view.getHighscoreButton().setOnAction(e-> showHighscoreScene ());
-		view.getExitButton().setOnAction(e->exitGame());
+		view.getExitButton().setOnAction(e->closeGame());
+
+	}
+
+	private void closeGame() {
+		stage.close();
 	}
 
 	private void showGameScene() 
@@ -48,13 +54,6 @@ public class WelcomePresenter {
 		view.stopRotation();
 		(new HighscoreScene()).show(stage);
 	}
-	
-	private void exitGame()
-	{
-		view.stopRotation();
-		(new CloseScene()).show(stage);
-	}
-	
-	
+
 
 }

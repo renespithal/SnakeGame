@@ -8,7 +8,10 @@ import javafx.stage.Stage;
 import welcome.WelcomeScene;
 
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -16,43 +19,87 @@ public class HighscorePresenter {
 	
 	private HighscoreView view;
 	private Stage stage;
-		
-	public HighscorePresenter(HighscoreView view, Stage stage)
+    private final ObservableList<HighscoreModel> highscoreList;
+
+    public HighscorePresenter(HighscoreView view, Stage stage)
 	{
 		this.view = view;
-        ObservableList<HighscoreModel> highscoreList = createHighscoreList();
-        view.highscoreTable.setItems(highscoreList);
-		this.stage = stage;
-		view.getBackButton().setOnAction(e->returnToWelcomeWindow());
-		//view.clearButton().setOnAction(e-> clearTable());
+        this.stage = stage;
+
+		view.getBackButton().setOnAction(e -> returnToWelcomeWindow());
+		view.clearButton().setOnAction(e -> clearHighscore());
+
+        highscoreList = createHighscoreList();
+        updateTableItems(view, highscoreList);
 	}
 
-	private ObservableList<HighscoreModel> createHighscoreList() {
-		ObservableList<HighscoreModel> highscores = FXCollections.observableArrayList();
 
-		Properties properties = new Properties();
+    private void clearHighscore() {
+        Properties properties = new Properties();
 
-		try(FileInputStream is = new FileInputStream("res/Highscore.properties")) {
-			properties.load(is);
-		} catch (IOException e) {}
+        try (FileWriter writer = new FileWriter("res/Highscore.properties")) {
+         properties.store(writer,null);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        updateTableItems(view, FXCollections.emptyObservableList());
+    }
+
+
+    private ObservableList<HighscoreModel> createHighscoreList() {
+        Properties properties = tryLoadProperties();
+
+        ObservableList<HighscoreModel> highscores = FXCollections.observableArrayList();
 
 		for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 			highscores.add(new HighscoreModel(
-                    (String) entry.getKey(),                        //cast to String
+                    (String) entry.getKey(),
 					Integer.valueOf((String) entry.getValue())));
 		}
+
+        sortHighsore(highscores);
 
         return highscores;
 	}
 
+    private void sortHighsore(ObservableList<HighscoreModel> highscores) {
+        Comparator<HighscoreModel> comparator = new Comparator<HighscoreModel>() {
+            @Override
+            public int compare(HighscoreModel score1, HighscoreModel score2) {
+                return ((Integer) score2.getValue()).compareTo(((Integer) score1.getValue()));
+            }
+        };
 
-	/*public void clearTable(){
-		highscoreTable.set
-	}
+        Collections.sort(highscores, comparator);
+    }
 
-	*/
+    protected void updateTableItems(HighscoreView view, ObservableList<HighscoreModel> highscoreList) {
 
-	private void returnToWelcomeWindow() {
+        try
+        {
+            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList.subList(0,10));
+            view.highscoreTable.setItems(fixedSizeList);
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList);
+            view.highscoreTable.setItems(fixedSizeList);
+        }
+    }
+
+    private Properties tryLoadProperties() {
+        Properties properties = new Properties();
+
+        try(FileInputStream is = new FileInputStream("res/Highscore.properties")) {
+            properties.load(is);
+        } catch (IOException e) {}
+        return properties;
+    }
+
+
+    private void returnToWelcomeWindow() {
 		view.stopRotation();
 		(new WelcomeScene()).show(stage);
 	}

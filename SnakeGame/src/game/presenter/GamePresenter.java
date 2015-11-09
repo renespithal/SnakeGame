@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
-
 import framework.MyScene;
 import game.model.FoodModel;
 import game.model.GameModel;
@@ -14,11 +13,13 @@ import game.model.SnakeModel.Direction;
 import game.model.SnakePartModel;
 import game.model.YinYangFoodModel;
 import game.view.GameView;
+import highscore.HighscoreScene;
 import highscore.model.HighscoreModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -92,12 +93,18 @@ public class GamePresenter {
 		view.playGameOverMusic();
 		view.getHighscorePane().setVisible(true);
         highscore.playernameProperty().bind(view.textField.textProperty());
-		scene.setOnKeyPressed(e -> {
-            saveHisghscore();
-            returnToWelcomeWindow(scene);
-            stopDisposeSnake();
-        });
+		scene.setOnKeyPressed(e -> enterHighscore(e));
 	}
+
+    private void enterHighscore(KeyEvent e)
+    {
+
+        if (e.getCode() == KeyCode.ENTER){
+            saveHisghscore();
+            returnToHighscore(scene);
+            stopDisposeSnake();
+        }
+    }
 
 	protected void stopDisposeSnake() {
 		deadSnake.stop();
@@ -115,6 +122,7 @@ public class GamePresenter {
 			view.startDisposeAnimation();
 		}
 	}
+
 	private void saveHisghscore() {
 		Properties properties = new Properties();
 
@@ -122,8 +130,9 @@ public class GamePresenter {
 			properties.load(is);
 		} catch (IOException e) {}
 
-		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
-		try(FileWriter writer = new FileWriter("res/Highscore.properties")) {
+		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue())); //Value to String
+
+        try(FileWriter writer = new FileWriter("res/Highscore.properties")) {
 			properties.store(writer, "highscore snake");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -131,8 +140,8 @@ public class GamePresenter {
 	}
 
 
-    protected void returnToWelcomeWindow(Scene scene) {
-		(new WelcomeScene()).show((Stage) scene.getWindow());
+    protected void returnToHighscore(Scene scene) {
+		(new HighscoreScene()).show((Stage) scene.getWindow());
 	}
 
 	protected void moveSnakeControl(KeyEvent e) {
@@ -206,15 +215,15 @@ public class GamePresenter {
 	protected void showBonusFood()
 	{
 		view.startAnimation();
+        yin.setVisible(true);
 		yin.generateRandomPosition();
-		yin.setVisible(true);
 		  
 	}
 	
 	protected void hideBonusFood()
 	{
+            yin.deletePosition();
 			yin.setVisible(false);
-		    yin.deletePosition();
 			view.stopAnimation();
 	}
 	

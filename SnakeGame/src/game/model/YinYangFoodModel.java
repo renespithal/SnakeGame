@@ -14,7 +14,7 @@ public class YinYangFoodModel {
 		
 	public YinYangFoodModel()
 	{
-		generateRandomPosition();
+		deletePosition();
 	}
 	public void generateRandomPosition() {
 		x.set((int)(Math.floor(Math.random()*23+1)));

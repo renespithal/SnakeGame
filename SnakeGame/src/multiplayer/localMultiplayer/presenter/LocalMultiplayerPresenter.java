@@ -214,7 +214,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	{
 		switch (e.getCode()) {
 		case B:
-			returnToWelcomeWindow(scene);
+			returnToHighscore(scene);
 			break;
 
 		case N:

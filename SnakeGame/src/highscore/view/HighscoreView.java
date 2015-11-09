@@ -79,7 +79,6 @@ public class HighscoreView extends BorderPane {
 
 		highscoreTable = new TableView<HighscoreModel>();
 
-
 		//Create Table
 		player = new TableColumn<HighscoreModel, String>("Player");
 		player.setMinWidth(150);
@@ -91,6 +90,7 @@ public class HighscoreView extends BorderPane {
 		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());//Binding
 
 		highscoreTable.getColumns().addAll(player, highscore);
+
 
 
 		//Create boxes

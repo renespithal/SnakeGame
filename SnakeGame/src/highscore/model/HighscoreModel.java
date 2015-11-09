@@ -21,12 +21,12 @@ private StringProperty playername = new SimpleStringProperty();
 	}
 
 	public void increaseValue(){
-		highscoreValue.set(highscoreValue.get()+2);
+		highscoreValue.set(highscoreValue.get()+1);
 	}
 	
 	public void increaseSpecialValue()
 	{
-		highscoreValue.set(highscoreValue.get()+10);
+		highscoreValue.set(highscoreValue.get()+5);
 	}
 	
 	public int getValue(){
@@ -40,12 +40,7 @@ private StringProperty playername = new SimpleStringProperty();
 	public StringProperty playernameProperty() {
 		return playername;
 	}
-	
-	/*public StringProperty strProperty() {
-		//
-	}*/
-	
-	
+
 	public IntegerProperty getValueProperty(){
 		return highscoreValue;
 	}

@@ -4,25 +4,31 @@ import java.util.LinkedList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Duration;
 
 /**
-
  * Created by Duy on 20.10.2015.
-
  */
 
 public class SnakeModel {
 
-	private Duration duration;
 	private ObservableList<SnakePartModel> list = FXCollections.observableList(new LinkedList<SnakePartModel>());
 	private SnakePartModel head;
 	private Direction direction;
 	
+	/**
+	 * Direction for the snake
+	 * @author Duy
+	 */
 	public enum Direction {
 		UP, DOWN, LEFT, RIGHT
 	}
 	
+	/**
+	 * Create a snake with standard direction right
+	 * and place it on the scene with x and y coordinates
+	 * @param x the x coordinate of the snake
+	 * @param y the y coordinate of the snake
+	 */
 	public SnakeModel(int x,int y)
 	{
 		head = new SnakePartModel(x, y);
@@ -33,10 +39,19 @@ public class SnakeModel {
 		return direction;
 	}
 	
+	/**
+	 * Set the snake movement
+	 * @param direction where the snake should head
+	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 	
+	/**
+	 * The new part of the snake is set on the last position of the snake.
+	 * All the other snake parts are moved one position forward and the head,
+	 * depends in which direction it moves, gets a new position.
+	 */
 	public void increaseValue()
 	{
 		int oldX = head.getX();
@@ -77,6 +92,9 @@ public class SnakeModel {
 		return head;
 	}
 	
+	/**
+	 * Adds a new part to the body of the snake.
+	 */
 	public void grow()
 	{
 		SnakePartModel tail = list.isEmpty() ? head : list.get(list.size()-1);
@@ -87,11 +105,4 @@ public class SnakeModel {
 		return list;
 	}
 
-	public Duration getDuration() {
-		return duration;
-	}
-
-	public void setDuration(Duration duration) {
-		this.duration = duration;
-	}
 }

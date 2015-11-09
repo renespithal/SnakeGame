@@ -29,6 +29,9 @@ public class OptionsPresenter {
 		view.getColorBox().setOnAction(e->setColor());
 	}
 	
+	/**
+	 * Sets the speed of the snake.
+	 */
 	private void setSpeed()
 	{
 		String value = view.getSpeedBox().getValue();
@@ -45,6 +48,9 @@ public class OptionsPresenter {
 		}
 	}
 	
+	/**
+	 * Sets the color of the snake.
+	 */
 	private void setColor() {
 		String value = view.getColorBox().getValue();
 		if(value.equals(green))

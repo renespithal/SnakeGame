@@ -13,6 +13,11 @@ public class WelcomePresenter {
 	private Stage stage;
 	private WelcomeView view;
 	
+	/**
+	 * Creates the presenter for the welcome window.
+	 * @param view the created view
+	 * @param stage the stage on which it is shown
+	 */
 	public WelcomePresenter(WelcomeView view,Stage stage)
 	{
 		this.view = view;

@@ -19,15 +19,22 @@ import options.Options;
 
 public class LocalMultiplayerView extends GameView {
 	
+	private HighscoreModel highScore2;
+	private SnakeModel snake;
+	
 	private Pane secondSnakePane;
 	private Pane highscorePane2;
 	private Pane winPane;
 	private Label winLabel;
 	private Label infoLabel;
 	private Rectangle snakeHead2;
-	private HighscoreModel highScore2;
-	private SnakeModel snake;
 	
+	/**
+	 * Creates the multiplayer view.
+	 * @param model contains essential information of the game
+	 * @param multiplayerModel contains the model for the second snake
+	 * @param highscore the highscore table
+	 */
 	public LocalMultiplayerView(GameModel model,SnakeModel multiplayerModel,HighscoreModel highscore) {
 		super(model);
 		super.setHBoxUnvisible();
@@ -42,7 +49,6 @@ public class LocalMultiplayerView extends GameView {
 		
 		snake.getList().addListener(new ListChangeListener<SnakePartModel>()
 		{
-
 			@Override
 			public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 				while(c.next()){
@@ -77,9 +83,6 @@ public class LocalMultiplayerView extends GameView {
 		highscorePane2.setLayoutY(440);
 		highscorePane2.getChildren().add(hBox);
 		highscorePane2.setVisible(false);
-		//highscorePane2.setMinSize(280,50);
-		//highscorePane2.setPrefWidth(500);
-
 
 		VBox vBoxwin = new VBox();
 		winLabel = new Label();
@@ -97,7 +100,6 @@ public class LocalMultiplayerView extends GameView {
 		winPane.getChildren().add(vBoxwin);
 
 		addPanesToMainPane(secondSnakePane,highscorePane2,winPane);
-
 	}
 
 	public Label getWinLabel(){
@@ -130,6 +132,10 @@ public class LocalMultiplayerView extends GameView {
 		return snakeHead2;
 	}
 	
+	/**
+	 * Control method to avoid that the two snakes have the same color.
+	 * @return the color which was selected in the combo box
+	 */
 	private Color chooseColor(){
 		
 		if(Options.color == Options.GREEN)

@@ -13,20 +13,22 @@ import multiplayer.localMultiplayer.presenter.LocalMultiplayerPresenter;
 public class LocalMultiplayerScene extends MyScene{
 
 	private GameModel model;
+	private SnakeModel snakeModel;
+	private HighscoreModel highscoreModel;
 	private GameView view;
 	private LocalMultiplayerView localView;
 	private LocalMultiplayerPresenter localPresenter;
-	private SnakeModel snakeModel;
-	private HighscoreModel highscoreModel;
+	
 	private boolean normalMode;
 	
 	/**
 	 * 
-	 * @param normalMode if true start normal mode else start survival mode
+	 * @param normalMode true --> start normal mode; false --> start survival mode
 	 */
 	public LocalMultiplayerScene(boolean normalMode) {
 		this.normalMode = normalMode;
 	}
+	
 	@Override
 	protected void createModel() {
 		model = new GameModel();

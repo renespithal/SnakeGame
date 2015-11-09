@@ -25,16 +25,28 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private Direction direction2;
 	private SnakeModel snake2;
 	private HighscoreModel highscore2;
-	private boolean snake1Dead;
-	private boolean snake2Dead;
-	private boolean bothSnakeDead;
-	private Boolean normalMode;
-	private String info = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
+	
 	private KeyFrame disposeSnake2;
 	private KeyFrame snakeMovement2;
 	private Timeline moveSnake2;
 	private Timeline deadSnake2;
+	
+	private boolean snake1Dead;
+	private boolean snake2Dead;
+	private boolean bothSnakeDead;
+	private boolean normalMode;
+	private String info = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
 
+	/**
+	 * Creates the presenter for the multiplayer.
+	 * @param model the model of the first snake
+	 * @param view the view of the super constructor
+	 * @param scene the scene which is shown
+	 * @param localView the new created view for multiplayer
+	 * @param localModel the model of the second snake
+	 * @param highscore2 the highscore model of the second snake
+	 * @param normalMode true--> normalMode , false --> survivalMode
+	 */
 	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView,
 			SnakeModel localModel, HighscoreModel highscore2, boolean normalMode) {
 		super(model, view, scene);
@@ -56,6 +68,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		moveSnake2.setCycleCount(Timeline.INDEFINITE);
 	}
 
+	/**
+	 * Add the fade effect to the body of the second snake.
+	 */
 	private void disposeSnake2() {
 		for (Node body : localView.getSnakePane2().getChildren()) {
 			localView.fade(body);
@@ -63,6 +78,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		}
 	}
 
+	/**
+	 * Control of the second snake.
+	 */
 	@Override
 	protected void moveSnakeControl(KeyEvent e) {
 		super.moveSnakeControl(e);
@@ -114,6 +132,10 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		}
 	}
 
+	/**
+	 * Stop the snake move, starts the fade animation, plays the game over music and
+	 * depends on the game mode the specific game end continues.
+	 */
 	@Override
 	protected void snakeDead() {
 		super.stopMoveSnake();
@@ -129,6 +151,10 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		}
 	}
 
+	/**
+	 * Stop the snake2 move, starts the fade animation, plays the game over music and
+	 * depends on the game mode the specific game end continues.
+	 */
 	private void snake2Dead() {
 		moveSnake2.stop();
 		disposeSnake2();
@@ -147,6 +173,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		bothSnakeDead = true;
 	}
 
+	/**
+	 * The end of the normal mode.
+	 */
 	private void normalModeEndGame() {
 		stopLoop();
 		localView.stopAnimation();
@@ -166,6 +195,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
 
+	/**
+	 * The end of the survival mode.
+	 */
 	private void survivalModeEndGame() {
 		stopLoop();
 		localView.stopAnimation();
@@ -182,6 +214,9 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
 
+	/**
+	 * The special end, when the head of the both snakes collided.
+	 */
 	private void specialEnd() {
 		stopLoop();
 		localView.stopAnimation();
@@ -191,6 +226,10 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
 
+	/**
+	 * Depends which key is pressed a specific event follows.
+	 * @param e key which was pressed
+	 */
 	private void endGameOptions(KeyEvent e) {
 		switch (e.getCode()) {
 		case B:

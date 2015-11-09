@@ -24,6 +24,9 @@ public class MultiplayerOptionsView extends BorderPane {
 	private RotateTransition t1;
 	private RotateTransition t2;
 	
+	/**
+	 * Creates the view of the options in the multiplayer.
+	 */
 	public MultiplayerOptionsView()
 	{
 		//Background
@@ -121,12 +124,18 @@ public class MultiplayerOptionsView extends BorderPane {
 		return backButton;
 	}
 
+	/**
+	 * Starts the rotation of the yin yang icon.
+	 */
 	public void startRotation()
 	{
 		t1.play();
 		t2.play();
 	}
 
+	/**
+	 * Stops the rotation of the yin yang icon.
+	 */
 	public void stopRotation()
 	{
 		t1.stop();

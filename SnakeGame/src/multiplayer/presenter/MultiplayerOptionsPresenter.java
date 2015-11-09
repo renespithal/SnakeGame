@@ -10,6 +10,11 @@ public class MultiplayerOptionsPresenter {
 	private MultiplayerOptionsView view;
 	private Stage stage;
 	
+	/**
+	 * Creates the presenter for the multiplayer options.
+	 * @param view the created view
+	 * @param stage the stage
+	 */
 	public MultiplayerOptionsPresenter(MultiplayerOptionsView view,Stage stage)
 	{
 		this.view = view;

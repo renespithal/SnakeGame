@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+
 import framework.MyScene;
 import game.model.FoodModel;
 import game.model.GameModel;
@@ -24,12 +25,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import options.Options;
-import welcome.WelcomeScene;
 
 public class GamePresenter {
 	private Timeline loop;
 	private Timeline bonusLoop;
 	private Timeline deadSnake;
+	private Timeline moveSnake;
 	private KeyFrame snakeMovement;
 	private KeyFrame showBonusFood;
 	private KeyFrame hideBonusFood;
@@ -74,8 +75,10 @@ public class GamePresenter {
 	{
 		bonusLoop = new Timeline(showBonusFood,hideBonusFood);
 		bonusLoop.setCycleCount(Timeline.INDEFINITE);
-		loop = new Timeline(snakeMovement,collision);
+		loop = new Timeline(collision);
 		loop.setCycleCount(Timeline.INDEFINITE);
+		moveSnake = new Timeline(snakeMovement);
+		moveSnake.setCycleCount(Timeline.INDEFINITE);
 		deadSnake = new Timeline(disposeSnake);
 		deadSnake.setCycleCount(1);
 	}
@@ -272,12 +275,19 @@ public class GamePresenter {
 	}
 	
 	public void startLoop() {
+		moveSnake.play();
 		loop.play();
 		bonusLoop.play();
 	}
 
 	public void stopLoop() {
+		moveSnake.stop();
 		loop.stop();
 		bonusLoop.stop();
+	}
+	
+	protected void stopMoveSnake()
+	{
+		moveSnake.stop();
 	}
 }

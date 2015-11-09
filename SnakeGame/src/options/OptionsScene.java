@@ -9,6 +9,7 @@ import options.view.OptionsView;
 public class OptionsScene extends MyScene {
 	
 	private OptionsView view;
+	@SuppressWarnings("unused")
 	private OptionsPresenter presenter; 
 
 	@Override

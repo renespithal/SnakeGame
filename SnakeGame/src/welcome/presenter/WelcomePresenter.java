@@ -3,7 +3,6 @@ package welcome.presenter;
 
 import game.GameScene;
 import highscore.HighscoreScene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import multiplayer.MultiplayerOptionsScene;
 import options.OptionsScene;

@@ -243,7 +243,6 @@ public class GamePresenter {
 			highscore.increaseSpecialValue();
 			view.playBonusFoodMusic();
 			yin.setVisible(false);
-			generateYin();
 		}
 	}
 
@@ -251,9 +250,9 @@ public class GamePresenter {
 	 * Set the visible of the bonus food on true and start the animation.
 	 */
 	protected void showBonusFood() {
-		view.startAnimation();
+		generateYin();
 		yin.setVisible(true);
-		yin.generateRandomPosition();
+		view.startAnimation();
 
 	}
 
@@ -272,17 +271,17 @@ public class GamePresenter {
 	protected void generateFood() {
 		food.generateRandomPosition();
 		if (snake.getHead().getX() == food.getX() && snake.getHead().getY() == food.getY()) {
-			food.generateRandomPosition();
+			generateFood();
 		}
 
 		for (SnakePartModel currentPart : snake.getList()) {
 			if (food.getX() == currentPart.getX() && food.getY() == currentPart.getY()) {
-				food.generateRandomPosition();
+				generateFood();
 			}
 		}
 
 		if (food.getX() == yin.getX() && food.getY() == yin.getY()) {
-			food.generateRandomPosition();
+			generateFood();
 		}
 	}
 
@@ -292,17 +291,17 @@ public class GamePresenter {
 	protected void generateYin() {
 		yin.generateRandomPosition();
 		if (snake.getHead().getX() == yin.getX() && snake.getHead().getY() == yin.getY()) {
-			yin.generateRandomPosition();
+			generateYin();
 		}
 
 		for (SnakePartModel currentPart : snake.getList()) {
 			if (yin.getX() == currentPart.getX() && yin.getY() == currentPart.getY()) {
-				yin.generateRandomPosition();
+				generateYin();
 			}
 		}
 
 		if (yin.getX() == food.getX() && yin.getY() == food.getY()) {
-			food.generateRandomPosition();
+			generateYin();
 		}
 	}
 

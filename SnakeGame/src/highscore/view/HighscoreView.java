@@ -25,12 +25,14 @@ public class HighscoreView extends BorderPane {
 	private HighscoreModel model;
 
 	private Label titleLabel;
-	private Button getbackButton;
+	private Button backButton;
 	private Button clearButton;
+	private Button playButton;
 	private RotateTransition t1;
 	private RotateTransition t2;
 
 	public TableView<HighscoreModel> highscoreTable;
+	TableColumn<HighscoreModel,Number> ranking;
 	TableColumn<HighscoreModel, String> player;
 	TableColumn<HighscoreModel, Number> highscore; // Number instead of Integer
 
@@ -65,56 +67,62 @@ public class HighscoreView extends BorderPane {
 
 		//Controls
 		titleLabel = new Label("Highscore");
-		titleLabel.setFont(new Font(32));
+		titleLabel.setFont(Font.font ("AR DESTINE", 40));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
 		//Create Controls
-		clearButton = new Button("Clear Table");
+		clearButton = new Button("Clear Highscores");
 		clearButton.setBackground(buttonbackgrd);
 		clearButton.setEffect(dropShadow);
 
-		getbackButton = new Button("Main Menu");
-		getbackButton.setBackground(buttonbackgrd);
-		getbackButton.setEffect(dropShadow);
+		playButton= new Button ("Start Game");
+		playButton.setBackground(buttonbackgrd);
+		playButton.setEffect(dropShadow);
+
+		backButton = new Button("Main Menu");
+		backButton.setBackground(buttonbackgrd);
+		backButton.setEffect(dropShadow);
 
 		highscoreTable = new TableView<HighscoreModel>();
 
 		//Create Table
+		ranking = new TableColumn<HighscoreModel, Number>("Ranking");
+		ranking.setMinWidth(70);
+
 		player = new TableColumn<HighscoreModel, String>("Player");
 		player.setMinWidth(150);
 		player.setCellValueFactory(new PropertyValueFactory<>("Player"));
 		player.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().playernameProperty()); //Binding
 
 		highscore = new TableColumn<HighscoreModel, Number>("Highscore");
-		highscore.setMinWidth(350);
+		highscore.setMinWidth(280);
 		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());//Binding
 
-		highscoreTable.getColumns().addAll(player, highscore);
+		highscoreTable.getColumns().addAll(ranking, player, highscore);
+
+		highscoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
 
 		//Create boxes
-		HBox hbox1 = new HBox(ivlogo2,titleLabel,ivlogo1);
-		hbox1.setAlignment(Pos.CENTER);
+		HBox hBox1 = new HBox(ivlogo2,titleLabel,ivlogo1);
+		hBox1.setAlignment(Pos.CENTER);
 
-		HBox hBox2 = new HBox(8);
-		hBox2.setAlignment(Pos.CENTER);
-		hBox2.getChildren().addAll(clearButton);
+		VBox vBox1 = new VBox(highscoreTable, clearButton);
+		vBox1.setAlignment(Pos.CENTER);
 
-
-		VBox vBox1 = new VBox(highscoreTable, hBox2);
-		VBox vBox2= new VBox (getbackButton);
-		vBox2.setAlignment(Pos.BOTTOM_RIGHT);
+        HBox hBox2= new HBox(backButton,playButton);
+		hBox2.setSpacing(347);
 
 
 		// add Boxes to BorderPane
-		this.setTop(hbox1);
+		this.setTop(hBox1);
 		this.setCenter(vBox1);
-		this.setBottom(vBox2);
+		this.setBottom(hBox2);
 		this.setBackground(new Background(backgrd));
 	}
 
-	public TableView<HighscoreModel> gethighscoreTable() {
+	public TableView<HighscoreModel> getHighscoreTable() {
 		return highscoreTable;
 	}
 
@@ -141,14 +149,17 @@ public class HighscoreView extends BorderPane {
 		t2.setInterpolator(interpolator);
 
 	}
-	 
+	public Button getPlayButton() {
+		return playButton;
+	}
+
 	public Button clearButton() {
 		return clearButton;
 	}
 
 	
 	public Button getBackButton() {
-		return getbackButton;
+		return backButton;
 	}
 	
 	public void startRotation()

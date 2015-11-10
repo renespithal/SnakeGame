@@ -38,8 +38,7 @@ public class OptionsView extends BorderPane {
 				BackgroundSize.DEFAULT);
 
 		//Button Color
-		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
-
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY));
 
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
@@ -62,18 +61,20 @@ public class OptionsView extends BorderPane {
 
 		//Create Controls
 		titleLabel = new Label("Welcome to Options");
-		titleLabel.setFont(new Font(32));
+		titleLabel.setFont(new Font("AR DESTINE", 40));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
 		speedLabel = new Label("Choose Speed:");
-		speedLabel.setFont(new Font(13));
+		speedLabel.setFont (new Font("AR DESTINE", 13));
 		speedLabel.setMaxWidth(150);
 
 		colorLabel = new Label("Choose Color:");
-		colorLabel.setFont(new Font(13));
+		colorLabel.setFont(new Font("AR DESTINE",13));
 		colorLabel.setMaxWidth(150);
 
 		backButton = new Button("Main Menu");
+		backButton.setFont (new Font ("AR DESTINE",20));
+		backButton.setTextFill(Color.WHITE);
 		backButton.setEffect(dropShadow);
 		backButton.setBackground(buttonbackgrd);
 		backButton.setMaxWidth(150);

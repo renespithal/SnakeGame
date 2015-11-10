@@ -1,5 +1,6 @@
 package highscore.presenter;
 
+import game.GameScene;
 import highscore.model.HighscoreModel;
 import highscore.view.HighscoreView;
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class HighscorePresenter {
         this.stage = stage;
 
 		view.getBackButton().setOnAction(e -> returnToWelcomeWindow());
+        view.getPlayButton().setOnAction(e->showGameScene());
 		view.clearButton().setOnAction(e -> clearHighscore());
 
         highscoreList = createHighscoreList();
@@ -79,7 +81,7 @@ public class HighscorePresenter {
 
         try
         {
-            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList.subList(0,10));
+            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList.subList(0,15));
             view.highscoreTable.setItems(fixedSizeList);
         }
         catch(IndexOutOfBoundsException e)
@@ -98,6 +100,11 @@ public class HighscorePresenter {
         return properties;
     }
 
+    private void showGameScene()
+    {
+        view.stopRotation();
+        (new GameScene()).show(stage);
+    }
 
     private void returnToWelcomeWindow() {
 		view.stopRotation();

@@ -166,7 +166,24 @@ public class GameView extends Pane{
 
 		Label enterName = new Label("Player Name:");
 		enterName.setFont(new Font (15));
-		textField = new TextField();
+
+
+		textField = new TextField(){
+
+			//Methods defined on TextInputControl
+			//replaceText overrides replaceText in class TextInputControl
+			@Override public void replaceText(int start, int end, String text) {
+
+				if (getText().length() <= 13|| text == "" ) {	//nur maximal 15 Zeichen
+					super.replaceText(start, end, text);
+				}
+			}
+			@Override public void replaceSelection(String text) {
+				if (getText().length() < 13 || text == "") {
+					super.replaceSelection(text);
+				}
+			}
+		};
 
 		highscore.setFont(new Font(40));
 
@@ -224,9 +241,10 @@ public class GameView extends Pane{
 
 
 		// Background
-		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground1.jpg", 700, 600, false, false),
+		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/bckgrdyinyan.png", 500, 500, false, false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
+
 
 
 		this.setBackground(new Background(backgrd));

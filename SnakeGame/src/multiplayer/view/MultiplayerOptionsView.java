@@ -54,7 +54,7 @@ public class MultiplayerOptionsView extends BorderPane {
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
 		titleLabel = new Label("Multiplayer");
-		titleLabel.setFont(new Font(32));
+		titleLabel.setFont(Font.font ("AR DESTINE", 40));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
 		normalButton = new Button("Normal Mode");

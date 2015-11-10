@@ -11,9 +11,11 @@ import highscore.model.HighscoreModel;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import multiplayer.MultiplayerOptionsScene;
 import multiplayer.localMultiplayer.LocalMultiplayerScene;
 import multiplayer.localMultiplayer.View.LocalMultiplayerView;
 
@@ -28,7 +30,7 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private boolean snake2Dead;
 	private boolean bothSnakeDead;
 	private Boolean normalMode;
-	private String info  = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
+	private String info  = "Press 'N' for New Game.\nPress 'B' for Multiplayer Menu.";
 	private KeyFrame disposeSnake2;
 	private Timeline deadSnake2;
 	
@@ -214,7 +216,8 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	{
 		switch (e.getCode()) {
 		case B:
-			returnToHighscore(scene);
+
+			returnToMultiplayerOptions(scene);
 			break;
 
 		case N:
@@ -230,6 +233,11 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private void newGame()
 	{
 		(new LocalMultiplayerScene(normalMode)).show((Stage) scene.getWindow());
+	}
+
+	protected void returnToMultiplayerOptions(Scene scene){
+		(new MultiplayerOptionsScene()).show((Stage) scene.getWindow());
+
 	}
 	
 	@Override

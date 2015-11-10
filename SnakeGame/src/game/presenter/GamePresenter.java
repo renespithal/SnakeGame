@@ -130,7 +130,7 @@ public class GamePresenter {
 			properties.load(is);
 		} catch (IOException e) {}
 
-		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue())); //Value to String
+		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
 
         try(FileWriter writer = new FileWriter("res/Highscore.properties")) {
 			properties.store(writer, "highscore snake");

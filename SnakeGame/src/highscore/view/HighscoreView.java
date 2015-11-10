@@ -14,7 +14,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -22,6 +31,7 @@ import javafx.util.Duration;
 
 public class HighscoreView extends BorderPane {
 
+	@SuppressWarnings("unused")
 	private HighscoreModel model;
 
 	private Label titleLabel;
@@ -36,6 +46,7 @@ public class HighscoreView extends BorderPane {
 	TableColumn<HighscoreModel, String> player;
 	TableColumn<HighscoreModel, Number> highscore; // Number instead of Integer
 
+	@SuppressWarnings("unchecked")
 	public HighscoreView() {
 
 		//Background

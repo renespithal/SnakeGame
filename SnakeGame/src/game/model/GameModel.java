@@ -9,6 +9,9 @@ public class GameModel {
 	private YinYangFoodModel yin;
 	private HighscoreModel highscore;
 	
+	/**
+	 * A wrapper class for all models in the game.
+	 */
 	public GameModel()
 	{
 		snake = new SnakeModel (2,2);

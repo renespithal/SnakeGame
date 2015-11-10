@@ -8,6 +8,8 @@ import welcome.view.WelcomeView;
 
 public class WelcomeScene extends MyScene{
 	private WelcomeView view;
+	
+	@SuppressWarnings("unused")
 	private WelcomePresenter presenter;
 	
 	@Override

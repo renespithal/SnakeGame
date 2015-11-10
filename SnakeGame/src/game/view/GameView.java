@@ -34,12 +34,13 @@ import options.Options;
 
 public class GameView extends Pane{
 	
-	protected Pane highscorePane;
 	private FadeTransition t;
 	private FadeTransition snakeDispose;
 	private SnakeModel snake;
 	private FoodModel food;
 	private YinYangFoodModel yin;
+	
+	protected Pane highscorePane;
 	private Pane snakePane;
 	private Pane imagePane;
 	private Pane wallPaneTop;
@@ -47,12 +48,18 @@ public class GameView extends Pane{
 	private Pane wallPaneRight;
 	private Pane wallPaneLeft;
 	private Rectangle snakeHead;
-	public final TextField textField;
+	private TextField textField;
 	private HBox hBox;
+	
 	private AudioClip bonusFoodEaten;
 	private AudioClip foodEaten;
 	private AudioClip gameOver;
 	
+	/**
+	 * Crates the view for the game.
+	 * 
+	 * @param model contains all information of the game
+	 */
 	public GameView(GameModel model) {
 		
 		this.snake = model.getSnake();
@@ -66,9 +73,12 @@ public class GameView extends Pane{
 		snakePane.getChildren().add(snakeHead);
 		bindSnakePart(snake.getHead(), snakeHead);
 		
+		
+		/**
+		 * updates the view for the snake if the list changed
+		 */
 		snake.getList().addListener(new ListChangeListener<SnakePartModel>()
 				{
-
 					@Override
 					public void onChanged(javafx.collections.ListChangeListener.Change<? extends SnakePartModel> c) {
 						while(c.next()){
@@ -256,10 +266,19 @@ public class GameView extends Pane{
 		highscorePane.setLayoutY(180);
 	}
 
+	/**
+	 * Add all created panes to the main pane.
+	 * @param panes all created panes
+	 */
 	protected void addPanesToMainPane(Pane... panes) {
 		this.getChildren().addAll(panes);
 	}
 
+	/**
+	 * Binds the snake body of the model to the view.
+	 * @param snakePart the new created snake part
+	 * @param snakePartView the new created rectangle
+	 */
 	protected void bindSnakePart(SnakePartModel snakePart, Rectangle snakePartView) {
 		snakePartView.xProperty().bind(new IntegerBinding() {
 			{bind(snakePart.getXProperty());}
@@ -281,6 +300,13 @@ public class GameView extends Pane{
 
 	}
 	
+	/**
+	 * Fade effect for the bonus food.
+	 * @param node the object to be animated
+	 * @param duration the duration of the animation
+	 * @param cycle how often it shall be repeated
+	 * @param interpolator
+	 */
 	public void fade(Node node, Duration duration,int cycle, Interpolator interpolator) {
 		t = new FadeTransition(duration, node);
 		t.setFromValue(0);
@@ -290,6 +316,10 @@ public class GameView extends Pane{
 		t.setInterpolator(interpolator);
 	}
 	
+	/**
+	 * Fade effect for the dead of snake.
+	 * @param node all nodes which shall be animated
+	 */
 	public void fade(Node node)
 	{
 		snakeDispose = new FadeTransition(Duration.millis(1000), node);
@@ -298,7 +328,6 @@ public class GameView extends Pane{
 		snakeDispose.setCycleCount(1);
 		t.setInterpolator(Interpolator.LINEAR);
 	}
-
 
 	public Pane getHighscorePane()
 	{
@@ -315,6 +344,10 @@ public class GameView extends Pane{
 	
 	public FadeTransition getSnakeDispose() {
 		return snakeDispose;
+	}
+	
+	public TextField getTextField() {
+		return textField;
 	}
 	
 	protected void setHBoxUnvisible()

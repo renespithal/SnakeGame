@@ -171,12 +171,14 @@ public class WelcomeView extends BorderPane{
 		return exitButton;
 	}
 	
+	//starts the rotation of the yin yang icon
 	public void startRotation()
 	{
 		t1.play();
 		t2.play();
 	}
 	
+	//stops the rotation of the yin yang icon
 	public void stopRotation()
 	{
 		t1.stop();

@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import multiplayer.MultiplayerOptionsScene;
 import multiplayer.localMultiplayer.LocalMultiplayerScene;
 import multiplayer.localMultiplayer.View.LocalMultiplayerView;
+import options.Options;
 
 public class LocalMultiplayerPresenter extends GamePresenter {
 
@@ -26,38 +27,70 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private Direction direction2;
 	private SnakeModel snake2;
 	private HighscoreModel highscore2;
+<<<<<<< HEAD
 	private boolean snake1Dead;
 	private boolean snake2Dead;
 	private boolean bothSnakeDead;
 	private Boolean normalMode;
 	private String info  = "Press 'N' for New Game.\nPress 'B' for Multiplayer Menu.";
+=======
+	
+>>>>>>> bf0a641be7e01e29da5781585d271a47fda36878
 	private KeyFrame disposeSnake2;
+	private KeyFrame snakeMovement2;
+	private Timeline moveSnake2;
 	private Timeline deadSnake2;
 	
-	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView, SnakeModel localModel,HighscoreModel highscore2, boolean normalMode) {
+	private boolean snake1Dead;
+	private boolean snake2Dead;
+	private boolean bothSnakeDead;
+	private boolean normalMode;
+	private String info = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
+
+	/**
+	 * Creates the presenter for the multiplayer.
+	 * @param model the model of the first snake
+	 * @param view the view of the super constructor
+	 * @param scene the scene which is shown
+	 * @param localView the new created view for multiplayer
+	 * @param localModel the model of the second snake
+	 * @param highscore2 the highscore model of the second snake
+	 * @param normalMode true--> normalMode , false --> survivalMode
+	 */
+	public LocalMultiplayerPresenter(GameModel model, GameView view, MyScene scene, LocalMultiplayerView localView,
+			SnakeModel localModel, HighscoreModel highscore2, boolean normalMode) {
 		super(model, view, scene);
-		
+
 		this.localView = localView;
 		snake2 = localModel;
 		this.scene = scene;
 		this.highscore2 = highscore2;
 		this.normalMode = normalMode;
-		
+
 		snake2.setDirection(Direction.LEFT);
 		direction2 = snake2.getDirection();
-		disposeSnake2 = new KeyFrame(Duration.seconds(0.1), e-> disposeSnake2());
+		disposeSnake2 = new KeyFrame(Duration.seconds(0.1), e -> disposeSnake2());
+		snakeMovement2 = new KeyFrame(Options.speed, e -> moveSnake2());
+
 		deadSnake2 = new Timeline(disposeSnake2);
 		deadSnake2.setCycleCount(1);
+		moveSnake2 = new Timeline(snakeMovement2);
+		moveSnake2.setCycleCount(Timeline.INDEFINITE);
 	}
 
+	/**
+	 * Add the fade effect to the body of the second snake.
+	 */
 	private void disposeSnake2() {
-		for( Node body : localView.getSnakePane2().getChildren())
-		{
+		for (Node body : localView.getSnakePane2().getChildren()) {
 			localView.fade(body);
 			localView.startDisposeAnimation();
 		}
 	}
 
+	/**
+	 * Control of the second snake.
+	 */
 	@Override
 	protected void moveSnakeControl(KeyEvent e) {
 		super.moveSnakeControl(e);
@@ -95,125 +128,119 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 
 		}
 	};
-	
-	
-	@Override
-	protected void moveSnake() {
-		super.moveSnake();
+
+	protected void moveSnake2() {
 		snake2.setDirection(direction2);
 		snake2.increaseValue();
 	}
-	
+
 	@Override
-	protected void disposeSnake()
-	{
-		for( Node body : localView.getSnakePane().getChildren())
-		{
+	protected void disposeSnake() {
+		for (Node body : localView.getSnakePane().getChildren()) {
 			localView.fade(body);
 			localView.startDisposeAnimation();
 		}
 	}
-	
+
+	/**
+	 * Stop the snake move, starts the fade animation, plays the game over music and
+	 * depends on the game mode the specific game end continues.
+	 */
 	@Override
 	protected void snakeDead() {
-//		localView.getSnakeHead().setVisible(false);
-		if(normalMode)
-		{
-			localView.getSnakePane().getChildren().clear();
-			snake1Dead = true;
-		}
-
-		else
-		{
-			disposeSnake();
-			super.startDisposeSnake();
+		super.stopMoveSnake();
+		disposeSnake();
+		super.startDisposeSnake();
+		localView.playGameOverMusic();
+		snake1Dead = true;
+		localView.getSnakeDispose().setOnFinished(e -> localView.getSnakePane().getChildren().clear());
+		if (!normalMode) {
 			disposeSnake2();
 			deadSnake2.play();
 			survivalModeEndGame();
 		}
 	}
-	
+
+	/**
+	 * Stop the snake2 move, starts the fade animation, plays the game over music and
+	 * depends on the game mode the specific game end continues.
+	 */
 	private void snake2Dead() {
-//		localView.getSnakeHead2().setVisible(false);
-		if(normalMode)
-		{
-			localView.getSnakePane2().getChildren().clear();
-			snake2Dead = true;
-		}
-
-		else
-		{
-			disposeSnake2();
-			deadSnake2.play();
+		moveSnake2.stop();
+		disposeSnake2();
+		deadSnake2.play();
+		localView.playGameOverMusic();
+		localView.getSnakeDispose().setOnFinished(e -> localView.getSnakePane2().getChildren().clear());
+		snake2Dead = true;
+		if (!normalMode) {
 			disposeSnake();
 			super.startDisposeSnake();
 			survivalModeEndGame();
 		}
 	}
-	
-	private void bothSnakeDead()
-	{
-//		localView.getSnakeHead().setVisible(false);
-//		localView.getSnakeHead2().setVisible(false);
+
+	private void bothSnakeDead() {
 		bothSnakeDead = true;
 	}
-	
 
+	/**
+	 * The end of the normal mode.
+	 */
 	private void normalModeEndGame() {
 		stopLoop();
 		localView.stopAnimation();
-		localView.playGameOverMusic();
 		localView.getHighscorePane().setVisible(true);
 		localView.getWinPane().setVisible(true);
 		localView.getHighscorePane2().setVisible(true);
-		
-		if(highscore.getValue() > highscore2.getValue())
-		{
+
+		if (highscore.getValue() > highscore2.getValue()) {
 			localView.getWinLabel().setText("Player 1 won!");
-		}
-		else if(highscore.getValue() < highscore2.getValue())
-			{
+		} else if (highscore.getValue() < highscore2.getValue()) {
 			localView.getWinLabel().setText("Player 2 won!");
-			}
-		else{localView.getWinLabel().setText("It's a draw!");}
+		} else {
+			localView.getWinLabel().setText("It's a draw!");
+		}
 
 		localView.getInfoLabel().setText(info);
-		scene.setOnKeyPressed(e->endGameOptions(e));
+		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
-	
-	private void survivalModeEndGame()
-	{
+
+	/**
+	 * The end of the survival mode.
+	 */
+	private void survivalModeEndGame() {
 		stopLoop();
 		localView.stopAnimation();
 		super.stopDisposeSnake();
 		deadSnake2.stop();
-		localView.playGameOverMusic();
-		if(snake1Dead)
-		{
+		if (snake1Dead) {
 			localView.getWinLabel().setText("Player 2 won!");
-		}
-		else if(snake2Dead)
-		{
+		} else if (snake2Dead) {
 			localView.getWinLabel().setText("Player 1 won!");
 		}
 		localView.getInfoLabel().setText(info);
 		localView.getWinPane().setVisible(true);
 		deadSnake2.stop();
-		scene.setOnKeyPressed(e->endGameOptions(e));
+		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
-	private void specialEnd()
-	{
+
+	/**
+	 * The special end, when the head of the both snakes collided.
+	 */
+	private void specialEnd() {
 		stopLoop();
 		localView.stopAnimation();
-		localView.playGameOverMusic();
 		localView.getWinLabel().setText("It's a draw.");
 		localView.getInfoLabel().setText(info);
 		localView.getWinPane().setVisible(true);
-		scene.setOnKeyPressed(e->endGameOptions(e));
+		scene.setOnKeyPressed(e -> endGameOptions(e));
 	}
-	
-	private void endGameOptions(KeyEvent e)
-	{
+
+	/**
+	 * Depends which key is pressed a specific event follows.
+	 * @param e key which was pressed
+	 */
+	private void endGameOptions(KeyEvent e) {
 		switch (e.getCode()) {
 		case B:
 
@@ -223,96 +250,101 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		case N:
 			newGame();
 			break;
-			
+
 		default:
 			break;
-			
+
 		}
 	}
-	
-	private void newGame()
-	{
+
+	private void newGame() {
 		(new LocalMultiplayerScene(normalMode)).show((Stage) scene.getWindow());
 	}
 
+<<<<<<< HEAD
 	protected void returnToMultiplayerOptions(Scene scene){
 		(new MultiplayerOptionsScene()).show((Stage) scene.getWindow());
 
 	}
 	
+=======
+>>>>>>> bf0a641be7e01e29da5781585d271a47fda36878
 	@Override
-	protected void showBonusFood()
-	{
+	protected void showBonusFood() {
 		localView.startAnimation();
 		yin.generateRandomPosition();
 		yin.setVisible(true);
 	}
-	
+
 	@Override
 	protected void hideBonusFood() {
 		yin.setVisible(false);
 		localView.stopAnimation();
 	}
-	
+
 	@Override
 	protected void checkCollision(GameView view) {
-		super.checkCollision(localView);
-		if (snake2.getHead().getY() < 1 || snake2.getHead().getY() > 23 || snake2.getHead().getX() < 1 || snake2.getHead().getX() > 23) {
-			snake2Dead();
-		}
-		
-		for(SnakePartModel currentPart : snake2.getList())
-		{
-			if(snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY())
-			{
-				snake2Dead();
+		if (!snake1Dead) {
+			super.checkCollision(localView);
+			for (SnakePartModel currentPart : snake2.getList()) {
+				if (snake.getHead().getX() == currentPart.getX() && snake.getHead().getY() == currentPart.getY()) {
+					snakeDead();
+				}
 			}
 		}
-		
-		if(snake2.getHead().getX() == food.getX() && snake2.getHead().getY() == food.getY())
-		{
-			snake2.grow();
-			localView.playFoodMusic();
-			highscore2.increaseValue();
-			generateFood();
+
+		if (!snake2Dead) {
+			if (snake2.getHead().getY() < 1 || snake2.getHead().getY() > 23 || snake2.getHead().getX() < 1
+					|| snake2.getHead().getX() > 23) {
+				snake2Dead();
+			}
+
+			for (SnakePartModel currentPart : snake2.getList()) {
+				if (snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY()) {
+					snake2Dead();
+				}
+			}
+
+			if (snake2.getHead().getX() == food.getX() && snake2.getHead().getY() == food.getY()) {
+				snake2.grow();
+				localView.playFoodMusic();
+				highscore2.increaseValue();
+				generateFood();
+			}
+
+			if (snake2.getHead().getX() == yin.getX() && snake2.getHead().getY() == yin.getY()) {
+				highscore2.increaseSpecialValue();
+				localView.playBonusFoodMusic();
+				yin.setVisible(false);
+				generateYin();
+			}
+
+			for (SnakePartModel currentPart : snake.getList()) {
+				if (snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY()) {
+					snake2Dead();
+				}
+			}
 		}
-		
-		if(snake2.getHead().getX() == yin.getX() && snake2.getHead().getY() == yin.getY())
-		{
-			highscore2.increaseSpecialValue();
-			localView.playBonusFoodMusic();
-			yin.setVisible(false);
-			generateYin();
-		}
-		
-		if(snake2.getHead().getX() == snake.getHead().getX() && snake2.getHead().getY() == snake.getHead().getY())
-		{
+		if (snake2.getHead().getX() == snake.getHead().getX() && snake2.getHead().getY() == snake.getHead().getY()) {
 			bothSnakeDead();
 		}
-		
-		for(SnakePartModel currentPart : snake.getList())
-		{
-			if(snake2.getHead().getX() == currentPart.getX() && snake2.getHead().getY() == currentPart.getY())
-			{
-				snake2Dead();
-			}
-		}
-		
-		for(SnakePartModel currentPart : snake2.getList())
-		{
-			if(snake.getHead().getX() == currentPart.getX() && snake.getHead().getY() == currentPart.getY())
-			{
-				snakeDead();
-			}
-		}
-		
-		if(bothSnakeDead)
-		{
+
+		if (bothSnakeDead) {
 			specialEnd();
 		}
-		if(snake1Dead && snake2Dead && normalMode) {
+		if (snake1Dead && snake2Dead && normalMode) {
 			normalModeEndGame();
 		}
 	}
-	
+
+	@Override
+	public void startLoop() {
+		super.startLoop();
+		moveSnake2.play();
+	}
+
+	public void stopLoop() {
+		super.stopLoop();
+		moveSnake2.stop();
+	}
 }

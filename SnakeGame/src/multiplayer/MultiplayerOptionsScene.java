@@ -9,6 +9,7 @@ import multiplayer.view.MultiplayerOptionsView;
 public class MultiplayerOptionsScene extends MyScene {
 	
 	private MultiplayerOptionsView view;
+	@SuppressWarnings("unused")
 	private MultiplayerOptionsPresenter presenter;
 	@Override
 	protected void createModel() {

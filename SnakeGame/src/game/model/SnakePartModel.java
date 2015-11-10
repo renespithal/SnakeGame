@@ -7,11 +7,17 @@ public class SnakePartModel {
 	private SimpleIntegerProperty x = new SimpleIntegerProperty();
 	private SimpleIntegerProperty y = new SimpleIntegerProperty();
 	
+	/**
+	 * Creates a new snake part for the snake.
+	 * @param x the x coordinate of the new snake part.
+	 * @param y the y coordinate of the new snake part.
+	 */
 	public SnakePartModel(int x, int y)
 	{
 		this.x.set(x);
 		this.y.set(y);
 	}
+	
 	public SimpleIntegerProperty getYProperty() {
 		return y;
 	}

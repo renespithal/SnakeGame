@@ -20,8 +20,20 @@ public abstract class MyScene extends Scene {
 		createPresenter();
 	}
 	
+	/**
+	 * Creates the model for the scene
+	 */
 	protected abstract void createModel();
+	
+	/**
+	 * Creates the view for the scene
+	 * @return the created view
+	 */
 	protected abstract Parent createView();
+	
+	/**
+	 * Creates the presenter for the scene.
+	 */
 	protected abstract void createPresenter();
 	
 	/**

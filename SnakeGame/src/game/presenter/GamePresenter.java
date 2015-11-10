@@ -103,7 +103,7 @@ public class GamePresenter {
 		stopLoop();
 		view.playGameOverMusic();
 		view.getHighscorePane().setVisible(true);
-		highscore.playernameProperty().bind(view.textField.textProperty());
+		highscore.playernameProperty().bind(view.getTextField().textProperty());
 		scene.setOnKeyPressed(e -> enterHighscore(e));
 	}
 
@@ -111,13 +111,15 @@ public class GamePresenter {
 	 * Saves the highscore.
 	 * 
 	 * @param e
-	 *            key which needs to be press
+	 *           key which needs to be press
 	 */
 	private void enterHighscore(KeyEvent e) {
-		if (e.getCode() == KeyCode.ENTER) {
-			saveHisghscore();
-			returnToHighscore(scene);
-			stopDisposeSnake();
+		if (!(view.getTextField().getText().trim().isEmpty())) {
+			if (e.getCode() == KeyCode.ENTER) {
+				saveHisghscore();
+				returnToHighscore(scene);
+				stopDisposeSnake();
+			}
 		}
 	}
 
@@ -296,7 +298,7 @@ public class GamePresenter {
 			}
 		}
 
-		if (food.getX() == yin.getX() && food.getY() == yin.getY()) {
+		if (yin.getX() == food.getX() && yin.getY() == food.getY()) {
 			food.generateRandomPosition();
 		}
 	}

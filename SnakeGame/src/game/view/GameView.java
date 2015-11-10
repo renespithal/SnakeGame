@@ -48,7 +48,7 @@ public class GameView extends Pane{
 	private Pane wallPaneRight;
 	private Pane wallPaneLeft;
 	private Rectangle snakeHead;
-	public final TextField textField;
+	private TextField textField;
 	private HBox hBox;
 	
 	private AudioClip bonusFoodEaten;
@@ -326,6 +326,10 @@ public class GameView extends Pane{
 	
 	public FadeTransition getSnakeDispose() {
 		return snakeDispose;
+	}
+	
+	public TextField getTextField() {
+		return textField;
 	}
 	
 	protected void setHBoxUnvisible()

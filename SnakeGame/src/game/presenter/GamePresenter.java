@@ -152,13 +152,12 @@ public class GamePresenter {
 		} catch (IOException e) {
 		}
 
-<<<<<<< HEAD
+
 		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
-=======
 		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue())); // Value
 																							// to
 																							// String
->>>>>>> bf0a641be7e01e29da5781585d271a47fda36878
+
 
 		try (FileWriter writer = new FileWriter("res/Highscore.properties")) {
 			properties.store(writer, "highscore snake");

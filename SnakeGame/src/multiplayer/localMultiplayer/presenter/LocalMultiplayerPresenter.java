@@ -27,25 +27,18 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 	private Direction direction2;
 	private SnakeModel snake2;
 	private HighscoreModel highscore2;
-<<<<<<< HEAD
+
 	private boolean snake1Dead;
 	private boolean snake2Dead;
 	private boolean bothSnakeDead;
 	private Boolean normalMode;
 	private String info  = "Press 'N' for New Game.\nPress 'B' for Multiplayer Menu.";
-=======
-	
->>>>>>> bf0a641be7e01e29da5781585d271a47fda36878
+
 	private KeyFrame disposeSnake2;
 	private KeyFrame snakeMovement2;
 	private Timeline moveSnake2;
 	private Timeline deadSnake2;
-	
-	private boolean snake1Dead;
-	private boolean snake2Dead;
-	private boolean bothSnakeDead;
-	private boolean normalMode;
-	private String info = "Press 'N' for New Game.\nPress 'B' for Main Menu.";
+
 
 	/**
 	 * Creates the presenter for the multiplayer.
@@ -261,14 +254,12 @@ public class LocalMultiplayerPresenter extends GamePresenter {
 		(new LocalMultiplayerScene(normalMode)).show((Stage) scene.getWindow());
 	}
 
-<<<<<<< HEAD
+
 	protected void returnToMultiplayerOptions(Scene scene){
 		(new MultiplayerOptionsScene()).show((Stage) scene.getWindow());
 
 	}
-	
-=======
->>>>>>> bf0a641be7e01e29da5781585d271a47fda36878
+
 	@Override
 	protected void showBonusFood() {
 		localView.startAnimation();

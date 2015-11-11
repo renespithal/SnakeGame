@@ -48,12 +48,12 @@ public class ClientPresenter {
 
     public void connectToServer(){
 
-        if(view.getNickName().getText().length() > 2 && view.getNickName().getText().length() <11){
+        if(model.getClientNickname().length() > 2 && model.getClientNickname().length() <11){
 
         try {
-            this.serverPort = view.getServerPort().getText();
-            this.serverIP = view.getServerIP().getText();
-            client = new Socket(serverIP, Integer.parseInt(serverPort));
+
+            client = new Socket(model.getServerIP(), model.getServerPort());
+           // client = new Socket(serverIP, Integer.parseInt(serverPort));
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
             writer = new PrintWriter(client.getOutputStream());
             Thread t = new Thread(new MessagesFromServerListener());
@@ -90,7 +90,7 @@ public class ClientPresenter {
 
     public void sendMessageToServer(){
 
-        if (view.getClientMessage().getText().length() > 0){
+        if (model.getClientMessage().length() > 0){
 
         this.clientNickName = view.getNickName().getText();
         this.clientMessage = view.getClientMessage().getText();

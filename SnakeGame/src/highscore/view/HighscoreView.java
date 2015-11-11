@@ -21,12 +21,8 @@ import javafx.scene.text.*;
 import javafx.util.Duration;
 
 
-/**
- * Creates the view of the highscore.
- */
 public class HighscoreView extends BorderPane {
 
-	@SuppressWarnings("unused")
 	private HighscoreModel model;
 
 	private Label titleLabel;
@@ -56,7 +52,9 @@ public class HighscoreView extends BorderPane {
 	TableColumn<HighscoreModel, String> player;
 	TableColumn<HighscoreModel, Number> highscore; // Number instead of Integer
 
-	@SuppressWarnings("unchecked")
+	/**
+	 * Creates the view of the highscore.
+	 */
 	public HighscoreView() {
 
 		//Background
@@ -149,7 +147,6 @@ public class HighscoreView extends BorderPane {
 			}
 		});
 
-
 		//Create Table
 		highscoreTable = new TableView<HighscoreModel>();
 
@@ -219,7 +216,6 @@ public class HighscoreView extends BorderPane {
 		rankingLabel14.setFont(rankingFont);
 		rankingLabel14.setTextFill(Color.BLACK);
 
-
 		//Create boxes
 		HBox hBox1 = new HBox(ivlogo2,titleLabel,ivlogo1);
 		hBox1.setAlignment(Pos.CENTER);
@@ -234,7 +230,7 @@ public class HighscoreView extends BorderPane {
 		VBox vBox2 = new VBox(rankingtitleLabel,rankingLabel1,rankingLabel2,rankingLabel3,rankingLabel4,rankingLabel5,
 				   		      rankingLabel6,rankingLabel7,rankingLabel8,rankingLabel9,rankingLabel10,rankingLabel11,
 							  rankingLabel12,rankingLabel13,rankingLabel14);
-		vBox2.setSpacing(4.4);
+		vBox2.setSpacing(4.49);
 		vBox2.setMinWidth(68);
 		vBox2.setMaxHeight(20);
 		vBox2.setAlignment(Pos.TOP_CENTER);
@@ -257,8 +253,12 @@ public class HighscoreView extends BorderPane {
 		return highscoreTable;
 	}
 
-
-	//Animation
+	/**
+	 *
+	 * @param logo1 the object to be animated
+	 * @param duration the duration of the animation
+	 * @param interpolator
+	 */
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
 
 		t1 = new RotateTransition(duration, logo1);

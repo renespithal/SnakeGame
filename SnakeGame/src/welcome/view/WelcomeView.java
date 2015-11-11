@@ -187,6 +187,13 @@ public class WelcomeView extends BorderPane{
 
 	}
 	//Animation
+
+	/**
+	 *
+	 * @param logo1 the object to be animated
+	 * @param duration the duration of the animation
+	 * @param interpolator
+	 */
 	public void rotate1(ImageView logo1, Duration duration, Interpolator interpolator) {
 
 		t1 = new RotateTransition(duration, logo1);

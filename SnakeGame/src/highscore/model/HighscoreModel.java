@@ -15,6 +15,11 @@ private StringProperty playername = new SimpleStringProperty();
 
 	public HighscoreModel(){}
 
+	/**
+	 *
+	 * @param name  the playername
+	 * @param value the highscore value
+	 */
 	public HighscoreModel(String name, int value) {
 		highscoreValue.set(value);
 		playernameProperty().set(name);

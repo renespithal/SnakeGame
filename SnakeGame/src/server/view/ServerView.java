@@ -87,15 +87,10 @@ public class ServerView extends GridPane {
 
         VBox vBox = new VBox();
 
-        GridPane gridPane = new GridPane();
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-
-
-        gridPane.add(serverPortLabel, 1, 1);
-        gridPane.add(serverPortTxtField, 2, 1, 2, 1);
-        gridPane.add(startButton, 4, 1);
-        gridPane.add(terminateButton, 5, 1);
+        HBox hBox = new HBox ();
+        hBox.getChildren().addAll(serverPortLabel,serverPortTxtField,startButton,terminateButton);
+        hBox.setSpacing(10);
+        hBox.setAlignment(Pos.CENTER);
 
         TableView<ClientInfo> clientInfoTable;
         TableColumn<ClientInfo, String> clientIPColumn ;
@@ -125,7 +120,7 @@ public class ServerView extends GridPane {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        vBox.getChildren().addAll(gridPane, clientInfoTable);
+        vBox.getChildren().addAll(hBox, clientInfoTable);
         vBox.setSpacing(10);
         vBox.setMaxHeight(430);
         this.getChildren().addAll(vBox);

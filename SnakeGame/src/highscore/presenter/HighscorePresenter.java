@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import welcome.WelcomeScene;
-
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +20,12 @@ public class HighscorePresenter {
 	private HighscoreView view;
 	private Stage stage;
     private final ObservableList<HighscoreModel> highscoreList;
+
+    /**
+     *
+     * @param view contains the view of the Highscore
+     * @param stage the stage on which it is shown
+     */
 
     public HighscorePresenter(HighscoreView view, Stage stage)
 	{
@@ -36,7 +41,7 @@ public class HighscorePresenter {
 	}
 
     /**
-     * Delete the highscore and player name in file.
+     * Delete all highscore and player name in file.
      */
     private void clearHighscore() {
         Properties properties = new Properties();
@@ -52,7 +57,8 @@ public class HighscorePresenter {
     }
 
     /**
-     * map the highscore value and player name.
+     *
+     * @return the mapped highscores
      */
     private ObservableList<HighscoreModel> createHighscoreList() {
         Properties properties = tryLoadProperties();
@@ -71,7 +77,8 @@ public class HighscorePresenter {
 	}
 
     /**
-     * sort the highscore values.
+     *
+     * @param highscores which were mapped
      */
     private void sortHighsore(ObservableList<HighscoreModel> highscores) {
         Comparator<HighscoreModel> comparator = new Comparator<HighscoreModel>() {
@@ -84,12 +91,16 @@ public class HighscorePresenter {
         Collections.sort(highscores, comparator);
     }
 
-
+    /**
+     *
+     * @param view  contains the view of the Highscore
+     * @param highscoreList the list which is shown
+     */
     protected void updateTableItems(HighscoreView view, ObservableList<HighscoreModel> highscoreList) {
 
         try
         {
-            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList.subList(0,15));
+            ObservableList<HighscoreModel> fixedSizeList = FXCollections.observableList(highscoreList.subList(0,14));
             view.highscoreTable.setItems(fixedSizeList);
         }
         catch(IndexOutOfBoundsException e)
@@ -99,6 +110,10 @@ public class HighscorePresenter {
         }
     }
 
+
+    /**
+     * try to load entrys from file
+     */
     private Properties tryLoadProperties() {
         Properties properties = new Properties();
 
@@ -107,6 +122,7 @@ public class HighscorePresenter {
         } catch (IOException e) {}
         return properties;
     }
+
 
     private void showGameScene()
     {

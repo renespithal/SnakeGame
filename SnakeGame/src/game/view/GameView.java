@@ -177,11 +177,15 @@ public class GameView extends Pane{
 
 		textField = new TextField(){
 
-			//Methods defined on TextInputControl
-			//replaceText overrides replaceText in class TextInputControl
+			/**
+			 *
+			 * @param start
+			 * @param end
+			 * @param text
+			 */
 			@Override public void replaceText(int start, int end, String text) {
 
-				if (getText().length() <= 13|| text == "" ) {	//nur maximal 15 Zeichen
+				if (getText().length() <= 13|| text == "" ) {	//maximal 13
 					super.replaceText(start, end, text);
 				}
 			}

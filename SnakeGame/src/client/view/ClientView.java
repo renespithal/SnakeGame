@@ -4,6 +4,7 @@ import client.model.ClientModel;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.beans.binding.StringBinding;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,6 +20,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
+import javafx.util.converter.NumberStringConverter;
 
 
 /**
@@ -54,6 +56,7 @@ public class ClientView extends BorderPane {
 public ClientView(ClientModel model){
 
     this.model = model;
+
 
     //Button Color
     Background buttonbackgrd = new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY));
@@ -214,6 +217,8 @@ public ClientView(ClientModel model){
     this.setCenter(vBox);
     this.setBackground(new Background(backgrd));
 
+    bindViewComponentsToModel();
+
 }
 
     //Animation
@@ -286,7 +291,11 @@ public ClientView(ClientModel model){
         return this.clientMessageTxtField;
     }
 
-
-
+    private void bindViewComponentsToModel() {
+        serverIPTxtField.textProperty().bindBidirectional(model.serverIPProperty());
+        serverPortTxtField.textProperty().bindBidirectional(model.serverPortProperty(), new NumberStringConverter());
+        clientNickNameTxtField.textProperty().bindBidirectional(model.clientNicknameProperty());
+        clientMessageTxtField.textProperty().bindBidirectional(model.clientMessage());
+    }
 
 }

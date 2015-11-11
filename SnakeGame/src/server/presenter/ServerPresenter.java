@@ -35,7 +35,11 @@ public class ServerPresenter {
 
     }
 
-
+    /**
+     *
+     * inner Class which handles threads
+     *
+     */
 
 
 
@@ -53,6 +57,7 @@ public class ServerPresenter {
             }
         }
 
+
         @Override
         public void run() {
             String message;
@@ -67,6 +72,15 @@ public class ServerPresenter {
             }
         }
     }
+
+    /**
+     *
+     * new Socket client waits for client to connect to Server
+     * PrintWriter writer takes OutputStream from client and saves in writer
+     * Add writer in clientWriterList
+     * For every client new thread (ClientHandler)
+     *
+     */
 
     public void listenToClients() {
         while(true) {
@@ -85,6 +99,11 @@ public class ServerPresenter {
     }
 
 
+    /**
+     *
+     * starts server on ServerPort
+     *
+     */
 
     public boolean runServer() {
         try {

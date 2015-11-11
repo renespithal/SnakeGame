@@ -37,7 +37,18 @@ public class ClientPresenter {
 
     }
 
+    /**
+     * connects to the Server
+     * client: new socket with Server IP and Port
+     * reader: BufferedReader, gets InputStream from client
+     * writer: gets OutputStream from client
+     *
+     */
+
+
     public void connectToServer(){
+
+        if(view.getNickName().getText().length() > 2 && view.getNickName().getText().length() <11){
 
         try {
             this.serverPort = view.getServerPort().getText();
@@ -48,11 +59,14 @@ public class ClientPresenter {
             Thread t = new Thread(new MessagesFromServerListener());
             t.start();
             System.out.println("Connected");
+            appendText("Connected to Server");
 
         } catch (IOException e) {
             System.out.println("Connection failed");
             e.printStackTrace();
-        }
+        } }
+
+        else appendText("pls enter nickname (between 3 and 10 characters)");
 
     }
 
@@ -64,7 +78,19 @@ public class ClientPresenter {
         }
     }
 
+
+    /**
+     *
+     * sends message to server with writer
+     * writer prints a new line with clientNickName and clientMessage
+     * clears the Message TextField after send
+     * sets Focus on TextField
+     *
+     */
+
     public void sendMessageToServer(){
+
+        if (view.getClientMessage().getText().length() > 0){
 
         this.clientNickName = view.getNickName().getText();
         this.clientMessage = view.getClientMessage().getText();
@@ -74,10 +100,17 @@ public class ClientPresenter {
             writer.flush();
 
             view.getClientMessage().setText("");
-            view.getClientMessage().requestFocus();
+            view.getClientMessage().requestFocus();}
+        else appendText("pls enter message");
 
 
     }
+
+    /**
+     * if new messages reach server print on TextArea
+     *
+     *
+     */
 
     public class MessagesFromServerListener implements Runnable {
 
@@ -97,6 +130,14 @@ public class ClientPresenter {
         }
 
     }
+
+    /**
+     * prints the message on the TextArea
+     *
+     * @param message
+     *       contains message for TextArea
+     */
+
     public void appendText(String message) { view.getInfoTxtArea().appendText(message + "\n");
     }
 

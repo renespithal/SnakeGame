@@ -3,6 +3,7 @@ package multiplayer.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -35,7 +37,16 @@ public class MultiplayerOptionsView extends BorderPane {
 				BackgroundSize.DEFAULT);
 
 		//Button Color
-		Background buttonbackgrd = new Background(new BackgroundFill(Color.LIGHTGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+		Background buttonbackgrd = new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+
+		//Button Font
+		Font buttonfont = new Font("AR DESTINE", 20);
+
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
 
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
@@ -46,34 +57,72 @@ public class MultiplayerOptionsView extends BorderPane {
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
-		//DropShadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setOffsetY(3.5);
-		dropShadow.setOffsetX(-3.5);
-		dropShadow.setColor(Color.DARKGREEN);
-
 		//Animation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
+		//Title
 		titleLabel = new Label("Multiplayer");
 		titleLabel.setFont(Font.font ("AR DESTINE", 40));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
+		//Create Controls
 		normalButton = new Button("Normal Mode");
+		normalButton.setFont (buttonfont);
+		normalButton.setTextFill(Color.WHITE);
 		normalButton.setEffect(dropShadow);
 		normalButton.setBackground(buttonbackgrd);
-		normalButton.setMaxWidth(150);
+		normalButton.setMaxWidth(180);
+		normalButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				normalButton.setTextFill(Color.GOLD);
+			}
+		});
+		normalButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				normalButton.setTextFill(Color.WHITE);
+			}
+		});
 
 		survivalButton = new Button("Survival Mode");
+		survivalButton.setFont(buttonfont);
+		survivalButton.setTextFill(Color.WHITE);
 		survivalButton.setEffect(dropShadow);
 		survivalButton.setBackground(buttonbackgrd);
-		survivalButton.setMaxWidth(150);
+		survivalButton.setMaxWidth(180);
+		survivalButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				survivalButton.setTextFill(Color.GOLD);
+			}
+		});
+		survivalButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				survivalButton.setTextFill(Color.WHITE);
+			}
+		});
 
 		backButton = new Button("Main Menu");
+		backButton.setFont (buttonfont);
+		backButton.setTextFill(Color.WHITE);
+		backButton.setBackground(new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY)));
 		backButton.setEffect(dropShadow);
-		backButton.setBackground(buttonbackgrd);
-		backButton.setMaxWidth(150);
+		backButton.setMaxWidth(180);
+		backButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				backButton.setTextFill(Color.GOLD);
+			}
+		});
+		backButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				backButton.setTextFill(Color.WHITE);
+			}
+		});
 
 
 		//Create Boxes

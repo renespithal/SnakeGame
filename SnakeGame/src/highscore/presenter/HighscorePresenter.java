@@ -35,7 +35,9 @@ public class HighscorePresenter {
         updateTableItems(view, highscoreList);
 	}
 
-
+    /**
+     * Delete the highscore and player name in file.
+     */
     private void clearHighscore() {
         Properties properties = new Properties();
 
@@ -49,7 +51,9 @@ public class HighscorePresenter {
         updateTableItems(view, FXCollections.emptyObservableList());
     }
 
-
+    /**
+     * map the highscore value and player name.
+     */
     private ObservableList<HighscoreModel> createHighscoreList() {
         Properties properties = tryLoadProperties();
 
@@ -66,6 +70,9 @@ public class HighscorePresenter {
         return highscores;
 	}
 
+    /**
+     * sort the highscore values.
+     */
     private void sortHighsore(ObservableList<HighscoreModel> highscores) {
         Comparator<HighscoreModel> comparator = new Comparator<HighscoreModel>() {
             @Override
@@ -76,6 +83,7 @@ public class HighscorePresenter {
 
         Collections.sort(highscores, comparator);
     }
+
 
     protected void updateTableItems(HighscoreView view, ObservableList<HighscoreModel> highscoreList) {
 

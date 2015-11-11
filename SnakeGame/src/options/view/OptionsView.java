@@ -3,6 +3,7 @@ package options.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,7 +31,9 @@ public class OptionsView extends BorderPane {
 	private RotateTransition t1;
 	private RotateTransition t2;
 
-	
+	/**
+	 * Creates the view of the options in the multiplayer.
+	 */
 	public OptionsView() {
 
 		//Background
@@ -37,8 +41,14 @@ public class OptionsView extends BorderPane {
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
-		//Button Color
-		Background buttonbackgrd = new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY));
+		//Button Font
+		Font buttonfont = new Font("AR DESTINE", 20);
+
+		//DropShadow
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.DARKGREEN);
 
 		//Images
 		Image logo1 = new Image("file:src/images/yinyan1.png", 50, 50, true, true);
@@ -49,43 +59,77 @@ public class OptionsView extends BorderPane {
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
-		//DropShadow
-		DropShadow dropShadow = new DropShadow();
-		dropShadow.setOffsetY(3.5);
-		dropShadow.setOffsetX(-3.5);
-		dropShadow.setColor(Color.DARKGREEN);
-
 		//Animation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
-		//Create Controls
+		//Title
 		titleLabel = new Label("Welcome to Options");
 		titleLabel.setFont(new Font("AR DESTINE", 40));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
+		//Create Controls
 		speedLabel = new Label("Choose Speed:");
-		speedLabel.setFont (new Font("AR DESTINE", 13));
+		speedLabel.setFont (buttonfont);
+		speedLabel.setTextFill(Color.BLACK);
 		speedLabel.setMaxWidth(150);
+		speedLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				speedLabel.setTextFill(Color.DARKGREEN);
+			}
+		});
+		speedLabel.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				speedLabel.setTextFill(Color.BLACK);
+			}
+		});
+
 
 		colorLabel = new Label("Choose Color:");
-		colorLabel.setFont(new Font("AR DESTINE",13));
+		colorLabel.setFont(buttonfont);
+		colorLabel.setTextFill(Color.BLACK);
 		colorLabel.setMaxWidth(150);
+		colorLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				colorLabel.setTextFill(Color.DARKGREEN);
+			}
+		});
+		colorLabel.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				colorLabel.setTextFill(Color.BLACK);
+			}
+		});
 
 		backButton = new Button("Main Menu");
 		backButton.setFont (new Font ("AR DESTINE",20));
 		backButton.setTextFill(Color.WHITE);
+		backButton.setBackground(new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY)));
 		backButton.setEffect(dropShadow);
-		backButton.setBackground(buttonbackgrd);
 		backButton.setMaxWidth(150);
-		
+		backButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				backButton.setTextFill(Color.GOLD);
+			}
+		});
+		backButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				backButton.setTextFill(Color.WHITE);
+			}
+		});
+
 
 		//Create Options
 		speedBox = new ComboBox<>();
 		speedBox.setMaxWidth(150);
 		speedBox.setEffect(dropShadow);
-		speedBox.setBackground(buttonbackgrd);
 		speedBox.getItems().addAll("Slow", "Normal", "Fast");
+
 
 		if (Options.speed == Options.SLOW) {
 			speedBox.setValue("Slow");
@@ -98,7 +142,6 @@ public class OptionsView extends BorderPane {
 		colorBox = new ComboBox<>();
 		colorBox.setMaxWidth(150);
 		colorBox.setEffect(dropShadow);
-		colorBox.setBackground(buttonbackgrd);
 		colorBox.getItems().addAll("Green", "Red", "Blue", "Yellow", "Black");
 		if (Options.color == Options.GREEN) {
 			colorBox.setValue("Green");
@@ -111,7 +154,6 @@ public class OptionsView extends BorderPane {
 		} else if (Options.color == Options.BLACK) {
 			colorBox.setValue("Black");
 		}
-
 
 		//add Boxes to Border Pane
 		HBox hBox1 = new HBox(ivlogo1, titleLabel, ivlogo2);
@@ -165,13 +207,17 @@ public class OptionsView extends BorderPane {
 
 	public ComboBox<String>getColorBox(){ return colorBox; }
 
-
+	/**
+	 * Starts the rotation of the yin yang icon.
+	 */
 	public void startRotation()
 	{
 		t1.play();
 		t2.play();
 	}
-
+	/**
+	 * Stopss the rotation of the yin yang icon.
+	 */
 	public void stopRotation()
 	{
 		t1.stop();

@@ -12,21 +12,17 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -157,6 +153,12 @@ public class GameView extends Pane{
 		
 		foodEaten = new AudioClip("file:src/sounds/FoodSound.wav");
 
+		gameOver = new AudioClip("file:src/sounds/GameOver.wav");
+
+		imagePane = new Pane();
+		imagePane.getChildren().addAll(ivFood, ivYin);
+
+
 		Label highscore = new Label();
 		highscore.textProperty().bind(new StringBinding() {
 			{
@@ -169,13 +171,8 @@ public class GameView extends Pane{
 			}
 		});
 
-		gameOver = new AudioClip("file:src/sounds/GameOver.wav");
-		
-		imagePane = new Pane();
-		imagePane.getChildren().addAll(ivFood, ivYin);
-
-		Label enterName = new Label("Player Name:");
-		enterName.setFont(new Font (15));
+		highscore.setFont(new Font("AR DESTINE",40));
+		highscore.setTextFill(Color.GOLD);
 
 
 		textField = new TextField(){
@@ -195,19 +192,27 @@ public class GameView extends Pane{
 			}
 		};
 
-		highscore.setFont(new Font(40));
+		Label enterName = new Label("Player Name:");
+		enterName.setFont(new Font ("AR DESTINE",20));
+		enterName.setTextFill(Color.GOLD);
+
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.BLACK);
 
 		hBox = new HBox (enterName, textField);
 		hBox.setSpacing(10);
 
-		VBox vBox = new VBox(highscore);
+		VBox vBox = new VBox(highscore,hBox);
+		vBox.setAlignment(Pos.CENTER);
 		vBox.setSpacing(10);
-		highscore.setFont(new Font(40));
-		vBox.getChildren().add(hBox);
+
 
 		highscorePane = new StackPane();
 		highscorePane.getChildren().add(vBox);
 		highscoreSetPosition();
+		highscorePane.setEffect(dropShadow);
 		highscorePane.setVisible(false);
 
 
@@ -250,11 +255,10 @@ public class GameView extends Pane{
 		addPanesToMainPane(wallPaneTop, wallPaneBottom, wallPaneLeft, wallPaneRight,snakePane, imagePane, highscorePane);
 
 
-		// Background
+		// Background of game
 		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/bckgrdyinyan.png", 500, 500, false, false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
-
 
 
 		this.setBackground(new Background(backgrd));
@@ -262,8 +266,8 @@ public class GameView extends Pane{
 	}
 
 	protected void highscoreSetPosition() {
-		highscorePane.setLayoutX(140);
-		highscorePane.setLayoutY(180);
+		highscorePane.setLayoutX(120);
+		highscorePane.setLayoutY(210);
 	}
 
 	/**

@@ -3,12 +3,14 @@ package welcome.view;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
@@ -33,7 +35,11 @@ public class WelcomeView extends BorderPane{
 	private Button highscoreButton;
 	private RotateTransition t1;
 	private RotateTransition t2;
-	
+
+
+	/**
+	 * Creates the view of the main menu.
+	 */
 	public WelcomeView() {
 
 		//Background
@@ -41,14 +47,13 @@ public class WelcomeView extends BorderPane{
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 				BackgroundSize.DEFAULT);
 
-
+		//Button Color
 		Background buttonbackgrd = new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY));
 
-
-		//Button Style
+		//Button Font
 		Font buttonfont = new Font("AR DESTINE", 20);
 
-		//DropShadow
+		//DropShadow for the buttons
 		DropShadow dropShadow = new DropShadow();
 		dropShadow.setOffsetY(3.5);
 		dropShadow.setOffsetX(-3.5);
@@ -63,7 +68,7 @@ public class WelcomeView extends BorderPane{
 		ImageView ivlogo2 = new ImageView();
 		ivlogo2.setImage(logo2);
 
-		//Animation
+		//Animation Rotation
 		rotate1(ivlogo1, Duration.millis(1500), Interpolator.LINEAR);
 		rotate2(ivlogo2, Duration.millis(1500), Interpolator.LINEAR);
 
@@ -77,9 +82,20 @@ public class WelcomeView extends BorderPane{
 		startButton.setFont(buttonfont);
 		startButton.setEffect(dropShadow);
 		startButton.setBackground(buttonbackgrd);
-		//startButton.setOnMouseEntered();
 		startButton.setTextFill(Color.WHITE);
 		startButton.setMaxWidth(150);
+		startButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				startButton.setTextFill(Color.GOLD);
+			}
+		});
+		startButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				startButton.setTextFill(Color.WHITE);
+			}
+		});
 
 		multiplayerButton = new Button ("Multiplayer");
 		multiplayerButton.setFont(buttonfont);
@@ -87,6 +103,18 @@ public class WelcomeView extends BorderPane{
 		multiplayerButton.setBackground(buttonbackgrd);
 		multiplayerButton.setTextFill(Color.WHITE);
 		multiplayerButton.setMaxWidth(150);
+		multiplayerButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				multiplayerButton.setTextFill(Color.GOLD);
+			}
+		});
+		multiplayerButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				multiplayerButton.setTextFill(Color.WHITE);
+			}
+		});
 
 		optionsButton = new Button("Options");
 		optionsButton.setFont(buttonfont);
@@ -94,6 +122,18 @@ public class WelcomeView extends BorderPane{
 		optionsButton.setBackground(buttonbackgrd);
 		optionsButton.setTextFill(Color.WHITE);
 		optionsButton.setMaxWidth(150);
+		optionsButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				optionsButton.setTextFill(Color.GOLD);
+			}
+		});
+		optionsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				optionsButton.setTextFill(Color.WHITE);
+			}
+		});
 		
 		highscoreButton = new Button("Highscore");
 		highscoreButton.setFont(buttonfont);
@@ -101,19 +141,41 @@ public class WelcomeView extends BorderPane{
 		highscoreButton.setBackground(buttonbackgrd);
 		highscoreButton.setTextFill(Color.WHITE);
 		highscoreButton.setMaxWidth(150);
+		highscoreButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				highscoreButton.setTextFill(Color.GOLD);
+			}
+		});
+		highscoreButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				highscoreButton.setTextFill(Color.WHITE);
+			}
+		});
 
-		exitButton = new Button("Exit Game");
+		exitButton = new Button("Quit");
 		exitButton.setFont(buttonfont);
 		exitButton.setEffect(dropShadow);
 		exitButton.setBackground(buttonbackgrd);
 		exitButton.setTextFill(Color.WHITE);
 		exitButton.setMaxWidth(150);
+		exitButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				exitButton.setTextFill(Color.GOLD);
+			}
+		});
+		exitButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				exitButton.setTextFill(Color.WHITE);
+			}
+		});
 
 		//Create Boxes
 		HBox hBox = new HBox(ivlogo1,titleLabel,ivlogo2);
 		hBox.setAlignment(Pos.CENTER);
-		hBox.setLayoutY(100);
-		hBox.setLayoutX(300);
 
 		VBox vBox = new VBox(hBox,startButton,multiplayerButton,optionsButton,highscoreButton,exitButton);
 		vBox.setAlignment(Pos.CENTER);
@@ -122,7 +184,6 @@ public class WelcomeView extends BorderPane{
 		//add Boxes to BorderPane
 		this.setCenter(vBox);
 		this.setBackground(new Background(backgrd));
-
 
 	}
 	//Animation
@@ -170,15 +231,19 @@ public class WelcomeView extends BorderPane{
 	{
 		return exitButton;
 	}
-	
-	//starts the rotation of the yin yang icon
+
+	/**
+	 * Starts the rotation of the yin yang icon.
+	 */
 	public void startRotation()
 	{
 		t1.play();
 		t2.play();
 	}
-	
-	//stops the rotation of the yin yang icon
+
+	/**
+	 * Stops the rotation of the yin yang icon.
+	 */
 	public void stopRotation()
 	{
 		t1.stop();

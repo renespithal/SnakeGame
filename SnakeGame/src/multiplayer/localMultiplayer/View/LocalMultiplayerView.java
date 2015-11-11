@@ -7,11 +7,11 @@ import game.view.GameView;
 import highscore.model.HighscoreModel;
 import javafx.beans.binding.StringBinding;
 import javafx.collections.ListChangeListener;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -62,7 +62,7 @@ public class LocalMultiplayerView extends GameView {
 		});
 		
 
-		HBox hBox = new HBox();
+
 		Label highscoreLabel = new Label();
 		highscoreLabel.textProperty().bind(new StringBinding() {
 			{
@@ -74,29 +74,41 @@ public class LocalMultiplayerView extends GameView {
 				return "Highscore: "+highScore2.getValue();
 			}
 		});
-		highscoreLabel.setFont(new Font(40));
+		highscoreLabel.setFont(new Font("AR DESTINE",40));
+		highscoreLabel.setTextFill(Color.GOLD);
 
-		hBox.getChildren().add(highscoreLabel);
+		DropShadow dropShadow = new DropShadow();
+		dropShadow.setOffsetY(3.5);
+		dropShadow.setOffsetX(-3.5);
+		dropShadow.setColor(Color.BLACK);
+
+		VBox vBox = new VBox(highscoreLabel);
+		//vBox.setAlignment(Pos.CENTER);
 
 		highscorePane2 = new StackPane();
-		highscorePane2.setLayoutX(275);
-		highscorePane2.setLayoutY(440);
-		highscorePane2.getChildren().add(hBox);
+		highscorePane2.setLayoutX(220);
+		highscorePane2.setLayoutY(425);
+		highscorePane2.setEffect(dropShadow);
+		highscorePane2.getChildren().add(vBox);
 		highscorePane2.setVisible(false);
 
 		VBox vBoxwin = new VBox();
 		winLabel = new Label();
-		winLabel.setFont(new Font (40));
+		winLabel.setFont(new Font ("AR DESTINE",40));
+		winLabel.setTextFill(Color.WHITE);
+		winLabel.setEffect(dropShadow);
 		infoLabel = new Label();
-		infoLabel.setFont(new Font(12));
-		vBoxwin.setSpacing(30);
-		vBoxwin.getChildren().addAll(winLabel,infoLabel);
+		infoLabel.setFont(new Font("AR DESTINE",18));
+		infoLabel.setTextFill(Color.WHITESMOKE);
+		infoLabel.setEffect(dropShadow);
+		vBoxwin.setSpacing(15);
+		vBoxwin.setAlignment(Pos.CENTER);
+		vBoxwin.getChildren().addAll(winLabel, infoLabel);
 
 		winPane = new StackPane();
 		winPane.setVisible(false);
-		winPane.setLayoutX(150);
-		winPane.setLayoutY(200);
-		highscorePane2.setLayoutY(440);
+		winPane.setLayoutX(110);
+		winPane.setLayoutY(190);
 		winPane.getChildren().add(vBoxwin);
 
 		addPanesToMainPane(secondSnakePane,highscorePane2,winPane);
@@ -105,7 +117,7 @@ public class LocalMultiplayerView extends GameView {
 	public Label getWinLabel(){
 		return winLabel;
 	}
-	
+
 	public Label getInfoLabel() {
 		return infoLabel;
 	}
@@ -120,8 +132,8 @@ public class LocalMultiplayerView extends GameView {
 
 	@Override
 	protected void highscoreSetPosition() {
-		highscorePane.setLayoutX(0);
-		highscorePane.setLayoutY(0);
+		highscorePane.setLayoutX(20);
+		highscorePane.setLayoutY(20);
 	}
 	
 	public Pane getSnakePane2() {

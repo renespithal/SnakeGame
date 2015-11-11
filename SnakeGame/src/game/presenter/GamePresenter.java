@@ -154,9 +154,7 @@ public class GamePresenter {
 
 
 		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
-		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue())); // Value
-																							// to
-																							// String
+		properties.put(highscore.getPlayername(), String.valueOf(highscore.getValue()));
 
 
 		try (FileWriter writer = new FileWriter("res/Highscore.properties")) {

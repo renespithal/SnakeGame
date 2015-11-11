@@ -1,10 +1,16 @@
 package server.view;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import server.model.ServerModel;
 import server.model.ClientInfo;
 
@@ -24,26 +30,72 @@ public class ServerView extends GridPane {
     public ServerView(ServerModel model){
         this.model = model;
 
+        //DropShadow
+        DropShadow dropShadow = new DropShadow();
+        dropShadow.setOffsetY(3.5);
+        dropShadow.setOffsetX(-3.5);
+        dropShadow.setColor(Color.DARKGREEN);
+
+        //Button Font
+        Font buttonfont = new Font("AR DESTINE", 15);
+
         serverPortLabel = new Label("Server Port: ");
+        serverPortLabel.setFont (new Font ("AR DESTINE", 18));
         serverPortTxtField = new TextField();
+        serverPortTxtField.setEffect(dropShadow);
         serverPortTxtField.setText("");
+
+
         startButton = new Button("Start");
+        startButton.setFont (buttonfont);
+        startButton.setTextFill(Color.WHITE);
+        startButton.setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        startButton.setEffect(dropShadow);
+        startButton.setMaxWidth(150);
+        startButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                startButton.setTextFill(Color.GOLD);
+            }
+        });
+        startButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                startButton.setTextFill(Color.WHITE);
+            }
+        });
+
         terminateButton = new Button("Terminate");
+        terminateButton .setFont(buttonfont);
+        terminateButton .setTextFill(Color.WHITE);
+        terminateButton .setBackground(new Background(new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
+        terminateButton .setEffect(dropShadow);
+        terminateButton .setMaxWidth(150);
+        terminateButton .setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                terminateButton.setTextFill(Color.GOLD);
+            }
+        });
+        terminateButton .setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                terminateButton.setTextFill(Color.WHITE);
+            }
+        });
 
 
         VBox vBox = new VBox();
 
         GridPane gridPane = new GridPane();
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
 
 
-        gridPane.add(serverPortLabel, 0, 1);
-        gridPane.add(serverPortTxtField, 1, 1, 2, 1);
-
-
-        gridPane.add(startButton, 0, 3);
-        gridPane.add(terminateButton, 1, 3);
+        gridPane.add(serverPortLabel, 1, 1);
+        gridPane.add(serverPortTxtField, 2, 1, 2, 1);
+        gridPane.add(startButton, 4, 1);
+        gridPane.add(terminateButton, 5, 1);
 
         TableView<ClientInfo> clientInfoTable;
         TableColumn<ClientInfo, String> clientIPColumn ;
@@ -69,11 +121,16 @@ public class ServerView extends GridPane {
 
         clientInfoTable.getColumns().addAll(clientIPColumn, clientPortColumn, clientNicknameColumn);
 
+        BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground2.jpg",850,700,false,false),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
         vBox.getChildren().addAll(gridPane, clientInfoTable);
+        vBox.setSpacing(10);
         vBox.setMaxHeight(430);
         this.getChildren().addAll(vBox);
-
-
+        this.setAlignment(Pos.CENTER);
+        this.setBackground(new Background(backgrd));
 
 
 

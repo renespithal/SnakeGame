@@ -5,6 +5,7 @@ import client.presenter.ClientPresenter;
 import client.view.ClientView;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -19,8 +20,10 @@ public class RunClient extends Application {
         ClientView view = new ClientView(model);
         ClientPresenter presenter = new ClientPresenter(model, view);
 
-        Scene scene = new Scene(view, 800, 500);
+        Scene scene = new Scene(view, 600, 500);
 
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("file:src/images/yinyanyolologo2.png"));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Chat");
         primaryStage.show();

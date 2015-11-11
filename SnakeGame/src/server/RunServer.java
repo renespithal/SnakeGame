@@ -1,5 +1,6 @@
 package server;
 
+import javafx.scene.image.Image;
 import server.model.ServerModel;
 import server.presenter.ServerPresenter;
 import server.view.ServerView;
@@ -22,12 +23,13 @@ public class RunServer extends Application {
         ServerPresenter s = new ServerPresenter(model, view);
 
 
+        
+        Scene scene = new Scene(view, 600, 500);
 
-
-        Scene scene = new Scene(view, 800, 500);
-
+        primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("file:src/images/yinyanyolologo2.png"));
         primaryStage.setScene(scene);
-        primaryStage.setTitle("server");
+        primaryStage.setTitle("Server");
         primaryStage.show();
     }
     public static void main(String[] args) {

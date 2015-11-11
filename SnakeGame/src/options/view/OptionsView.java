@@ -105,7 +105,7 @@ public class OptionsView extends BorderPane {
 		});
 
 		backButton = new Button("Main Menu");
-		backButton.setFont (new Font ("AR DESTINE",20));
+		backButton.setFont (buttonfont);
 		backButton.setTextFill(Color.WHITE);
 		backButton.setBackground(new Background(new BackgroundFill(Color.DARKGREEN,CornerRadii.EMPTY, Insets.EMPTY)));
 		backButton.setEffect(dropShadow);

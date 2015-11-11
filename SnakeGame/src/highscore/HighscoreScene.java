@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class HighscoreScene extends MyScene{
 
 	private HighscoreView view;
+	@SuppressWarnings("unused")
 	private HighscorePresenter presenter;
 	
 	@Override

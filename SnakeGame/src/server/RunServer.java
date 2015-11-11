@@ -1,12 +1,12 @@
 package server;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import server.model.ServerModel;
 import server.presenter.ServerPresenter;
 import server.view.ServerView;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 /**
  * Created by Rusty on 09.11.2015.
@@ -20,7 +20,8 @@ public class RunServer extends Application {
 
         ServerModel model = new ServerModel();
         ServerView view = new ServerView(model);
-        ServerPresenter s = new ServerPresenter(model, view);
+        @SuppressWarnings("unused")
+		ServerPresenter s = new ServerPresenter(model, view);
 
 
         

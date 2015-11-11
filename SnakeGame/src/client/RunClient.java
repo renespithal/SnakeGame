@@ -18,7 +18,8 @@ public class RunClient extends Application {
 
         ClientModel model = new ClientModel();
         ClientView view = new ClientView(model);
-        ClientPresenter presenter = new ClientPresenter(model, view);
+        @SuppressWarnings("unused")
+		ClientPresenter presenter = new ClientPresenter(model, view);
 
         Scene scene = new Scene(view, 600, 500);
 

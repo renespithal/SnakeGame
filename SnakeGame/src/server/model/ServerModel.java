@@ -1,13 +1,11 @@
 package server.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.StringProperty;
-import server.view.ServerView;
-
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.util.ArrayList;
+
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 /**
  * Created by Rusty on 09.11.2015.

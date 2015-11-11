@@ -20,8 +20,10 @@ public class ClientPresenter {
     PrintWriter writer;
     BufferedReader reader;
 
-    private String serverPort;
-    private String serverIP;
+    @SuppressWarnings("unused")
+	private String serverPort;
+    @SuppressWarnings("unused")
+	private String serverIP;
     private String clientNickName;
     private String clientMessage;
 

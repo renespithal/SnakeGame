@@ -1,8 +1,5 @@
 package server.presenter;
 
-import server.model.ServerModel;
-import server.view.ServerView;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,6 +9,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import server.model.ServerModel;
+import server.view.ServerView;
+
 /**
  * Created by Rusty on 09.11.2015.
  */
@@ -19,7 +19,8 @@ public class ServerPresenter {
 
 
     private ServerModel model;
-    private ServerView view;
+    @SuppressWarnings("unused")
+	private ServerView view;
     ServerSocket serverSocket;
     ArrayList<PrintWriter> list_clientWriter;
 
@@ -139,7 +140,8 @@ public class ServerPresenter {
 
 
     public void sendToAllClients(String message) {
-        Iterator it = list_clientWriter.iterator();
+        @SuppressWarnings("rawtypes")
+		Iterator it = list_clientWriter.iterator();
 
         while(it.hasNext()) {
             PrintWriter writer = (PrintWriter) it.next();

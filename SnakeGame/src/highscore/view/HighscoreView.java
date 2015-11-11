@@ -4,8 +4,6 @@ import highscore.model.HighscoreModel;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,16 +15,24 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.*;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
-
-import java.util.LinkedList;
 
 
 public class HighscoreView extends BorderPane {
 
+	@SuppressWarnings("unused")
 	private HighscoreModel model;
 
 	private Label titleLabel;
@@ -44,6 +50,7 @@ public class HighscoreView extends BorderPane {
 	/**
 	 * Creates the view of the highscore.
 	 */
+	@SuppressWarnings("unchecked")
 	public HighscoreView() {
 		//Background
 		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground2.jpg",650,500,false,false),

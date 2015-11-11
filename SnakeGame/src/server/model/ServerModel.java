@@ -1,6 +1,8 @@
 package server.model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 import server.view.ServerView;
 
 import java.io.PrintWriter;
@@ -15,11 +17,21 @@ public class ServerModel {
     ServerSocket server;
     ArrayList<PrintWriter> list_clientWriter;
 
-    private SimpleIntegerProperty serverPort = new SimpleIntegerProperty();
+    private IntegerProperty serverPort = new SimpleIntegerProperty(this, "serverPort", 8888);
 
-    public SimpleIntegerProperty getServerPort(){ return  this.serverPort;}
 
-    public void setServerPort(SimpleIntegerProperty serverPort) {
-        this.serverPort = serverPort;
+    public final int getServerPort() {
+        return serverPort.get();
+    }
+
+
+    public final void setServerPort(int serverPort) {
+        this.serverPort.set(serverPort);
+    }
+
+
+    public final IntegerProperty serverPortProperty() {
+        return serverPort;
+
     }
 }

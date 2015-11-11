@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.converter.NumberStringConverter;
 import server.model.ServerModel;
 import server.model.ClientInfo;
 
@@ -43,7 +44,7 @@ public class ServerView extends GridPane {
         serverPortLabel.setFont (new Font ("AR DESTINE", 18));
         serverPortTxtField = new TextField();
         serverPortTxtField.setEffect(dropShadow);
-        serverPortTxtField.setText("");
+        serverPortTxtField.setText("8888");
 
 
         startButton = new Button("Start");
@@ -92,42 +93,20 @@ public class ServerView extends GridPane {
         hBox.setSpacing(10);
         hBox.setAlignment(Pos.CENTER);
 
-        TableView<ClientInfo> clientInfoTable;
-        TableColumn<ClientInfo, String> clientIPColumn ;
-        TableColumn<ClientInfo, Integer> clientPortColumn ;
-        TableColumn<ClientInfo, String> clientNicknameColumn ;
 
-        clientInfoTable = new TableView<ClientInfo>();
-
-        clientIPColumn = new TableColumn<ClientInfo, String>("Client IP");
-        clientIPColumn.setMinWidth(100);
-        clientIPColumn.setCellValueFactory(new PropertyValueFactory<ClientInfo, String>("clientIP"));
-
-
-        clientPortColumn = new TableColumn<ClientInfo, Integer>("Client Port");
-        clientPortColumn.setMinWidth(100);
-        clientPortColumn.setCellValueFactory(new PropertyValueFactory<ClientInfo, Integer>("clientPort"));
-
-
-        clientNicknameColumn = new TableColumn<ClientInfo, String>("Client Nickname");
-        clientNicknameColumn.setMinWidth(300);
-        clientNicknameColumn.setCellValueFactory(new PropertyValueFactory<ClientInfo, String>("clientNickname"));
-        // Create the Table:
-
-        clientInfoTable.getColumns().addAll(clientIPColumn, clientPortColumn, clientNicknameColumn);
 
         BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground2.jpg",850,700,false,false),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        vBox.getChildren().addAll(hBox, clientInfoTable);
+        vBox.getChildren().addAll(hBox);
         vBox.setSpacing(10);
         vBox.setMaxHeight(430);
         this.getChildren().addAll(vBox);
         this.setAlignment(Pos.CENTER);
         this.setBackground(new Background(backgrd));
 
-
+        bindViewComponentsToModel();
 
     }
     public TextField getServerPort(){
@@ -141,4 +120,9 @@ public class ServerView extends GridPane {
     public Button getTerminateButton(){
         return this.terminateButton;
     }
+
+    private void bindViewComponentsToModel() {
+        serverPortTxtField.textProperty().bindBidirectional(model.serverPortProperty(), new NumberStringConverter());
+    }
+
 }

@@ -20,7 +20,6 @@ public class ServerPresenter {
 
     private ServerModel model;
     private ServerView view;
-    private int serverPort;
     ServerSocket serverSocket;
     ArrayList<PrintWriter> list_clientWriter;
 
@@ -32,6 +31,7 @@ public class ServerPresenter {
 
         view.getStartButton().setOnAction(e -> runServer());
         view.getTerminateButton().setOnAction(e -> terminateServer());
+
 
     }
 
@@ -82,6 +82,9 @@ public class ServerPresenter {
      *
      */
 
+
+
+
     public void listenToClients() {
         while(true) {
             try {
@@ -107,26 +110,31 @@ public class ServerPresenter {
 
     public boolean runServer() {
         try {
-            serverPort = Integer.parseInt(view.getServerPort().getText());
-            this.serverSocket = new ServerSocket(this.serverPort);
+
+            this.serverSocket = new ServerSocket(model.getServerPort());
             System.out.println("Server started");
             list_clientWriter = new ArrayList<PrintWriter>();
             listenToClients();
             return true;
+
         } catch (IOException e) {
             System.out.println("Server start failed!");
             e.printStackTrace();
             return false;
         }
+
     }
 
     public void terminateServer() {
 
+
         try {
             serverSocket.close();
+            System.out.println("Server closed");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

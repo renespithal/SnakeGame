@@ -1,5 +1,7 @@
 package client.model;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -13,27 +15,22 @@ public class ClientModel {
     PrintWriter writer;
     BufferedReader reader;
 
-    private String serverPort;
-    private String serverIP;
-    private String clientNickName;
-    private String clientMessage;
+
+    private SimpleStringProperty clientMessage= new SimpleStringProperty();
+    private SimpleStringProperty clientNickName = new SimpleStringProperty();
+    private SimpleStringProperty serverIP = new SimpleStringProperty();
+    private SimpleStringProperty serverPort = new SimpleStringProperty();
 
 
-    public String getServerPort() {
-        return this.serverPort;
-    }
 
-    public String getServerIP() {
-        return this.serverIP;
-    }
+    public SimpleStringProperty getServerIP(){ return this.serverIP;}
 
-    public String getClientNickName() {
-        return this.clientNickName;
-    }
+    public SimpleStringProperty getServerPort() { return this.serverPort;}
 
-    public String getClientMessage() {
-        return this.clientMessage;
-    }
+    public SimpleStringProperty getClientNickName(){ return this.clientNickName;}
+
+    public SimpleStringProperty getClientMessage(){ return this.clientMessage;}
+
 
 
 }

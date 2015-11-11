@@ -267,20 +267,26 @@ public ClientView(ClientModel model){
     }
 
     public Button getConnectButton(){
+
         return this.connectButton;
     }
 
     public Button getDisconnectButton(){
+
         return this.disconnectButton;
     }
 
     public Button getSendButton(){
+
         return this.sendButton;
     }
 
     public TextField getSendTxtField(){
+
         return this.clientMessageTxtField;
     }
+
+
 
 
 }

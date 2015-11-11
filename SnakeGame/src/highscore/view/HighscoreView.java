@@ -4,6 +4,8 @@ import highscore.model.HighscoreModel;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
+import java.util.LinkedList;
+
 
 public class HighscoreView extends BorderPane {
 
@@ -31,21 +35,6 @@ public class HighscoreView extends BorderPane {
 	private Button playButton;
 	private RotateTransition t1;
 	private RotateTransition t2;
-	private Label rankingtitleLabel;
-	private Label rankingLabel1;
-	private Label rankingLabel2;
-	private Label rankingLabel3;
-	private Label rankingLabel4;
-	private Label rankingLabel5;
-	private Label rankingLabel6;
-	private Label rankingLabel7;
-	private Label rankingLabel8;
-	private Label rankingLabel9;
-	private Label rankingLabel10;
-	private Label rankingLabel11;
-	private Label rankingLabel12;
-	private Label rankingLabel13;
-	private Label rankingLabel14;
 
 
 	public TableView<HighscoreModel> highscoreTable;
@@ -56,7 +45,6 @@ public class HighscoreView extends BorderPane {
 	 * Creates the view of the highscore.
 	 */
 	public HighscoreView() {
-
 		//Background
 		BackgroundImage backgrd = new BackgroundImage(new Image("file:src/images/ground2.jpg",650,500,false,false),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
@@ -93,7 +81,7 @@ public class HighscoreView extends BorderPane {
 		titleLabel.setTextFill(Color.DARKGREEN);
 
 		//Create Controls
-		clearButton = new Button("Clear Highscores");
+		clearButton = new Button("Clear Highscore");
 		clearButton.setFont(buttonfont);
 		clearButton.setTextFill(Color.WHITE);
 		clearButton.setBackground(buttonbackgrd);
@@ -160,91 +148,32 @@ public class HighscoreView extends BorderPane {
 		highscore.setPrefWidth(150);
 		highscore.setCellValueFactory(cellDataFeatures -> cellDataFeatures.getValue().getValueProperty());//Binding
 
+
 		highscoreTable.getColumns().addAll( player, highscore);
 		highscoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-		//Ranking Font
-		Font rankingFont = new Font("AR DESTINE", 18);
 
 		titleLabel.setFont(Font.font ("AR DESTINE", 45));
 		titleLabel.setTextFill(Color.DARKGREEN);
 
-		//Ranking
-		rankingtitleLabel = new Label ("Ranking");
-		rankingtitleLabel.setFont (rankingFont);
-		rankingtitleLabel.setTextFill(Color.BLACK);
-		rankingLabel1 = new Label ("1.");
-		rankingLabel1.setFont(rankingFont);
-		rankingLabel1.setTextFill(Color.BLACK);
-		rankingLabel2 = new Label ("2.");
-		rankingLabel2.setFont(rankingFont);
-		rankingLabel2.setTextFill(Color.BLACK);
-		rankingLabel3 = new Label ("3.");
-		rankingLabel3.setFont(rankingFont);
-		rankingLabel3.setTextFill(Color.BLACK);
-		rankingLabel4 = new Label ("4.");
-		rankingLabel4.setFont(rankingFont);
-		rankingLabel4.setTextFill(Color.BLACK);
-		rankingLabel5 = new Label ("5.");
-		rankingLabel5.setFont(rankingFont);
-		rankingLabel5.setTextFill(Color.BLACK);
-		rankingLabel6 = new Label ("6.");
-		rankingLabel6.setFont(rankingFont);
-		rankingLabel6.setTextFill(Color.BLACK);
-		rankingLabel7 = new Label ("7.");
-		rankingLabel7.setFont(rankingFont);
-		rankingLabel7.setTextFill(Color.BLACK);
-		rankingLabel8 = new Label ("8.");
-		rankingLabel8.setFont(rankingFont);
-		rankingLabel8.setTextFill(Color.BLACK);
-		rankingLabel9 = new Label ("9.");
-		rankingLabel9.setFont(rankingFont);
-		rankingLabel9.setTextFill(Color.BLACK);
-		rankingLabel10 = new Label ("10.");
-		rankingLabel10.setFont(rankingFont);
-		rankingLabel10.setTextFill(Color.BLACK);
-		rankingLabel11 = new Label ("11.");
-		rankingLabel11.setFont(rankingFont);
-		rankingLabel11.setTextFill(Color.BLACK);
-		rankingLabel12 = new Label ("12.");
-		rankingLabel12.setFont(rankingFont);
-		rankingLabel12.setTextFill(Color.BLACK);
-		rankingLabel13 = new Label ("13.");
-		rankingLabel13.setFont(rankingFont);
-		rankingLabel13.setTextFill(Color.BLACK);
-		rankingLabel14 = new Label ("14.");
-		rankingLabel14.setFont(rankingFont);
-		rankingLabel14.setTextFill(Color.BLACK);
+
 
 		//Create boxes
-		HBox hBox1 = new HBox(ivlogo2,titleLabel,ivlogo1);
+		HBox hBox1 = new HBox();
+		hBox1.getChildren().addAll(ivlogo2,titleLabel,ivlogo1);
 		hBox1.setAlignment(Pos.CENTER);
-
-		VBox vBox1 = new VBox(highscoreTable, clearButton);
-		vBox1.setAlignment(Pos.CENTER);
 
         HBox hBox2= new HBox(backButton,playButton);
 		hBox2.setSpacing(210);
 
-
-		VBox vBox2 = new VBox(rankingtitleLabel,rankingLabel1,rankingLabel2,rankingLabel3,rankingLabel4,rankingLabel5,
-				   		      rankingLabel6,rankingLabel7,rankingLabel8,rankingLabel9,rankingLabel10,rankingLabel11,
-							  rankingLabel12,rankingLabel13,rankingLabel14);
-		vBox2.setSpacing(4.49);
-		vBox2.setMinWidth(68);
-		vBox2.setMaxHeight(20);
-		vBox2.setAlignment(Pos.TOP_CENTER);
-
-
-		VBox vBox3 = new VBox();
-		vBox3.setMinWidth(68);
+		VBox vBox1 = new VBox();
+		vBox1.getChildren().addAll(highscoreTable,clearButton);
+		vBox1.setAlignment(Pos.CENTER);
 
 
 		// add Boxes to BorderPane
 		this.setTop(hBox1);
-		this.setLeft(vBox2);
 		this.setCenter(vBox1);
-		this.setRight(vBox3);
 		this.setBottom(hBox2);
 		this.setBackground(new Background(backgrd));
 	}

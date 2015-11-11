@@ -179,9 +179,9 @@ public class GameView extends Pane{
 
 			/**
 			 *
-			 * @param start
-			 * @param end
-			 * @param text
+			 * @param start int
+			 * @param end	int
+			 * @param text the text input
 			 */
 			@Override public void replaceText(int start, int end, String text) {
 

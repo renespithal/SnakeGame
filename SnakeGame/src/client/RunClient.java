@@ -29,4 +29,7 @@ public class RunClient extends Application {
         primaryStage.show();
     }
 
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
